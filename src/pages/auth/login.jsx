@@ -12,7 +12,7 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
 import { useDispatch } from 'react-redux';
-// import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 // import { login  } from '@/redux/reducer/auth.reducer';
 import { useLoginMutation } from '@/api/featureApi/authApiSlice';
 import { setCredentials } from '@/redux/reducer/auth.reducer';
@@ -22,7 +22,7 @@ import { setCredentials } from '@/redux/reducer/auth.reducer';
 const LoginPage = () => {
     const { toast } = useToast();
     const dispatch = useDispatch();
-    // const navigateTo = useNavigate();
+    const navigateTo = useNavigate();
 
     const [login, {isLoading}] = useLoginMutation();
 
@@ -55,7 +55,7 @@ const LoginPage = () => {
             .unwrap()
             .then((res) => {
                 dispatch(setCredentials(res));
-                // navigateTo('/home');
+                navigateTo('/your-profile');
             })
             .catch((error) => {
                 toast({
@@ -120,7 +120,7 @@ const LoginPage = () => {
                 </div>
 
                 {isLoading 
-                ? <Button type='submit' className='w-full hover:bg-[#f4c17e]' disabled>
+                ? <Button className='w-full hover:bg-[#f4c17e]' disabled>
                     Đăng nhập  
                     <span className="loading loading-dots loading-md ml-2"></span>
                     </Button>

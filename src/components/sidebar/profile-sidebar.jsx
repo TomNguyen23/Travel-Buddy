@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-regular-svg-icons";
+import DefaultAvatar from "@/assets/images/default-avt.png";
 import ProfileSideBarItem from "../items/profile-sidebar-item";
 
 import { Separator } from "@/components/ui/separator"
@@ -11,14 +12,16 @@ import { ToastAction } from '@/components/ui/toast';
 import { useDispatch } from "react-redux";
 import { logout } from "@/redux/reducer/auth.reducer";
 import { useNavigate } from "react-router-dom";
-import { useUploadImgMutation } from "@/api/featureApi/userApiSlice";
+import { useSelector } from "react-redux";
 
+import { useUploadImgMutation } from "@/api/featureApi/userApiSlice";
 
 
 const ProfileSidebar = () => {
     const { toast } = useToast();
-    const [avatar, setAvatar] = useState(null);
+    const [avatarFile, setAvatarFile] = useState(null);
 
+    const userInfo = useSelector((state) => state.auth.login.user);
     const dispatch = useDispatch();
     const navigateTo = useNavigate();
 
@@ -36,9 +39,9 @@ const ProfileSidebar = () => {
 
     useEffect(() => {
         const uploadAvatarHandler = async () => {
-            if (avatar) {
+            if (avatarFile) {
                 const validImageTypes = ['image/png', 'image/jpg', 'image/jpeg'];
-                if (!validImageTypes.includes(avatar.type)) {
+                if (!validImageTypes.includes(avatarFile.type)) {
                     toast({
                         variant: "destructive",
                         title: "Uh oh! Có gì đó sai sai.",
@@ -48,7 +51,7 @@ const ProfileSidebar = () => {
                     return;
                 }
     
-                const formData = {avatar: avatar};
+                const formData = {avatar: avatarFile};
                 console.log(formData);
     
                 // await uploadUserAvatar(formData)
@@ -62,18 +65,21 @@ const ProfileSidebar = () => {
             }   
         }
         uploadAvatarHandler();
-    }, [avatar, toast]);
+    }, [avatarFile, toast]);
     
     
 
     return ( 
         <aside className="px-3">
             <div className="flex items-center px-5 py-7">
-                <form id="avatarForm" className="relative z-20">
-                    <img src="https://github.com/shadcn.png" className="size-20 rounded-full" alt="" />
+                <form id="avatarForm" className="relative z-20 min-w-20">
+                    {userInfo.avatar 
+                        ? <img src={userInfo.avatar} className="size-20 rounded-full" alt="" />
+                        : <img src={DefaultAvatar} className="size-20 rounded-full" alt="" />
+                    }
 
                     <div className="size-7 rounded-full bg-slate-100 dark:bg-[#28313a] flex justify-center items-center absolute right-0 bottom-0">
-                        <input onChange={(e) => setAvatar(e.target.files[0])} type="file" id="myAvatar" name="myAvatar" accept="image/png, image/jpg, image/jpeg" hidden />
+                        <input onChange={(e) => setAvatarFile(e.target.files[0])} type="file" id="myAvatar" name="myAvatar" accept="image/png, image/jpg, image/jpeg" hidden />
                         <label htmlFor="myAvatar" className="cursor-pointer">
                             <span className="material-icons text-base">edit</span>
                         </label>
@@ -82,7 +88,7 @@ const ProfileSidebar = () => {
 
 
                 <div className="ml-3">
-                    <h1 className="text-2xl font-bold">LupyzZz</h1>
+                    <h1 className="text-2xl font-bold">{userInfo.fullName}</h1>
                     <p className="flex items-center">
                         <span className="material-icons text-[#FFAB3E] text-3xl">workspace_premium</span>
                         <span className="">1020 điểm</span>

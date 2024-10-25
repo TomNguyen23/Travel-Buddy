@@ -36,9 +36,13 @@ const authSlice = createSlice({
 
     reducers: {
         setCredentials(state, action) {
-            const { token, ...user } = action.payload;
-            state.login.user = user;
-            state.login.token = token;
+            const { accessToken, basicInfo } = action.payload;
+            state.login.user = basicInfo;
+            state.login.token = accessToken;
+        },
+
+        setAvatar(state, action) {
+            state.login.user.avatar = action.payload;
         },
 
         logout(state) {

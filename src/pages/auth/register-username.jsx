@@ -74,7 +74,7 @@ const RegisterUsername = () => {
                 {formik.errors.username ? <div className='text-red-500 text-sm self-start ml-2 mt-1'>{formik.errors.username}</div> : null}
 
                 {isLoading 
-                ? <Button type='submit' className='w-96 hover:bg-[#f4c17e] mt-5' disabled>
+                ? <Button className='w-96 hover:bg-[#f4c17e] mt-5' disabled>
                     Tạo tài khoản 
                     <span className="loading loading-dots loading-md ml-2"></span>
                     </Button>

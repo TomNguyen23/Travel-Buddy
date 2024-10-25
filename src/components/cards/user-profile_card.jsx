@@ -8,11 +8,15 @@ import {
 import { Button } from "@/components/ui/button"  
 
 import { useState } from "react";
+import { useSelector } from "react-redux";
 
 const UserProfileCard = () => {
-    const [username, setUsername] = useState("LupyzZz");
-    const [email, setEmail] = useState("lupyzZz12@gmail.com");
+    const userInfo = useSelector((state) => state.auth.login.user);
+
+    const [username, setUsername] = useState(userInfo.fullName);
+    const [email, setEmail] = useState(userInfo.email);
     const [socialLink, setSocialLink] = useState("https://facebook.com/profile=.....");
+
 
     const handleUpdateProfile = () => {
         const updateData = { username, email, socialLink };
