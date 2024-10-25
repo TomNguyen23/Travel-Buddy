@@ -4,21 +4,21 @@ export const authApiSlice = apiSlice.injectEndpoints({
     endpoints: (builder) => ({
         login: builder.mutation({
             query: (credentials) => ({
-                url: 'api/login',
+                url: '/api/auth/login',
                 method: 'POST',
                 body: credentials
             }),
         }),
         register: builder.mutation({
             query: (body) => ({
-                url: 'api/register',
+                url: '/api/auth/register',
                 method: 'POST',
                 body: body
             }),
         }),
         OTPverification: builder.mutation({
             query: (body) => ({
-                url: 'api/verify',
+                url: '/api/auth/confirm-registration',
                 method: 'POST',
                 body: body
             }),

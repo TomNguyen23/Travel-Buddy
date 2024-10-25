@@ -25,7 +25,7 @@ const RegisterUsername = () => {
             username: Yup.string().required('Bắt buộc nhập'),
         }),
         onSubmit: async (values) => {
-            const userWithUsername = { ...user, name: values.username };
+            const userWithUsername = { ...user, fullName: values.username };
             if (!user) {
                 toast({
                     variant: "destructive",
@@ -65,7 +65,7 @@ const RegisterUsername = () => {
             <form className='flex flex-col items-center' onSubmit={formik.handleSubmit}>
                 <Input type='text' 
                         placeholder='Biệt danh...' 
-                        className='w-96 h-12 mt-5 border-slate-300'
+                        className='w-96 h-12 mt-5 border-slate-300 dark:bg-[#1D232A]'
                         id='username'
                         name='username'
                         onChange={formik.handleChange}

@@ -26,7 +26,7 @@ import { clearRegister } from "@/redux/reducer/auth.reducer";
 const OTPVerification = () => {
     const { toast } = useToast();
     const [value, setValue] = useState("");
-    const [counter, setCounter] = useState(120);
+    const [counter, setCounter] = useState(900);
 
     const email = useSelector(state => state?.auth?.register?.user?.email);
     const dispatch = useDispatch();
@@ -74,8 +74,16 @@ const OTPVerification = () => {
             });
             return;
         }
+
+        if (isNaN(value)) {
+            toast({
+                variant: "destructive",
+                title: "Mã OTP phải là số",
+            });
+            return;
+        }
         
-        await sendOTP({ otp: value })
+        await sendOTP({ email: email, otp: value })
                 .unwrap()
                 .then(() => {
                     dispatch(clearRegister());

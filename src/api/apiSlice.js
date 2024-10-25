@@ -2,11 +2,11 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { setCredentials, logout } from '@/redux/reducer/auth.reducer';
 
 const baseQuery = fetchBaseQuery({ 
-    baseUrl: 'http://localhost:8080/',
+    baseUrl: 'http://localhost:8080',
     prepareHeaders: (headers, { getState }) => {
         const token = getState().auth.login.token;
         if (token) {
-            headers.set('authorization', `Bearer ${token}`);
+            headers.set('Authorization', `Bearer ${token}`);
         }
         return headers;
     }

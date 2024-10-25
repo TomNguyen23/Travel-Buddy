@@ -28,11 +28,11 @@ const LoginPage = () => {
 
     const formik = useFormik({
         initialValues: {
-            username: '',
+            emailOrUsername: '',
             password: ''
         },
         validationSchema: Yup.object({
-            username: Yup.string().required('Băt buộc nhập'),
+            emailOrUsername: Yup.string().required('Băt buộc nhập'),
             password: Yup.string().required('Bắt buộc nhập')
         }),
         onSubmit: async (values) => {
@@ -82,26 +82,26 @@ const LoginPage = () => {
                 <label className='relative cursor-pointer'>
                     <input type="text" 
                         placeholder="Email..." 
-                        className='h-12 w-full px-3 text-slate-600 border-slate-700 border rounded-md border-opacity-50 outline-none focus:border-blue-500 placeholder-gray-300 placeholder-opacity-0 transition duration-200' 
-                        id='username'
-                        name='username'
+                        className='h-12 w-full px-3 dark:bg-[#1D232A] text-slate-600 dark:text-white border-slate-700 border rounded-md border-opacity-50 outline-none focus:border-blue-500 placeholder-gray-300 placeholder-opacity-0 transition duration-200' 
+                        id='emailOrUsername'
+                        name='emailOrUsername'
                         onChange={formik.handleChange}
-                        value={formik.values.username}
+                        value={formik.values.emailOrUsername}
                     />
-                    <span className='text-md bg-white text-slate-500 text-opacity-80 absolute left-2 bottom-0 px-1 transition duration-200 input-text'>Email</span>
+                    <span className='text-md bg-white rounded-md dark:bg-[#1D232A] text-slate-500 text-opacity-80 absolute left-2 bottom-0 px-1 transition duration-200 input-text'>Email</span>
                 </label>
-                {formik.errors.username && <div className='text-red-500 text-sm'>{formik.errors.username}</div>}
+                {formik.errors.emailOrUsername && <div className='text-red-500 text-sm'>{formik.errors.emailOrUsername}</div>}
 
                 <label className='relative cursor-pointer'>
-                    <input type="text" 
+                    <input type="password" 
                         placeholder="Password..." 
-                        className='h-12 w-full px-3 text-md text-slate-600 border-slate-700 border rounded-md border-opacity-50 outline-none focus:border-blue-500 placeholder-gray-300 placeholder-opacity-0 transition duration-200 mt-6'
+                        className='h-12 w-full px-3 text-md dark:bg-[#1D232A] text-slate-600 dark:text-white border-slate-700 border rounded-md border-opacity-50 outline-none focus:border-blue-500 placeholder-gray-300 placeholder-opacity-0 transition duration-200 mt-6'
                         id='password'
                         name='password'
                         onChange={formik.handleChange}
                         value={formik.values.password}
                     />
-                    <span className='text-md bg-white text-slate-500 text-opacity-80 absolute left-2 bottom-0 px-1 transition duration-200 input-text'>Mật khẩu</span>
+                    <span className='text-md bg-white rounded-md dark:bg-[#1D232A] text-slate-500 text-opacity-80 absolute left-2 bottom-0 px-1 transition duration-200 input-text'>Mật khẩu</span>
                 </label>
                 {formik.errors.password && <div className='text-red-500 text-sm'>{formik.errors.password}</div>}
 

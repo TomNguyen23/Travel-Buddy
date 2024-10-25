@@ -55,40 +55,40 @@ const RegisterPage = () => {
                 <label className='relative cursor-pointer'>
                     <input type="text" 
                         placeholder="Email..." 
-                        className='h-12 w-full px-3 text-md text-slate-600 border-slate-700 border rounded-md border-opacity-50 outline-none focus:border-blue-500 placeholder-gray-300 placeholder-opacity-0 transition duration-200' 
+                        className='h-12 w-full px-3 text-md dark:bg-[#1D232A] text-slate-600 dark:text-white border-slate-700 border rounded-md border-opacity-50 outline-none focus:border-blue-500 placeholder-gray-300 placeholder-opacity-0 transition duration-200' 
                         id='email'
                         name='email'
                         onChange={formik.handleChange}
                         value={formik.values.email}
                     />
-                    <span className='text-md bg-white text-slate-500 text-opacity-80 absolute left-1 bottom-0 px-1 transition duration-200 input-text'>Nhập email của bạn</span>
+                    <span className='text-md bg-white rounded-md dark:bg-[#1D232A] text-slate-500 text-opacity-80 absolute left-1 bottom-0 px-1 transition duration-200 input-text'>Nhập email của bạn</span>
                 </label>
                 {formik.errors.email ? <div className='text-red-500 text-sm'>{formik.errors.email}</div> : null}
 
                 <label className='relative cursor-pointer'>
-                    <input type="text" 
+                    <input type="password" 
                         placeholder="Password..." 
-                        className='h-12 w-full px-3 text-md text-slate-600 border-slate-700 border rounded-md border-opacity-50 outline-none focus:border-blue-500 placeholder-gray-300 placeholder-opacity-0 transition duration-200 mt-6'
+                        className='h-12 w-full px-3 text-md dark:bg-[#1D232A] text-slate-600 dark:text-white border-slate-700 border rounded-md border-opacity-50 outline-none focus:border-blue-500 placeholder-gray-300 placeholder-opacity-0 transition duration-200 mt-6'
                         id='password'
                         name='password'
                         onChange={formik.handleChange}
                         value={formik.values.password}
                     />
-                    <span className='text-md bg-white text-slate-500 text-opacity-80 absolute left-1 bottom-0 px-1 transition duration-200 input-text'>Nhập mật khẩu</span>
+                    <span className='text-md bg-white rounded-md dark:bg-[#1D232A] text-slate-500 text-opacity-80 absolute left-1 bottom-0 px-1 transition duration-200 input-text'>Nhập mật khẩu</span>
                 </label>
                 {formik.errors.password ? <div className='text-red-500 text-sm'>{formik.errors.password}</div> : null}
 
                 
                 <label className='relative cursor-pointer'>
-                    <input type="text" 
+                    <input type="password" 
                             id='confirmPassword'
                             name='confirmPassword'
                             placeholder="Confirm password..." 
-                            className='h-12 w-full px-3 text-md text-slate-600 border-slate-700 border rounded-md border-opacity-50 outline-none focus:border-blue-500 placeholder-gray-300 placeholder-opacity-0 transition duration-200 mt-6'
+                            className='h-12 w-full px-3 text-md dark:bg-[#1D232A] text-slate-600 dark:text-white border-slate-700 border rounded-md border-opacity-50 outline-none focus:border-blue-500 placeholder-gray-300 placeholder-opacity-0 transition duration-200 mt-6'
                             onChange={formik.handleChange}
                             value={formik.values.confirmPassword}
                     />
-                    <span className='text-md bg-white text-slate-500 text-opacity-80 absolute left-1 bottom-0 px-1 transition duration-200 input-text'>Nhập lại mật khẩu</span>
+                    <span className='text-md bg-white rounded-md dark:bg-[#1D232A] text-slate-500 text-opacity-80 absolute left-1 bottom-0 px-1 transition duration-200 input-text'>Nhập lại mật khẩu</span>
                 </label>
                 {formik.errors.confirmPassword ? <div className='text-red-500 text-sm'>{formik.errors.confirmPassword}</div> : null}
 
