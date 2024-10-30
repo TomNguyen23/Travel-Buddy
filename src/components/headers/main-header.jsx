@@ -47,22 +47,7 @@ const MainHeader = () => {
                 <Link to="/profile" className="ml-5 font-semibold hover:text-[#FFAB3E]">Khám phá</Link>
                 <Link to="/profile" className="ml-5 font-semibold hover:text-[#FFAB3E]">Lên kế hoạch</Link>
 
-                <DropdownMenu>
-                    <DropdownMenuTrigger className="ml-5">
-                        <Avatar>
-                            <AvatarImage src="https://github.com/shadcn.png" />
-                            <AvatarFallback>CN</AvatarFallback>
-                        </Avatar>
-                    </DropdownMenuTrigger>
-
-                    <DropdownMenuContent align="end">
-                        <DropdownMenuLabel>Admin</DropdownMenuLabel>
-                        
-                        <DropdownMenuSeparator />
-                        <DropdownMenuItem onClick={logoutHandler}>Đăng xuất</DropdownMenuItem>
-                    </DropdownMenuContent>
-                </DropdownMenu>
-                {/* {token ? (
+                {token ? (
                     <DropdownMenu>
                         <DropdownMenuTrigger className="ml-5">
                             <Avatar>
@@ -81,7 +66,7 @@ const MainHeader = () => {
                 ) : 
                 (
                     <Link to="/login" className="ml-3 font-semibold px-6 py-3 bg-[#FFAB3E] hover:bg-[#f4c17e] text-white rounded-full">Đăng nhập</Link>
-                )} */}
+                )}
 
                 <ChangeThemeItem />
             </div>

@@ -58,7 +58,10 @@ export default {
   				'4': 'hsl(var(--chart-4))',
   				'5': 'hsl(var(--chart-5))'
   			}
-  		}
+  		},
+		backgroundImage: {
+			blackOverlay: 'linear-gradient(to right, rgba(0, 0, 0, 0.34) 0%, rgba(202, 178, 125, 0.34) 100%)',
+		}
   	}
   },
   plugins: [
