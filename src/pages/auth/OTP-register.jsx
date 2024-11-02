@@ -8,7 +8,7 @@ import { useOTPverificationMutation } from "@/api/featureApi/authApiSlice";
 import { clearRegister } from "@/redux/reducer/auth.reducer";
 import OTPcard from "@/components/cards/OTP_card";
 
-const OTPVerification = () => {
+const OTPRegister = () => {
     const { toast } = useToast();
 
     const email = useSelector(state => state?.auth?.register?.user?.email);
@@ -41,4 +41,4 @@ const OTPVerification = () => {
      );
 }
  
-export default OTPVerification;
+export default OTPRegister;

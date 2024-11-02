@@ -1,6 +1,5 @@
 import './auth.css';
 import { Button } from '@/components/ui/button';
-import { Checkbox } from '@/components/ui/checkbox';
 import { useToast } from '@/hooks/use-toast';
 import { ToastAction } from '@/components/ui/toast';
 
@@ -13,7 +12,6 @@ import * as Yup from 'yup';
 
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-// import { login  } from '@/redux/reducer/auth.reducer';
 import { useLoginMutation } from '@/api/featureApi/authApiSlice';
 import { setCredentials } from '@/redux/reducer/auth.reducer';
 
@@ -36,21 +34,6 @@ const LoginPage = () => {
             password: Yup.string().required('Bắt buộc nhập')
         }),
         onSubmit: async (values) => {
-            // dispatch(login(values))
-            // .unwrap()
-            // .then((res) => {
-            //     console.log(res)
-            // })
-            // .catch((err) => {
-            //     console.log(err)
-            //     toast({
-            //         variant: "destructive",
-            //         title: "Uh oh! Có gì đó sai sai.",
-            //         description: err.message,
-            //         action: <ToastAction altText="Try again">Thử lại</ToastAction>,
-            //     })
-            // })
-
             await login(values)
             .unwrap()
             .then((res) => {
@@ -107,7 +90,7 @@ const LoginPage = () => {
 
                 <div className='py-4 flex justify-between items-center'>
                     <div className="flex items-center space-x-2">
-                        <Checkbox id="terms" />
+                        <input type="checkbox" id='terms' className="checkbox checkbox-sm ml-2 dark:checkbox-warning" />
                         <label
                             htmlFor="terms"
                             className="text-sm leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
@@ -116,7 +99,7 @@ const LoginPage = () => {
                         </label>
                     </div>
 
-                    <a href="" className='text-[#7C572B] text-sm'>Quên mật khẩu?</a>
+                    <Link to='/forget-password-email' className='text-[#7C572B] text-sm hover:underline'>Quên mật khẩu?</Link>
                 </div>
 
                 {isLoading 

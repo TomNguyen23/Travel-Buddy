@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import DefaultAvatar from "@/assets/images/default-avt.png";
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -16,6 +17,7 @@ import ChangeThemeItem from "../items/change-theme-item";
 
 const MainHeader = () => {
     const token = useSelector((state) => state.auth.login.token);
+    const userInfo = useSelector((state) => state.auth.login.user);
     const dispatch = useDispatch();
 
     const logoutHandler = () => {
@@ -45,13 +47,16 @@ const MainHeader = () => {
             <div className="flex items-center">
 
                 <Link to="/profile" className="ml-5 font-semibold hover:text-[#FFAB3E]">Khám phá</Link>
-                <Link to="/profile" className="ml-5 font-semibold hover:text-[#FFAB3E]">Lên kế hoạch</Link>
+                <Link to="/my-journeys" className="ml-5 font-semibold hover:text-[#FFAB3E]">Lên kế hoạch</Link>
 
                 {token ? (
                     <DropdownMenu>
                         <DropdownMenuTrigger className="ml-5">
                             <Avatar>
-                                <AvatarImage src="https://github.com/shadcn.png" />
+                            {userInfo.avatar 
+                                ? <AvatarImage src={userInfo.avatar} />
+                                : <AvatarImage src={DefaultAvatar} />
+                            }
                                 <AvatarFallback>CN</AvatarFallback>
                             </Avatar>
                         </DropdownMenuTrigger>

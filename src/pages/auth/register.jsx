@@ -1,6 +1,6 @@
 import './auth.css';
 import { Button } from '@/components/ui/button';
-import { Checkbox } from '@/components/ui/checkbox';
+import { useToast } from '@/hooks/use-toast';
 import icon from '@/assets/images/icon.png';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -12,9 +12,10 @@ import * as Yup from 'yup';
 
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { register } from '@/redux/reducer/auth.reducer';
+import { clearRegister, register } from '@/redux/reducer/auth.reducer';
 
 const RegisterPage = () => {
+    const { toast } = useToast();
     const dispatch = useDispatch();
     const navigateTo = useNavigate();
 
@@ -33,8 +34,18 @@ const RegisterPage = () => {
             try {
                 // eslint-disable-next-line no-unused-vars
                 const { confirmPassword, ...otherValues } = values;
+                const terms = document.getElementById('terms').checked;
+
+                if (!terms) {
+                    toast({
+                        variant: "destructive",
+                        title: "Bạn chưa đồng ý với các điều khoản",
+                    })
+                    return;
+                }
                 dispatch(register(otherValues));
                 navigateTo('/register/username');
+                dispatch(clearRegister());
             } catch (error) {
                 console.log(error);
             }
@@ -94,7 +105,7 @@ const RegisterPage = () => {
 
                 <div className='py-4 flex justify-between items-center'>
                     <div className="flex items-center space-x-2">
-                        <Checkbox id="terms" />
+                        <input type="checkbox" id='terms' className="checkbox checkbox-sm ml-2 dark:checkbox-warning" />
                         <label
                             htmlFor="terms"
                             className="text-sm leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"

@@ -10,7 +10,8 @@ const initialState = {
         user: null,
         error: false,
         ErrorMessage: null,
-    }
+    },
+    forgetPasswordInfo: null,
 };
 
 export const login = createAsyncThunk('auth/login', async (body, thunkAPI) => {
@@ -63,6 +64,14 @@ const authSlice = createSlice({
                 error: false,
                 ErrorMessage: null,
             };
+        }, 
+
+        forgetPassword(state, action) {
+            state.forgetPasswordInfo = action.payload;
+        },
+
+        clearForgetPassword(state) {
+            state.forgetPasswordInfo = null;
         }
     },
 
@@ -77,6 +86,6 @@ const authSlice = createSlice({
     }
 });
 
-export const { setCredentials, logout, register, clearRegister } = authSlice.actions;
+export const { setCredentials, logout, register, clearRegister, forgetPassword, clearForgetPassword } = authSlice.actions;
 
 export default authSlice.reducer;

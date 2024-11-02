@@ -8,39 +8,29 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
 import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { useRegisterMutation } from '@/api/featureApi/authApiSlice';
+import { useDispatch } from 'react-redux';
+import { forgetPassword } from '@/redux/reducer/auth.reducer';
+import { useEmailForgetPasswordMutation } from '@/api/featureApi/authApiSlice';
 
-const RegisterUsername = () => {
+const ForgetPasswordEmail = () => {
     const navigateTo = useNavigate();
+    const dispatch = useDispatch();
     const { toast } = useToast();
-    const user = useSelector(state => state.auth.register.user);
-    const [registerUser, { isLoading }] = useRegisterMutation();
+    const [emailForgetPassword, { isLoading }] = useEmailForgetPasswordMutation();
 
     const formik = useFormik({
         initialValues: {
-            username: "",
+            email: "",
         },
         validationSchema: Yup.object({
-            username: Yup.string().required('Bắt buộc nhập'),
+            email: Yup.string().email('Địa chỉ email không hợp lệ').required('Bắt buộc nhập'),
         }),
         onSubmit: async (values) => {
-            const userWithUsername = { ...user, fullName: values.username };
-            if (!user) {
-                toast({
-                    variant: "destructive",
-                    title: "Uh oh! Có gì đó sai sai.",
-                    description: "Bạn hãy đăng ký trước khi thêm biệt danh",
-                    action: <ToastAction altText="Try again" onClick={navigateTo("/register")}>Thử lại</ToastAction>,
-                })
-                return;
-            } 
-            console.log(userWithUsername)
-
-            await registerUser(userWithUsername)
+            await emailForgetPassword(values)
                     .unwrap()
                     .then(() => {
-                        navigateTo('/OTP-verification-register')
+                        dispatch(forgetPassword(values));
+                        navigateTo('/new-password');
                     })
                     .catch((error) => {
                         toast({
@@ -58,30 +48,30 @@ const RegisterUsername = () => {
         <>
             <header className='text-center text-lg'>
                 <img src={icon} alt="" />
-                <p>Đặt cho bản thân một biệt danh và</p>
-                <p>mọi người sẽ gọi bạn bằng biệt danh đó</p>
+                <p>Đã quên mất mật khẩu của mình?</p>
+                <p>Hãy cho chúng tôi biết email của bạn</p>
             </header>
 
             <form className='flex flex-col items-center' onSubmit={formik.handleSubmit}>
                 <Input type='text' 
-                        placeholder='Biệt danh...' 
+                        placeholder='Email của bạn...' 
                         className='w-96 h-12 mt-5 border-slate-300 dark:bg-[#1D232A]'
-                        id='username'
-                        name='username'
+                        id='email'
+                        name='email'
                         onChange={formik.handleChange}
-                        value={formik.values.username}      
+                        value={formik.values.email}      
                 />
-                {formik.errors.username ? <div className='text-red-500 text-sm self-start ml-2 mt-1'>{formik.errors.username}</div> : null}
+                {formik.errors.email ? <div className='text-red-500 text-sm self-start ml-2 mt-1'>{formik.errors.email}</div> : null}
 
                 {isLoading 
                 ? <Button className='w-96 hover:bg-[#f4c17e] mt-5' disabled>
                     Tạo tài khoản 
                     <span className="loading loading-dots loading-md ml-2"></span>
                     </Button>
-                : <Button type='submit' className='w-96 bg-[#FFAB3E] hover:bg-[#f4c17e] mt-5'>Tạo tài khoản</Button>}
+                : <Button type='submit' className='w-96 bg-[#FFAB3E] hover:bg-[#f4c17e] mt-5'>Tiếp theo</Button>}
             </form>
         </>
      );
 }
  
-export default RegisterUsername;
+export default ForgetPasswordEmail;
