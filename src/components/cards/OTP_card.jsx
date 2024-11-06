@@ -114,7 +114,7 @@ const OTPcard = (props) => {
                             Xác minh
                             <span className="loading loading-dots loading-md ml-2"></span>
                         </Button>
-                        : <Button type="submit" className="mt-4 px-20 bg-[#FFAB3E] hover:bg-[#f4c17e]">Xác minh</Button>
+                        : <Button type="submit" className="mt-4 px-20 bg-main hover:bg-main-hover">Xác minh</Button>
                     }
                     <p className="text-sm text-muted-foreground">Không nhận được mã? <span className="text-blue-400 cursor-pointer">gửi lại</span> </p>
                 </CardFooter>

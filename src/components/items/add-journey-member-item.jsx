@@ -28,7 +28,7 @@ const AddJourneyMember = () => {
                             <input type="text" placeholder="Nhập nickname" className="input input-bordered w-full max-w-md rounded-sm" />
                         </label>
 
-                        <Button type='submit' className="mt-4 mr-3 float-right bg-[#FFAB3E] hover:bg-[#f4c17e]">Thêm thành viên</Button>
+                        <Button type='submit' className="mt-4 mr-3 float-right bg-main hover:bg-main-hover">Thêm thành viên</Button>
                     </form>
 
                 </DialogContent>

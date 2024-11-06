@@ -83,7 +83,7 @@ const UserProfileCard = () => {
                 </div>
             </CardContent>
             <CardFooter className="flex justify-end">
-                <Button onClick={handleUpdateProfile} className="bg-[#FFAB3E] hover:bg-[#f4c17e]">Lưu cập nhật</Button>
+                <Button onClick={handleUpdateProfile} className="bg-main hover:bg-main-hover">Lưu cập nhật</Button>
             </CardFooter>
         </Card>
      );

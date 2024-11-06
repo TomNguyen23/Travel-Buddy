@@ -103,11 +103,11 @@ const LoginPage = () => {
                 </div>
 
                 {isLoading 
-                ? <Button className='w-full hover:bg-[#f4c17e]' disabled>
+                ? <Button className='w-full hover:bg-main-hover' disabled>
                     Đăng nhập  
                     <span className="loading loading-dots loading-md ml-2"></span>
-                    </Button>
-                : <Button type='submit' className='w-full bg-[#FFAB3E] hover:bg-[#f4c17e]'>Đăng nhập</Button>}
+                </Button>
+                : <Button type='submit' className='w-full bg-main hover:bg-main'>Đăng nhập</Button>}
 
                 
             </form>

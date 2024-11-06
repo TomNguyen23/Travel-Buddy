@@ -116,7 +116,7 @@ const TeamJourneySummaryCard = () => {
 
                             <Button 
                                 type="submit" 
-                                className="mt-4 mr-3 float-right bg-[#FFAB3E] hover:bg-[#f4c17e]">
+                                className="mt-4 mr-3 float-right bg-main hover:bg-main-hover">
                                     Chỉnh sửa
                             </Button>
                         </form>

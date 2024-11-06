@@ -80,7 +80,7 @@ const PersonalizeIdeas = () => {
                 ))}
             </div>
 
-            <Button className="mt-3 w-1/5 bg-[#FFAB3E] hover:bg-[#f4c17e]" onClick={handleConfirm}>Xác nhận</Button>
+            <Button className="mt-3 w-1/5 bg-main hover:bg-main-hover" onClick={handleConfirm}>Xác nhận</Button>
         </div>
     );
 }

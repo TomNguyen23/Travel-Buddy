@@ -65,10 +65,10 @@ const ForgetPasswordEmail = () => {
 
                 {isLoading 
                 ? <Button className='w-96 hover:bg-[#f4c17e] mt-5' disabled>
-                    Tạo tài khoản 
+                    Tiếp theo 
                     <span className="loading loading-dots loading-md ml-2"></span>
                     </Button>
-                : <Button type='submit' className='w-96 bg-[#FFAB3E] hover:bg-[#f4c17e] mt-5'>Tiếp theo</Button>}
+                : <Button type='submit' className='w-96 bg-main hover:bg-main-hover mt-5'>Tiếp theo</Button>}
             </form>
         </>
      );

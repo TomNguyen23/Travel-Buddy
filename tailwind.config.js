@@ -57,7 +57,11 @@ export default {
   				'3': 'hsl(var(--chart-3))',
   				'4': 'hsl(var(--chart-4))',
   				'5': 'hsl(var(--chart-5))'
-  			}
+  			},
+			main: {
+				DEFAULT: '#FFAB3E',
+				hover: '#f4c17e'
+			}
   		},
 		backgroundImage: {
 			blackOverlay: 'linear-gradient(to right, rgba(0, 0, 0, 0.34) 0%, rgba(202, 178, 125, 0.34) 100%)',

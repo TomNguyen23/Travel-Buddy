@@ -74,7 +74,7 @@ const AddDestinationItem = () => {
 
                     <SheetFooter>
                         <SheetClose asChild>
-                            <Button type="submit" className="mt-4 bg-[#FFAB3E] hover:bg-[#f4c17e]">Thêm</Button>
+                            <Button type="submit" className="mt-4 bg-main hover:bg-main-hover">Thêm</Button>
                         </SheetClose>
                     </SheetFooter>
                 </form>

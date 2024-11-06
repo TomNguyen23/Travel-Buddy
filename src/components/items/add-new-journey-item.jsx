@@ -117,7 +117,7 @@ const AddNewJourneyItem = () => {
 
                     <SheetFooter>
                         <SheetClose asChild>
-                            <Button type="submit" className="mt-4 bg-[#FFAB3E] hover:bg-[#f4c17e]">Tạo mới</Button>
+                            <Button type="submit" className="mt-4 bg-main hover:bg-main-hover">Tạo mới</Button>
                         </SheetClose>
                     </SheetFooter>
                 </form>

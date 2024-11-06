@@ -90,7 +90,7 @@ const ChangePasswordCard = () => {
                         </div>
                     </CardContent>
                     <CardFooter className="flex justify-end">
-                        <Button type='submit' className="bg-[#FFAB3E] hover:bg-[#f4c17e]">Xác nhận</Button>
+                        <Button type='submit' className="bg-main hover:bg-main-hover">Xác nhận</Button>
                     </CardFooter>
                 </form>
             </Card>

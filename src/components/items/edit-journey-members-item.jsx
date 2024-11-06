@@ -90,7 +90,7 @@ const EditJourneyMember = ({ members }) => {
                         </div>
 
                         <DialogFooter>
-                            <Button type='submit' className="mt-4 bg-[#FFAB3E] hover:bg-[#f4c17e]">Lưu thay đổi</Button>
+                            <Button type='submit' className="mt-4 bg-main hover:bg-main-hover">Lưu thay đổi</Button>
                         </DialogFooter>
                     </form>
 

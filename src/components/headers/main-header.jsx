@@ -46,8 +46,8 @@ const MainHeader = () => {
             </label>
             <div className="flex items-center">
 
-                <Link to="/profile" className="ml-5 font-semibold hover:text-[#FFAB3E]">Khám phá</Link>
-                <Link to="/my-journeys" className="ml-5 font-semibold hover:text-[#FFAB3E]">Lên kế hoạch</Link>
+                <Link to="/discover" className="ml-5 font-semibold hover:text-main">Khám phá</Link>
+                <Link to="/my-journeys" className="ml-5 font-semibold hover:text-main">Lên kế hoạch</Link>
 
                 {token ? (
                     <DropdownMenu>
@@ -70,7 +70,7 @@ const MainHeader = () => {
                     </DropdownMenu>
                 ) : 
                 (
-                    <Link to="/login" className="ml-3 font-semibold px-6 py-3 bg-[#FFAB3E] hover:bg-[#f4c17e] text-white rounded-full">Đăng nhập</Link>
+                    <Link to="/login" className="ml-3 font-semibold px-6 py-3 bg-main hover:bg-main-hover text-white rounded-full">Đăng nhập</Link>
                 )}
 
                 <ChangeThemeItem />

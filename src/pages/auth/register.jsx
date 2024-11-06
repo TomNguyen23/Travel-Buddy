@@ -116,7 +116,7 @@ const RegisterPage = () => {
 
                 </div>
 
-                <Button type='submit' className='w-full bg-[#FFAB3E] hover:bg-[#f4c17e]'>Tiếp theo</Button>
+                <Button type='submit' className='w-full bg-main hover:bg-main-hover'>Tiếp theo</Button>
             </form>
 
 

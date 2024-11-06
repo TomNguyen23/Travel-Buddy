@@ -99,7 +99,7 @@ const JourneyDestinationItem = ( props ) => {
 
                         <Button 
                             onClick={() => handleEditDestination(props.data.id)} 
-                            className="mt-4 mr-3 float-right bg-[#FFAB3E] hover:bg-[#f4c17e]">
+                            className="mt-4 mr-3 float-right bg-main hover:bg-main-hover">
                                 Chỉnh sửa
                         </Button>
                     </div>

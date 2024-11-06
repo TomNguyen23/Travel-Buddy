@@ -71,7 +71,7 @@ const NewPassword = () => {
                 </label>
                 {formik.errors.confirmPassword ? <div className='text-red-500 text-sm'>{formik.errors.confirmPassword}</div> : null}
 
-                <Button type='submit' className='w-full bg-[#FFAB3E] hover:bg-[#f4c17e] mt-5'>Tiếp theo</Button>
+                <Button type='submit' className='w-full bg-main hover:bg-main-hover mt-5'>Tiếp theo</Button>
             </form>
         </>
      );

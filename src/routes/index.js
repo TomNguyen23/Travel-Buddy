@@ -2,6 +2,7 @@ import AuthLayout from "@/layouts/auth/authLayout"
 import BlankContentWithLogo from "@/layouts/blank-content-with-logo/blank-content-with-logo-layout"
 import UserSettingProfileLayout from "@/layouts/profile/user-setting-profile"
 import TeamJourneyDetailLayout from "@/layouts/team-journey/team-journey-detail-layout"
+import DiscoverCategoriesLayout from "@/layouts/discover/discover-categoties"
 
 import LoginPage from "@/pages/auth/login"
 import RegisterPage from "@/pages/auth/register"
@@ -17,6 +18,7 @@ import TeamJourneySummaryLayout from "@/layouts/team-journey/team-journey-summar
 import TeamJourneys from "@/pages/team-journey/team-journeys"
 import ForgetPasswordEmail from "@/pages/auth/forget-password-email"
 import NewPassword from "@/pages/auth/new-password"
+import DiscoverCategories from "@/pages/discover/discover-categories-page"
 
 const publicRoutes = [
     {path: '/', element: UserProfile},
@@ -28,6 +30,7 @@ const publicRoutes = [
     {path: '/forget-password-email', element: ForgetPasswordEmail, Layout: AuthLayout },
     {path: '/OTP-verification-forget-password', element: OTPforgetPassword, Layout: BlankContentWithLogo },
     {path: '/new-password', element: NewPassword, Layout: AuthLayout },
+    {path: '/discover', element: DiscoverCategories, Layout: DiscoverCategoriesLayout },
     
 ]
 
