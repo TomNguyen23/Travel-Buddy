@@ -3,6 +3,7 @@ import storageSession from 'redux-persist/lib/storage/session'
 import { persistReducer, persistStore } from 'redux-persist';
 
 import authReducer from "@/redux/reducer/auth.reducer";
+import discoverReducer from "@/redux/reducer/discover.reducer";
 import { apiSlice } from "@/api/apiSlice";
 
 
@@ -15,6 +16,7 @@ const persistConfig = {
 const rootReducer = combineReducers({
     [apiSlice.reducerPath]: apiSlice.reducer,
     auth: authReducer,
+    discover: discoverReducer,
 }); 
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

@@ -1,4 +1,4 @@
-import UserProfileCard from "@/components/cards/user-profile_card";
+import UserProfileCard from "@/components/cards/user_cards/user-profile_card";
 
 const UserProfile = () => {
     return ( 

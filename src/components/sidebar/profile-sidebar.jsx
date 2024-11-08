@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-regular-svg-icons";
 import DefaultAvatar from "@/assets/images/default-avt.png";
-import ProfileSideBarItem from "../items/profile-sidebar-item";
+import ProfileSideBarItem from "../items/user_items/profile-sidebar-item";
 
 import { Separator } from "@/components/ui/separator"
 import { useToast } from '@/hooks/use-toast';

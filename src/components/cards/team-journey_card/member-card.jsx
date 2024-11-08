@@ -1,6 +1,5 @@
-import AddJourneyMemberItem from "../items/add-journey-member-item";
-import EditJourneyMemberItem from "../items/edit-journey-members-item";
-
+import AddJourneyMember from "@/components/items/team-journey_items/add-journey-member-item";
+import EditJourneyMember from "@/components/items/team-journey_items/edit-journey-members-item";
 
 const MemberCard = () => {
     const data = [{
@@ -110,8 +109,8 @@ const MemberCard = () => {
             <div className="flex justify-between items-center">
                 <h1 className="text-2xl font-bold">Thành viên</h1>
                 <span>
-                    <AddJourneyMemberItem />
-                    <EditJourneyMemberItem members={data} />
+                    <AddJourneyMember />
+                    <EditJourneyMember members={data} />
                 </span>
             </div>
 

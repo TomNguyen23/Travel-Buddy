@@ -1,5 +1,5 @@
-import MyJourneysCard from "@/components/cards/my-journeys_card";
-import AddNewJourneyItem from "@/components/items/add-new-journey-item";
+import MyJourneysCard from "@/components/cards/team-journey_card/my-journeys_card";
+import AddNewJourneyItem from "@/components/items/team-journey_items/add-new-journey-item";
 
 const TeamJourneys = () => {
     return ( 

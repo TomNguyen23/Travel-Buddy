@@ -1,5 +1,5 @@
-import AddDestinationItem from "@/components/items/add-destination-item";
-import JourneyDestinationItem from "@/components/items/journey-destination-item";
+import AddDestinationItem from "@/components/items/team-journey_items/add-destination-item";
+import JourneyDestinationItem from "@/components/items/team-journey_items/journey-destination-item";
 
 const TeamJourneySchedule = () => {
     const data = [{

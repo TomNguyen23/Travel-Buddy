@@ -1,6 +1,6 @@
 import ReactPaginate from 'react-paginate';
 
-import MyNotificationItem from "@/components/items/my-notification-item";
+import MyNotificationItem from "@/components/items/user_items/my-notification-item";
 
 const MyNotifications = () => {
     return ( 

@@ -1,5 +1,5 @@
-import ChangePasswordCard from "@/components/cards/change-password_card";
-import RemoveAccountCard from "@/components/cards/remove-account_card";
+import ChangePasswordCard from "@/components/cards/user_cards/change-password_card";
+import RemoveAccountCard from "@/components/cards/user_cards/remove-account_card";
 
 
 const PasswordAndSecurity = () => {

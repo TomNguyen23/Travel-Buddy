@@ -1,5 +1,5 @@
-import MemberCard from "@/components/cards/member-card";
-import TeamJourneySummaryCard from "@/components/cards/team-Journey-Summary_card";
+import MemberCard from "@/components/cards/team-journey_card/member-card";
+import TeamJourneySummaryCard from "@/components/cards/team-journey_card/team-Journey-Summary_card";
 import MainHeader from "@/components/headers/main-header";
 import { Toaster } from "@/components/ui/toaster";
 

@@ -3,6 +3,7 @@ import BlankContentWithLogo from "@/layouts/blank-content-with-logo/blank-conten
 import UserSettingProfileLayout from "@/layouts/profile/user-setting-profile"
 import TeamJourneyDetailLayout from "@/layouts/team-journey/team-journey-detail-layout"
 import DiscoverCategoriesLayout from "@/layouts/discover/discover-categoties"
+import DiscoverRankingListLayout from "@/layouts/discover/discover-ranking-list"
 
 import LoginPage from "@/pages/auth/login"
 import RegisterPage from "@/pages/auth/register"
@@ -19,6 +20,8 @@ import TeamJourneys from "@/pages/team-journey/team-journeys"
 import ForgetPasswordEmail from "@/pages/auth/forget-password-email"
 import NewPassword from "@/pages/auth/new-password"
 import DiscoverCategories from "@/pages/discover/discover-categories-page"
+import DiscoverRankingHotel from "@/pages/discover/discover-ranking-hotel"
+import DiscoverRankingDestination from "@/pages/discover/discover-ranking-destination"
 
 const publicRoutes = [
     {path: '/', element: UserProfile},
@@ -31,6 +34,8 @@ const publicRoutes = [
     {path: '/OTP-verification-forget-password', element: OTPforgetPassword, Layout: BlankContentWithLogo },
     {path: '/new-password', element: NewPassword, Layout: AuthLayout },
     {path: '/discover', element: DiscoverCategories, Layout: DiscoverCategoriesLayout },
+    {path: '/discover/hotel&resort', element: DiscoverRankingHotel, Layout: DiscoverRankingListLayout },
+    {path: '/discover/destination', element: DiscoverRankingDestination, Layout: DiscoverRankingListLayout },
     
 ]
 
