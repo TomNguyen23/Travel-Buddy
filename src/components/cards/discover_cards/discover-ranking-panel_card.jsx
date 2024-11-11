@@ -36,7 +36,7 @@ const DiscoverRankingPanel = () => {
         <div className="bg-cover bg-center mb-4 h-96" 
             style={{ backgroundImage: `url(${currentPanel.imagePath})` }}
         >
-            <div className="bg-blackOverlay h-full rounded-md text-white">
+            <div className="bg-blackOverlay h-full text-white">
                 <div className="px-32 pb-20 h-full flex flex-col justify-end">
                     <h1 className="text-2xl font-medium">Lựa chọn của Travelers</h1>
                     <h1 className='text-5xl font-bold'>{currentPanel.title}</h1>

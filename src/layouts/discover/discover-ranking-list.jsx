@@ -3,7 +3,16 @@ import DiscoverRankingPanel from "@/components/cards/discover_cards/discover-ran
 import MainHeader from "@/components/headers/main-header";
 import PropTypes from 'prop-types';
 
+import { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
+
 const DiscoverRankingListLayout = ({ children }) => {
+    const location = useLocation();
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [location]);
+    
     return ( 
         <div className="min-h-screen">
             <MainHeader />

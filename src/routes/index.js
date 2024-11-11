@@ -4,6 +4,7 @@ import UserSettingProfileLayout from "@/layouts/profile/user-setting-profile"
 import TeamJourneyDetailLayout from "@/layouts/team-journey/team-journey-detail-layout"
 import DiscoverCategoriesLayout from "@/layouts/discover/discover-categoties"
 import DiscoverRankingListLayout from "@/layouts/discover/discover-ranking-list"
+import ReviewLayout from "@/layouts/review/review-layout"
 
 import LoginPage from "@/pages/auth/login"
 import RegisterPage from "@/pages/auth/register"
@@ -22,6 +23,7 @@ import NewPassword from "@/pages/auth/new-password"
 import DiscoverCategories from "@/pages/discover/discover-categories-page"
 import DiscoverRankingHotel from "@/pages/discover/discover-ranking-hotel"
 import DiscoverRankingDestination from "@/pages/discover/discover-ranking-destination"
+import SiteReview from "@/pages/review/site-review"
 
 const publicRoutes = [
     {path: '/', element: UserProfile},
@@ -36,6 +38,8 @@ const publicRoutes = [
     {path: '/discover', element: DiscoverCategories, Layout: DiscoverCategoriesLayout },
     {path: '/discover/hotel&resort', element: DiscoverRankingHotel, Layout: DiscoverRankingListLayout },
     {path: '/discover/destination', element: DiscoverRankingDestination, Layout: DiscoverRankingListLayout },
+
+    {path: '/review/site', element: SiteReview, Layout: ReviewLayout },
     
 ]
 
