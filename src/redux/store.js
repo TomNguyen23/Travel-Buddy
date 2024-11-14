@@ -4,19 +4,21 @@ import { persistReducer, persistStore } from 'redux-persist';
 
 import authReducer from "@/redux/reducer/auth.reducer";
 import discoverReducer from "@/redux/reducer/discover.reducer";
+import siteDetailReducer from "@/redux/reducer/site-detail.reducer";
 import { apiSlice } from "@/api/apiSlice";
 
 
 const persistConfig = {
     key: 'root',
     storage: storageSession,  // muốn lưu vào local storage thì thay storageSession thành storage
-    whitelist: ['auth'] // muốn chỉ lưu thg nào thì bỏ vào whitelist
+    whitelist: ['auth', 'siteDetail'] // muốn chỉ lưu thg nào thì bỏ vào whitelist
 };
 
 const rootReducer = combineReducers({
     [apiSlice.reducerPath]: apiSlice.reducer,
     auth: authReducer,
     discover: discoverReducer,
+    siteDetail: siteDetailReducer,
 }); 
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

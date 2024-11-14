@@ -12,7 +12,7 @@ import * as Yup from 'yup';
 
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { clearRegister, register } from '@/redux/reducer/auth.reducer';
+import { register } from '@/redux/reducer/auth.reducer';
 
 const RegisterPage = () => {
     const { toast } = useToast();
@@ -45,7 +45,6 @@ const RegisterPage = () => {
                 }
                 dispatch(register(otherValues));
                 navigateTo('/register/username');
-                dispatch(clearRegister());
             } catch (error) {
                 console.log(error);
             }

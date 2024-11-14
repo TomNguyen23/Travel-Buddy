@@ -5,6 +5,7 @@ import TeamJourneyDetailLayout from "@/layouts/team-journey/team-journey-detail-
 import DiscoverCategoriesLayout from "@/layouts/discover/discover-categoties"
 import DiscoverRankingListLayout from "@/layouts/discover/discover-ranking-list"
 import ReviewLayout from "@/layouts/review/review-layout"
+import SiteDetailsLayout from "@/layouts/site-detail/site-detail"
 
 import LoginPage from "@/pages/auth/login"
 import RegisterPage from "@/pages/auth/register"
@@ -23,7 +24,11 @@ import NewPassword from "@/pages/auth/new-password"
 import DiscoverCategories from "@/pages/discover/discover-categories-page"
 import DiscoverRankingHotel from "@/pages/discover/discover-ranking-hotel"
 import DiscoverRankingDestination from "@/pages/discover/discover-ranking-destination"
-import SiteReview from "@/pages/review/site-review"
+import AttractionReview from "@/pages/review/attraction-review"
+import DiscoverRankingCuisine from "@/pages/discover/discover-ranking-cuisine"
+import DiscoverRankingNature from "@/pages/discover/discover-ranking-nature"
+import DiscoverRankingEntertainment from "@/pages/discover/discover-ranking-entetainment"
+import HotelDetail from "@/pages/site-detail/hotel-detail"
 
 const publicRoutes = [
     {path: '/', element: UserProfile},
@@ -38,8 +43,12 @@ const publicRoutes = [
     {path: '/discover', element: DiscoverCategories, Layout: DiscoverCategoriesLayout },
     {path: '/discover/hotel&resort', element: DiscoverRankingHotel, Layout: DiscoverRankingListLayout },
     {path: '/discover/destination', element: DiscoverRankingDestination, Layout: DiscoverRankingListLayout },
+    {path: '/discover/cuisine', element: DiscoverRankingCuisine, Layout: DiscoverRankingListLayout },
+    {path: '/discover/nature', element: DiscoverRankingNature, Layout: DiscoverRankingListLayout },
+    {path: '/discover/entertainment', element: DiscoverRankingEntertainment, Layout: DiscoverRankingListLayout },
 
-    {path: '/review/site', element: SiteReview, Layout: ReviewLayout },
+    {path: '/review/attraction', element: AttractionReview, Layout: ReviewLayout },
+    {path: '/details/hotel', element: HotelDetail, Layout: SiteDetailsLayout },
     
 ]
 

@@ -65,6 +65,9 @@ const MainHeader = () => {
                             <DropdownMenuLabel>Admin</DropdownMenuLabel>
                             
                             <DropdownMenuSeparator />
+                            <DropdownMenuItem>
+                                <Link to="/your-profile">Trang cá nhân</Link>
+                            </DropdownMenuItem>
                             <DropdownMenuItem onClick={logoutHandler}>Đăng xuất</DropdownMenuItem>
                         </DropdownMenuContent>
                     </DropdownMenu>

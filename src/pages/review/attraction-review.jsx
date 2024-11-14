@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { useToast } from '@/hooks/use-toast';
 import { ToastAction } from '@/components/ui/toast';
 
-const SiteReview = () => {
+const AttractionReview = () => {
     const { toast } = useToast();
     const [rating, setRating] = useState(0);
     const [month, setMonth] = useState('');
@@ -106,4 +106,4 @@ const SiteReview = () => {
      );
 }
  
-export default SiteReview;
+export default AttractionReview;

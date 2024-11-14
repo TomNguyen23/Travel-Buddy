@@ -79,7 +79,7 @@ const AddNewJourneyItem = () => {
                 <form className="py-4" onSubmit={handleSubmit}>
                     <label className="form-control w-full max-w-md mb-4">
                         <div className="label">
-                            <span className="label-text">Tên địa điểm</span>
+                            <span className="label-text">Tên kế hoạch chuyến đi</span>
                         </div>
                         <input type="text"
                             className="input input-bordered w-full max-w-md rounded-sm" 
