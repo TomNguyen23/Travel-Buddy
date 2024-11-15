@@ -2,14 +2,18 @@ import StarRatingQuantityItem from "@/components/items/review/star-rating-quanti
 import {
     Card,
     CardContent,
+    CardFooter,
     CardHeader,
     CardTitle,
-} from "@/components/ui/card"
+} from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
 import ReviewFromEachUserCard from "./review-from-each-user_card";
+
+import ReactPaginate from 'react-paginate';
 
 const ReviewsFromUsersCard = () => {
     return ( 
-        <Card>
+        <Card className='mb-5'>
             <CardHeader>
                 <CardTitle>Đánh giá</CardTitle>
             </CardHeader>
@@ -36,8 +40,30 @@ const ReviewsFromUsersCard = () => {
 
                 <article className='col-span-2'>
                     <ReviewFromEachUserCard />
+                    <Separator className='my-8' />
+                    <ReviewFromEachUserCard />
+                    
                 </article>
             </CardContent>
+
+            <CardFooter>
+                <div className="w-full my-4 px-4 flex justify-center items-center">
+                    <ReactPaginate
+                        breakLabel="..."
+                        nextLabel=">>"
+                        // onPageChange={handlePageClick}
+                        pageRangeDisplayed={5}
+                        // pageCount={totalPages}
+                        previousLabel="<<"
+
+                        pageClassName="join-item btn"
+                        previousClassName="join-item btn"
+                        nextClassName="join-item btn"
+                        containerClassName="join"
+                        activeClassName="btn-active"
+                    />
+                </div>
+            </CardFooter>
         </Card>
      );
 }

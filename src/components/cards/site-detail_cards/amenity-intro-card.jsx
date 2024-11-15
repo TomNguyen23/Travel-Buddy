@@ -35,7 +35,6 @@ const AmenityIntoCard = () => {
     useEffect(() => {
         if (data) {
             dispatch(getAmenityDetail(data))
-            console.log(data.groupedServices)
         }
     }, [data, dispatch])
 
@@ -107,17 +106,15 @@ const AmenityIntoCard = () => {
                             className="text-gray-600 dark:text-gray-400"
                             ref={ref}
                         >
-                            Khách sạn xanh đầu tiên trong Tập đoàn Little Hoian theo đuổi một cuộc sống xanh,
-                            cam kết mạnh mẽ giảm thiểu tác động đến môi trường và tiêu thụ năng lượng đồng thời
-                            cung cấp tính bền vững trong tất cả các dịch vụ và sản phẩm của mình cung cấp cho những
-                            du khách có ý thức về môi trường. Little Gem với 48 phòng & suites được thiết kế theo 
-                            xu hướng thân thiện với môi trường cung cấp các tiện nghi hiện đại mang đậm nét văn hóa
-                            phương Đông. Cây xanh trải rộng khắp các khu vực trong nhà và ngoài trời, tạo ra một 
-                            cảm giác thanh bình gần gủi với thiên nhiên theo lối sống truyền thống của người Việt. 
-                            Nhà hàng trong khuôn viên khách sạn, Herb, là một điểm ăn uống Healthy nổi tiếng tại phố Cổ. 
-                            Du khách có thể tận hưởng cảm giác thư thái trong khu vườn, trải nghiệm ẩm thực nhiệt đới với 
-                            nhiều thực đơn truyền thống bao gồm các món ăn Việt Nam phổ biến, đồ uống bổ dưỡng lạ miệng 
-                            và các lựa chọn ăn chay lý tưởng.
+                            Mang nét văn hóa tinh túy đậm đà Á Đông, Nhật Bản là nơi vẻ đẹp thiên nhiên, 
+                            văn hóa và ẩm thực luôn được ca tụng. Với tinh thần lan tỏa tinh hoa văn hóa 
+                            Nhật Bản trên đất Việt, Da Nang Mikazuki được lấy cảm hứng là nơi đất trời hội tụ 
+                            và nhịp sống bắt đầu. Đến với chúng tôi để sẵn sàng cho một hành trình khám phá 
+                            đầy thú vị với những giá trị chuẩn Nhật chưa từng có tại một tổ hợp nghỉ dưỡng 
+                            đạt chuẩn 5 sao ngay tại Đà Nẵng. Được tạo hóa ưu đãi với bờ biển trong xanh quyến rũ, 
+                            Vịnh Đà Nẵng là nơi tọa lạc của Da Nang Mikazuki Japanese Resorts & Spa, một tổ hợp nghỉ dưỡng 
+                            được quản lý bởi Công ty TNHH ODK Mikazuki Việt Nam. Trên diện tích 13 hecta, Da Nang Mikazuki 
+                            mang đến cho bạn nhiều loại hình dịch vụ hấp dẫn, mang đậm bản sắc văn hóa Nhật Bản. 
                         </p>
 
                         {showReadMore && (

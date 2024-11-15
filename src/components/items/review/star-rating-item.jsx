@@ -6,8 +6,14 @@ const StarRatingItem = (props) => {
         props.getRating(e.target.value);
     }
 
+    const sizeClass = {
+        sm: 'rating-sm',
+        md: 'rating-md',
+        lg: 'rating-lg'
+    }[props.size] || 'rating-md'; // default to medium if size is not provided
+
     return ( 
-        <div className={`rating rating-${props.size}`}>
+        <div className={cn('rating', sizeClass)}>
             <input type="radio" name="rating-1" className="rating-hidden" defaultChecked />
             {Array.from({length: 5}, (_, i) => (
                 <input key={i} 

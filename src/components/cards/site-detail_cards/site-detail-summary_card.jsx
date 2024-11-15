@@ -81,7 +81,7 @@ const SiteDetailSummaryCard = () => {
             {/* modal ảnh */}
             <dialog id="all-images" className="modal">
                 <div className="modal-box w-11/12 max-w-5xl rounded-lg max-h-full overflow-auto">
-                    <h3 className="font-bold text-lg">Tất cả ảnh về Little Gem - An Eco-Friendly Boutique Hotel & Spa</h3>
+                    <h3 className="font-bold text-lg">Tất cả ảnh về {siteDetail.siteName}</h3>
                     
                     <div className="grid grid-cols-4 grid-rows-2 gap-2 mt-4">
                         {data.map((item, index) => (

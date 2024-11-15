@@ -1,3 +1,4 @@
+import MainFooter from "@/components/cards/footer/main-footer";
 import SiteDetailSummaryCard from "@/components/cards/site-detail_cards/site-detail-summary_card";
 import MainHeader from "@/components/headers/main-header";
 import { Toaster } from "@/components/ui/toaster";
@@ -29,6 +30,8 @@ const SiteDetailsLayout = ({ children }) => {
                     </span>
                 </Link>
             </div>
+
+            <MainFooter />
         </div>
      );
 }
