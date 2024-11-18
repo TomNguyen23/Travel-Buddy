@@ -24,7 +24,7 @@ import NewPassword from "@/pages/auth/new-password"
 import DiscoverCategories from "@/pages/discover/discover-categories-page"
 import DiscoverRankingHotel from "@/pages/discover/discover-ranking-hotel"
 import DiscoverRankingDestination from "@/pages/discover/discover-ranking-destination"
-import AttractionReview from "@/pages/review/attraction-review"
+import SiteReview from "@/pages/review/site-review"
 import DiscoverRankingCuisine from "@/pages/discover/discover-ranking-cuisine"
 import DiscoverRankingNature from "@/pages/discover/discover-ranking-nature"
 import DiscoverRankingEntertainment from "@/pages/discover/discover-ranking-entetainment"
@@ -47,7 +47,6 @@ const publicRoutes = [
     {path: '/discover/nature', element: DiscoverRankingNature, Layout: DiscoverRankingListLayout },
     {path: '/discover/entertainment', element: DiscoverRankingEntertainment, Layout: DiscoverRankingListLayout },
 
-    {path: '/review/attraction', element: AttractionReview, Layout: ReviewLayout },
     {path: '/details/hotel', element: HotelDetail, Layout: SiteDetailsLayout },
     
 ]
@@ -59,6 +58,8 @@ const privateRoutes = [
     {path: '/my-notifications', element: MyNotifications, Layout: UserSettingProfileLayout },
     {path: '/my-journeys', element: TeamJourneys, Layout: TeamJourneySummaryLayout },
     {path: '/team-journey-schedule', element: TeamJourneySchedule, Layout: TeamJourneyDetailLayout },
+
+    {path: '/review/site', element: SiteReview, Layout: ReviewLayout },
 ]
 
 export { publicRoutes, privateRoutes }

@@ -26,11 +26,11 @@ const LoginPage = () => {
 
     const formik = useFormik({
         initialValues: {
-            emailOrUsername: '',
+            email: '',
             password: ''
         },
         validationSchema: Yup.object({
-            emailOrUsername: Yup.string().required('Băt buộc nhập'),
+            email: Yup.string().required('Băt buộc nhập'),
             password: Yup.string().required('Bắt buộc nhập')
         }),
         onSubmit: async (values) => {
@@ -66,14 +66,14 @@ const LoginPage = () => {
                     <input type="text" 
                         placeholder="Email..." 
                         className='h-12 w-full px-3 dark:bg-[#1D232A] text-slate-600 dark:text-white border-slate-700 border rounded-md border-opacity-50 outline-none focus:border-blue-500 placeholder-gray-300 placeholder-opacity-0 transition duration-200' 
-                        id='emailOrUsername'
-                        name='emailOrUsername'
+                        id='email'
+                        name='email'
                         onChange={formik.handleChange}
-                        value={formik.values.emailOrUsername}
+                        value={formik.values.email}
                     />
                     <span className='text-md bg-white rounded-md dark:bg-[#1D232A] text-slate-500 text-opacity-80 absolute left-2 bottom-0 px-1 transition duration-200 input-text'>Email</span>
                 </label>
-                {formik.errors.emailOrUsername && <div className='text-red-500 text-sm'>{formik.errors.emailOrUsername}</div>}
+                {formik.errors.email && <div className='text-red-500 text-sm'>{formik.errors.email}</div>}
 
                 <label className='relative cursor-pointer'>
                     <input type="password" 

@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
     Card,
     CardContent,
@@ -23,7 +23,14 @@ const AmenityIntoCard = () => {
     const [showReadMore, setShowReadMore] = useState(false);
     const ref = useRef(null);
     const dispatch = useDispatch();
-    const { data } = useGetAmenityDetailQuery(1)
+
+    const sideID = useSelector((state) => state.siteDetail.siteID);
+    const siteDetail = useSelector((state) => state.siteDetail.amenityDetail);
+    const { data } = useGetAmenityDetailQuery(sideID);
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [sideID]);
 
     useEffect(() => {
         if (ref.current.clientHeight < ref.current.scrollHeight) {
@@ -48,11 +55,11 @@ const AmenityIntoCard = () => {
                     <div className="flex justify-between">
                         <div>
                             <div className="flex items-center text-5xl">
-                                <span className='font-semibold'>4.6</span>
+                                <span className='font-semibold'>{siteDetail.averageRating.toFixed(1)}</span>
                                 <span className='material-icons text-5xl text-yellow-400 pr-2'>star</span>
                             </div>
     
-                            <div className='pt-1'>200 đánh giá</div>
+                            <div className='pt-1'>{siteDetail.totalRating} đánh giá</div>
                         </div>
 
                         <div className="grid grid-cols-2 gap-x-10 gap-y-3">
@@ -132,22 +139,29 @@ const AmenityIntoCard = () => {
                         <h1 className='text-lg font-semibold mb-3'>Địa chỉ & thông tin liên hệ</h1>
                         <div className="bg-[url('https://cdn6.agoda.net/images/MAPS-1214/default/property-map-entry-1.svg?s=375x')] bg-cover bg-center rounded-md mb-4 h-52"></div>
 
-                        <div className='flex items-start'>
-                            <span className='material-icons-outlined text-2xl text-gray-400'>location_on</span>
-                            <span className='text-md font-light pl-2'>{data?.resolvedAddress}</span>
-                        </div>
+                        {data?.resolvedAddress && 
+                            <div className='flex items-start'>
+                                <span className='material-icons-outlined text-2xl text-gray-400'>location_on</span>
+                                <span className='text-md font-light pl-2'>{data?.resolvedAddress}</span>
+                            </div>
+                        }
 
-                        <div className='flex items-center'>
-                            <span className='material-icons-outlined text-2xl text-gray-400'>language</span>
-                            <a href={data?.website} target='blank' className='text-md text-blue-600 font-light pl-2'>{data?.website}</a>
-                        </div>
+                        {data?.website && 
+                            <div className='flex items-center'>
+                                <span className='material-icons-outlined text-2xl text-gray-400'>language</span>
+                                <a href={data?.website} target='blank' className='text-md text-blue-600 font-light pl-2'>{data?.website}</a>
+                            </div>
+                        }
 
-                        <div className='flex items-center'>
-                            <span className='material-icons-outlined text-2xl text-gray-400'>call</span>
-                            {data?.phoneNumbers.map((phone, index) => (
-                                <span key={index} className='text-md font-light pl-2'>{phone}</span>
-                            ))}
-                        </div>
+                        {data?.phoneNumbers && data?.phoneNumbers.length > 0 &&
+                            <div className='flex items-center'>
+                                <span className='material-icons-outlined text-2xl text-gray-400'>call</span>
+                                {data?.phoneNumbers.map((phone, index) => (
+                                    <span key={index} className='text-md font-light pl-2'>{phone}</span>
+                                ))}
+                            </div>
+                        }
+
                     </div>
                 </article>
 

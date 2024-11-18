@@ -1,5 +1,6 @@
 import DiscoverCategoriesCarousel from "@/components/cards/discover_cards/discover-categories-carousel_card";
 import DiscoverRankingPanel from "@/components/cards/discover_cards/discover-ranking-panel_card";
+import MainFooter from "@/components/cards/footer/main-footer";
 import MainHeader from "@/components/headers/main-header";
 import PropTypes from 'prop-types';
 
@@ -27,6 +28,8 @@ const DiscoverRankingListLayout = ({ children }) => {
                     <DiscoverCategoriesCarousel />
                 </div>
             </div>
+
+            <MainFooter />
         </div>
      );
 }

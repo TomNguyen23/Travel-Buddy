@@ -2,42 +2,26 @@ import LikeItem from "@/components/items/review/like-item";
 import ReportItem from "@/components/items/review/report-item";
 import StarRatingLabelItem from "@/components/items/review/star-rating-label-item";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import DefaultAvatar from "@/assets/images/default-avt.png";
 
-const ReviewFromEachUserCard = () => {
-    const images = [
-        {
-            imgelink:
-            "https://images.unsplash.com/photo-1499696010180-025ef6e1a8f9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
-        },
-        {
-            imgelink:
-            "https://images.unsplash.com/photo-1432462770865-65b70566d673?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80",
-        },
-        {
-            imgelink:
-            "https://images.unsplash.com/photo-1493246507139-91e8fad9978e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80",
-        },
-        {
-            imgelink:
-            "https://images.unsplash.com/photo-1518623489648-a173ef7824f3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2762&q=80",
-        },
-        {
-            imgelink:
-            "https://images.unsplash.com/photo-1682407186023-12c70a4a35e0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2832&q=80",
-        },
-        
-    ];
+import PropTypes from 'prop-types';
+import format from 'date-fns/format'
+
+const ReviewFromEachUserCard = (props) => {
     return ( 
         <section>
             <div className="flex justify-between items-center">
                 <div className="flex items-center">
                     <Avatar>
-                        <AvatarImage src="https://github.com/shadcn.png" />
+                        {props.review.user.avatar ? 
+                            <AvatarImage src={props.review.user.avatar} /> :
+                            <AvatarImage src={DefaultAvatar} />
+                        }
                         <AvatarFallback>CN</AvatarFallback>
                     </Avatar>
                     <div className="pl-2">
-                        <h3 className="text-lg font-medium">LupyzZz</h3>
-                        <p className="text-sm text-gray-500">Đã đánh giá vào 12/11/2024</p>
+                        <h3 className="text-lg font-medium">{props.review.user.nickname}</h3>
+                        <p className="text-sm text-gray-500">Đã đánh giá vào {format(props.review.date, "dd/MM/yyyy")}</p>
                     </div>
                 </div>
 
@@ -48,24 +32,40 @@ const ReviewFromEachUserCard = () => {
             </div>
 
             <div className="my-3">
-                <StarRatingLabelItem star='4' size="md" />
+                <StarRatingLabelItem star={props.review.generalRating} size="md" />
 
                 <p className="text-gray-500">
-                    It can be said that this is our wonderful staycation trip. 
-                    The check-in was very fast, our room was upgraded to executive class 
-                    on the 27th floor. The room is very spacious, the view is far and beautiful. 
-                    Rooms are equipped with modern furniture, clean.
+                    {props.review.comment}
                 </p>
 
                 <span className="flex items-center">
                     <span className="text-sm font-medium pr-1">Đã ở đây: </span>
-                    <span className="text-sm text-gray-500">11/2024</span>
+                    <span className="text-sm text-gray-500">{props.review.arrivalDate}</span>
                 </span>
 
                 <div className="grid grid-cols-3 gap-1 mt-3">
-                    {images.map((image, index) => (
-                        <img key={index} src={image.imgelink} alt="" className="w-full h-28 object-cover rounded-md" />
-                    ))}
+                {props.review.medias.map((media, index) => {
+                    if (media.mediaType === 'IMAGE') {
+                        return <img key={index} 
+                                    src={media.url} 
+                                    className="w-full h-36 object-cover rounded-md" 
+                                    alt="Review Media" 
+                                />;
+                    } else if (media.mediaType === 'VIDEO') {
+                        return <video key={index} 
+                                    className="w-full h-36 object-cover rounded-md" 
+                                    controls 
+                                    autoPlay 
+                                    loop
+                                    muted
+                                >
+                                <source src={media.url} type="video/mp4"/>
+                                Your browser does not support the video tag.
+                            </video>;
+                    } else {
+                        return null;
+                    }
+                })}
                 
                 </div>
 
@@ -73,5 +73,21 @@ const ReviewFromEachUserCard = () => {
         </section>
      );
 }
- 
+ReviewFromEachUserCard.propTypes = {
+    review: PropTypes.shape({
+        date: PropTypes.string.isRequired,
+        arrivalDate: PropTypes.string.isRequired,
+        user: PropTypes.shape({
+            avatar: PropTypes.string,
+            nickname: PropTypes.string.isRequired,
+        }).isRequired,
+        generalRating: PropTypes.number.isRequired,
+        comment: PropTypes.string.isRequired,
+        medias: PropTypes.arrayOf(PropTypes.shape({
+            mediaType: PropTypes.string.isRequired,
+            url: PropTypes.string.isRequired,
+        })).isRequired,
+    }).isRequired,
+};
+
 export default ReviewFromEachUserCard;

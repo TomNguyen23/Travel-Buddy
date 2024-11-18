@@ -1,27 +1,42 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
+// import { Button } from "@/components/ui/button";
 
 const UploadImagesItem = (props) => {
     const [selectedImages, setSelectedImages] = useState([]);
     const [imagesURL, setImagesURL] = useState([]);
+    const [selectedVideos, setSelectedVideos] = useState([]);
+    const [videosURL, setVideosURL] = useState([]);
 
     const onSelectFile = (event) => {
         const selectedFiles = event.target.files;
         const selectedFilesArray = Array.from(selectedFiles);
 
-        const imagesArray = selectedFilesArray.map((file) => {
-            return URL.createObjectURL(file);
+        const imagesArray = [];
+        const videosArray = [];
+
+        selectedFilesArray.forEach((file) => {
+            if (file.type.startsWith("image/")) {
+                imagesArray.push(URL.createObjectURL(file));
+            } else if (file.type.startsWith("video/")) {
+                videosArray.push(URL.createObjectURL(file));
+            }
         });
 
         setImagesURL((previousImagesURL) => previousImagesURL.concat(imagesArray));
+        setVideosURL((previousVideosURL) => previousVideosURL.concat(videosArray));
 
         setSelectedImages((previousImages) => {
-            const newImages = previousImages.concat(selectedFilesArray);
+            const newImages = previousImages.concat(selectedFilesArray.filter(file => file.type.startsWith("image/")));
             props.getImages(newImages); // Pass the selected images to the parent
             return newImages;
         });
 
-
+        setSelectedVideos((previousVideos) => {
+            const newVideos = previousVideos.concat(selectedFilesArray.filter(file => file.type.startsWith("video/")));
+            props.getVideos(newVideos); // Pass the selected videos to the parent
+            return newVideos;
+        });
 
         // FOR BUG IN CHROME
         event.target.value = "";
@@ -50,6 +65,25 @@ const UploadImagesItem = (props) => {
         URL.revokeObjectURL(imageToDelete);
     }
 
+    function handleDeleteVideo(videoToDelete) {
+        const indexToDelete = videosURL.indexOf(videoToDelete);
+
+        setSelectedVideos((previousVideos) => {
+            const newVideos = [...previousVideos];
+            newVideos.splice(indexToDelete, 1);
+            props.getVideos(newVideos);
+            return newVideos;
+        });
+
+        setVideosURL((previousVideosURL) => {
+            const newVideosURL = [...previousVideosURL];
+            newVideosURL.splice(indexToDelete, 1);
+            return newVideosURL;
+        });
+
+        URL.revokeObjectURL(videoToDelete);
+    }
+
     return ( 
         <section>
             <div className="flex items-center">
@@ -60,18 +94,17 @@ const UploadImagesItem = (props) => {
                         name="images"
                         onChange={onSelectFile}
                         multiple
-                        accept="image/png, image/jpeg, image/webp"
+                        accept="image/png, image/jpeg, image/webp, video/mp4,"
                         hidden
                     />
                 </label>
 
-                {selectedImages.length > 0 &&
-                    (selectedImages.length > 5 ? (
+                {(selectedImages.length + selectedVideos.length) > 5 ? (
                         <p className="font-light text-red-700">Bạn đã đăng quá số lượng ảnh giới hạn</p>) 
                         : (
                             null
-                        // <Button onClick={() => console.log(selectedImages)} className='bg-main hover:bg-main-hover'>Upload</Button>
-                    ))
+                        // <Button onClick={() => console.log("images: ",selectedImages, "videos: ", selectedVideos)} className='bg-main hover:bg-main-hover'>Upload</Button>
+                    )
                 }
             </div>
 
@@ -80,8 +113,8 @@ const UploadImagesItem = (props) => {
                     imagesURL.map((image) => {
                         return (
                             <div key={image} className="w-full relative">
-                                <img src={image} className="rounded-md" alt="upload" />
-                                <span className="material-icons-outlined cursor-pointer absolute top-0 right-0 p-2 text-white"
+                                <img src={image} className="rounded-md w-full h-32 object-cover" alt="upload" />
+                                <span className="material-icons-outlined cursor-pointer absolute top-0 right-0 p-2 text-gray-500"
                                     onClick={() => handleDeleteImage(image)}
                                 >
                                     cancel
@@ -90,6 +123,16 @@ const UploadImagesItem = (props) => {
                         );
                     })
                 }
+                {videosURL.map((videoURL, index) => (
+                    <div key={index} className="relative m-2">
+                        <video src={videoURL} controls className="w-full h-32 object-cover rounded-md" />
+                        <span className="material-icons-outlined cursor-pointer absolute top-0 right-0 p-2 text-gray-500"
+                                    onClick={() => handleDeleteVideo(videoURL)}
+                                >
+                                    cancel
+                                </span>
+                    </div>
+                ))}
             </div>
 
             
@@ -101,6 +144,7 @@ const UploadImagesItem = (props) => {
 
 UploadImagesItem.propTypes = {
     getImages: PropTypes.func.isRequired,
+    getVideos: PropTypes.func.isRequired
 };
  
 export default UploadImagesItem;

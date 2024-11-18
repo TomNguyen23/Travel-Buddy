@@ -1,6 +1,7 @@
 import MainHeader from "@/components/headers/main-header";
 import DiscoverImg from "@/assets/images/discover-categories.jpeg"
 import PropTypes from 'prop-types';
+import MainFooter from "@/components/cards/footer/main-footer";
 
 const DiscoverCategoriesLayout = ({ children }) => {
     return ( 
@@ -19,6 +20,8 @@ const DiscoverCategoriesLayout = ({ children }) => {
                     {children}
                 </div>
             </div>
+
+            <MainFooter />
         </div>
      );
 }

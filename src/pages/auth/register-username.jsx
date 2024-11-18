@@ -25,7 +25,7 @@ const RegisterUsername = () => {
             username: Yup.string().required('Bắt buộc nhập'),
         }),
         onSubmit: async (values) => {
-            const userWithUsername = { ...user, fullName: values.username };
+            const userWithUsername = { ...user, fullName: values.username, nickname: values.username };
             if (!user) {
                 toast({
                     variant: "destructive",

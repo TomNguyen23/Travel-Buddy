@@ -31,20 +31,20 @@ const SiteDetailSummaryCard = () => {
         <div>
             {/* tiêu đề về địa điểm */}
             <div className="mb-5">
-                <h1 className="text-3xl font-bold">{siteDetail.siteName}</h1>
+                <h1 className="text-3xl font-bold">{siteDetail?.siteName}</h1>
                 <div className='flex mt-2'>
-                    <span className='text-gray-400'>4.6</span>
+                    <span className='text-gray-400'>{siteDetail.averageRating.toFixed(1)}</span>
                     <span className='material-icons text-yellow-400 pr-2'>star</span>
-                    <span className='text-gray-400'>200 đánh giá</span>
+                    <span className='text-gray-400'>{siteDetail.totalRating} đánh giá</span>
 
                     <div className="divider divider-horizontal mx-0.5"></div>
 
-                    <div className='text-gray-400'>{siteDetail.siteType.name}</div>
+                    <div className='text-gray-400'>{siteDetail.siteType?.name}</div>
                 </div>
 
                 <div className='flex items-center'>
                     <span className='material-icons-outlined text-2xl text-gray-400'>location_on</span>
-                    <span className='text-md text-gray-400 pl-2'>{siteDetail.resolvedAddress}</span>
+                    <span className='text-md text-gray-400 pl-2'>{siteDetail?.resolvedAddress}</span>
                 </div>
             </div>
             {/* ---------------------------- */}

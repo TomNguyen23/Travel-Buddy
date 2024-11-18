@@ -1,4 +1,7 @@
+import { useSelector } from "react-redux";
+
 const ReviewSummaryCard = () => {
+    const siteDetail = useSelector((state) => state.siteDetail.amenityDetail);
     return ( 
         <div>
             <h1 className="text-4xl font-bold mb-8">Cảm nhận của bạn về địa điểm này</h1>
@@ -9,10 +12,10 @@ const ReviewSummaryCard = () => {
                 </figure>
 
                 <div className="card-body">
-                    <h2 className="card-title">Sunworld Bà nà Hill</h2>
+                    <h2 className="card-title">{siteDetail?.siteName}</h2>
                     <div className='flex items-center'>
                         <span className='material-icons-outlined text-2xl text-gray-400'>location_on</span>
-                        <span className='text-md font-light pl-1'>Hoà Ninh, Hòa Vang, Đà Nẵng</span>
+                        <span className='text-md font-light pl-1'>{siteDetail?.resolvedAddress}</span>
                     </div>
                 </div>
             </div>

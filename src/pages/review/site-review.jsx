@@ -6,22 +6,32 @@ import { Button } from "@/components/ui/button";
 import { useToast } from '@/hooks/use-toast';
 import { ToastAction } from '@/components/ui/toast';
 
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { usePostReviewMutation } from "@/api/featureApi/reviewApiSlice";
+
 const AttractionReview = () => {
     const { toast } = useToast();
+    const navigateTo = useNavigate();
     const [rating, setRating] = useState(0);
-    const [month, setMonth] = useState('');
-    const [review, setReview] = useState('');
+    const [date, setDate] = useState('');
+    const [writeReview, setWriteReview] = useState('');
     const [images, setImages] = useState([]);
+    const [videos, setVideos] = useState([]);
+    const siteID = useSelector((state) => state.siteDetail.siteID);
 
-    const getCurrentMonth = () => {
+    const [postReview, { isLoading }] = usePostReviewMutation();
+
+    const getCurrentDate = () => {
         const now = new Date();
         const year = now.getFullYear();
         const month = String(now.getMonth() + 1).padStart(2, '0');
-        return `${year}-${month}`;
+        const day = String(now.getDate()).padStart(2, '0');
+        return `${year}-${month}-${day}`;
     };
-    const maxMonth = getCurrentMonth();
+    const maxDate = getCurrentDate();
 
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         if (rating === 0) {
             toast({
                 variant: "destructive",
@@ -32,7 +42,7 @@ const AttractionReview = () => {
             return;
         }
 
-        if (review.length === 0) {
+        if (writeReview.length === 0) {
             toast({
                 variant: "destructive",
                 title: "Uh oh! Có gì đó sai sai.",
@@ -42,7 +52,7 @@ const AttractionReview = () => {
             return;
         }
 
-        if (images.length > 5) {
+        if ((images.length + videos.length) > 5) {
             toast({
                 variant: "destructive",
                 title: "Uh oh! Có gì đó sai sai.",
@@ -52,14 +62,43 @@ const AttractionReview = () => {
             return;
         }
 
-        const data = {
-            rating,
-            month,
-            review,
-            images
+        const review = {
+            siteId: siteID,
+            generalRating: rating,
+            comment: writeReview,
+            arrivalDate: date,
         };
 
-        console.log(data);
+        const formData = new FormData();
+        formData.append('review', JSON.stringify(review));
+        
+        images.forEach((image) => {
+            formData.append('images', image);
+        });
+
+        videos.forEach((video) => {
+            formData.append('videos', video);
+        });
+
+        console.log(formData);
+
+        await postReview(formData).unwrap()
+        .then(() => {
+            toast({
+                title: "Cảm ơn bạn đã đánh giá",
+                description: "Đánh giá của bạn đã được gửi thành công",
+            });
+            navigateTo('/details/hotel');
+        })
+        .catch((error) => {
+            toast({
+                variant: "destructive",
+                title: "Uh oh! Có gì đó sai sai.",
+                description: error.data.message,
+                action: <ToastAction altText="Try again">Thử lại</ToastAction>,
+            })
+        })
+
     }
 
 
@@ -77,18 +116,18 @@ const AttractionReview = () => {
             <div className="mb-10">
                 <h1 className="text-xl font-semibold pb-3">Bạn đến đây vào khoảng thời gian nào?</h1>
                 <input 
-                    type="month" 
+                    type="date" 
                     className="border px-2 py-3 w-1/4 rounded-md dark:bg-[#1D232A]" 
-                    value={month}
-                    onChange={(e) => setMonth(e.target.value)}
-                    max={maxMonth} />
+                    value={date}
+                    onChange={(e) => setDate(e.target.value)}
+                    max={maxDate} />
             </div>
 
             <div className="mb-10">
                 <h1 className="text-xl font-semibold pb-3">Viết đánh giá</h1>
                 <textarea  
-                    value={review}
-                    onChange={(e) => setReview(e.target.value)}
+                    value={writeReview}
+                    onChange={(e) => setWriteReview(e.target.value)}
                     className="textarea textarea-bordered w-full h-28" placeholder="Đánh giá của bạn...">
                 </textarea>
             </div>
@@ -96,12 +135,23 @@ const AttractionReview = () => {
             <div>
                 <h1 className="text-xl font-semibold pb-1">Thêm ảnh vào đánh giá</h1>
                 <p className="text-gray-500 mb-3">Bạn chỉ được tải lên tối đa 5 ảnh</p>
-                <UploadImagesItem getImages={(images) => setImages(images)} />
+                <UploadImagesItem 
+                    getImages={(images) => setImages(images)} 
+                    getVideos={(videos) => setVideos(videos)}
+                />
             </div>
 
             <Separator />
 
-            <Button onClick={handleSubmit} className="bg-main hover:bg-main-hover my-4 float-end">Gửi đánh giá</Button>
+            {isLoading 
+                ? <Button className="bg-main hover:bg-main-hover my-4 float-end" disabled>
+                    Gửi đánh giá
+                    <span className="loading loading-dots loading-md ml-2"></span>
+                </Button>
+                : <Button onClick={handleSubmit} className="bg-main hover:bg-main-hover my-4 float-end">Gửi đánh giá</Button>
+            }
+
+            
         </div>
      );
 }

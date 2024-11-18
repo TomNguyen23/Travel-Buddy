@@ -1,11 +1,39 @@
+import { useRemoveAccountMutation } from "@/api/featureApi/userApiSlice"
 import {
     Card,
     CardContent,
     CardHeader,
     CardTitle,
   } from "@/components/ui/card"
+import { useToast } from "@/hooks/use-toast";
+import { ToastAction } from "@/components/ui/toast";
+  
+import { logout } from "@/redux/reducer/auth.reducer";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const RemoveAccountCard = () => {
+    const { toast } = useToast();
+    const dispatch = useDispatch();
+    const navigateTo = useNavigate();
+    const [removeAccount] = useRemoveAccountMutation();
+
+    const handleRemoveAccount = async () => {
+        await removeAccount()
+            .unwrap()
+            .then(() => {
+                dispatch(logout());
+                navigateTo('/login');
+            })
+            .catch((error) => {
+                toast({
+                    variant: "destructive",
+                    title: "Uh oh! Có gì đó sai sai.",
+                    description: error.data.message,
+                    action: <ToastAction altText="Try again">Thử lại</ToastAction>,
+                })
+            })
+    }
     return ( 
         <Card className="w-full px-4 mt-2 dark:bg-gray-900">
             <CardHeader>
@@ -29,7 +57,7 @@ const RemoveAccountCard = () => {
                                 <form method="dialog" className="space-x-2">
                                     {/* if there is a button in form, it will close the modal */}
                                     <button className="btn">Hủy</button>
-                                    <button className="btn bg-red-500 hover:bg-red-600 text-white dark:text-black">Xóa</button>
+                                    <button onClick={handleRemoveAccount} className="btn bg-red-500 hover:bg-red-600 text-white dark:text-black">Xóa</button>
                                 </form>
                                 </div>
                             </div>

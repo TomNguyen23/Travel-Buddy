@@ -6,11 +6,16 @@ import {
     CardTitle,
   } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"  
+import { useToast } from "@/hooks/use-toast";
+import { ToastAction } from "@/components/ui/toast";
 
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import { useChangePasswordMutation } from "@/api/featureApi/userApiSlice";
 
 const ChangePasswordCard = () => {
+    const { toast } = useToast();
+    const [changePassword] = useChangePasswordMutation();
     const formik = useFormik({
         initialValues: {
             oldPassword: "",
@@ -22,14 +27,26 @@ const ChangePasswordCard = () => {
             newPassword: Yup.string().min(8, 'Mật khẩu phải có ít nhất 8 kí tự').required('Bắt buộc nhập'),
             confirmNewPassword: Yup.string().oneOf([Yup.ref('newPassword'), null], 'Mật khẩu phải khớp với nhau').required('Bắt buộc nhập'),
         }),
-        onSubmit: (values) => {
-            try {
-                // eslint-disable-next-line no-unused-vars
-                const { confirmNewPassword, ...otherValues } = values;
-                console.log(otherValues);
-            } catch (error) {
-                console.log(error);
-            }
+        onSubmit: async (values) => {
+            // eslint-disable-next-line no-unused-vars
+            const { confirmNewPassword, ...otherValues } = values;
+            
+            await changePassword(otherValues)
+                .unwrap()
+                .then(() => {
+                    toast({
+                        title: "Thành công!",
+                        description: "Mật khẩu đã được thay đổi",
+                    })
+                })
+                .catch((error) => {
+                    toast({
+                        variant: "destructive",
+                        title: "Uh oh! Có gì đó sai sai.",
+                        description: error.data.message,
+                        action: <ToastAction altText="Try again">Thử lại</ToastAction>,
+                    })
+                })
         }
     });
 

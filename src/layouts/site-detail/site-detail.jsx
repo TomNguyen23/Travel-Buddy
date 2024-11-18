@@ -21,7 +21,7 @@ const SiteDetailsLayout = ({ children }) => {
 
             <div className="fixed right-2 bottom-4">
                 <Link  
-                    to="/review/attraction"
+                    to="/review/site"
                     className="relative group flex items-center justify-center gap-2 p-4 mx-2 bg-gray-200 dark:bg-gray-700 rounded-full transition-all duration-1000 ease-out"
                 >
                     <span className="material-icons">edit</span>
