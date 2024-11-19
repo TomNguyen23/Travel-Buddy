@@ -133,8 +133,8 @@ const AttractionReview = () => {
             </div>
 
             <div>
-                <h1 className="text-xl font-semibold pb-1">Thêm ảnh vào đánh giá</h1>
-                <p className="text-gray-500 mb-3">Bạn chỉ được tải lên tối đa 5 ảnh</p>
+                <h1 className="text-xl font-semibold pb-1">Thêm ảnh/video vào đánh giá</h1>
+                <p className="text-gray-500 mb-3">Bạn chỉ được tải lên tối đa 5 ảnh & video</p>
                 <UploadImagesItem 
                     getImages={(images) => setImages(images)} 
                     getVideos={(videos) => setVideos(videos)}

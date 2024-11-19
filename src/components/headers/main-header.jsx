@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import DefaultAvatar from "@/assets/images/default-avt.png";
@@ -12,17 +12,20 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "@/redux/reducer/auth.reducer";
 import ChangeThemeItem from "../items/change-theme-item";
-import Tippy from "@tippyjs/react";
+import Tippy from "@tippyjs/react/headless";
 import { useState } from "react";
 import useDebound from "@/hooks/use-debound";
 import { useSearchSitesQuery } from "@/api/featureApi/siteApiSlice";
+import { getSideID } from "@/redux/reducer/site-detail.reducer";
 
 const MainHeader = () => {
     const token = useSelector((state) => state.auth.login.token);
     const userInfo = useSelector((state) => state.auth.login.user);
     const dispatch = useDispatch();
+    const navigateTo = useNavigate();
 
     // const[searchResult, setSearchResult] = useState([]);
+    const [showSearchResult, setShowSearchResult] = useState(false);
     const [searchValue, setSearchValue] = useState('');
     const searchValueDebounce = useDebound(searchValue, 1000);
 
@@ -32,9 +35,17 @@ const MainHeader = () => {
 
     // const { data: sites } = useSearchSitesQuery();
 
+    const handleChooseSite = (siteID) => {
+        dispatch(getSideID(siteID));
+        navigateTo("/details/hotel");
+        setSearchValue('');
+        setShowSearchResult(false);
+    }
+
     const logoutHandler = () => {
         dispatch(logout());
     }
+
     return ( 
         <header className="flex justify-between items-center px-16 py-4 bg-white/30 dark:bg-[#020817]/30 backdrop-blur-md border-b fixed top-0 left-0 right-0 z-30">
             <div className="flex items-center">
@@ -43,28 +54,25 @@ const MainHeader = () => {
             </div>
 
             <Tippy
-                interactive={true}
-                visible={sites?.data.length == 0}
+                interactive
+                visible={showSearchResult && sites?.data?.length > 0}
+                onClickOutside={() => setShowSearchResult(false)}
                 render={attrs => (
-                    <div className='w-[33.125rem]' tabIndex="-1" {...attrs}>
-                        <div className="h-fit max-h-80 overflow-auto bg-white border rounded-md">
-                            <div>
-                                {sites?.data.map((item, index) => (
-                                    <div key={index} className="flex items-center gap-3 p-3 border-b">
-                                        <div>
-                                            <h1 className="font-semibold">{item.siteName}</h1>
-                                            {/* <h1 className="font-semibold">Địa điểm</h1> */}
+                    <div className='w-[33.125rem] h-fit max-h-80 overflow-auto bg-white dark:bg-gray-800 border rounded-md' tabIndex="-1" {...attrs}>
+                        {sites?.data?.map((item, index) => (
+                            <div key={index} 
+                                onClick={() => handleChooseSite(item.siteId)}
+                                className="flex items-center gap-3 p-3 border-b cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-700">
+                                <div>
+                                    <h1 className="font-semibold">{item.siteName}</h1>
 
-                                            <div className='flex items-start'>
-                                                <span className='material-icons-outlined text-sm text-gray-400'>location_on</span>
-                                                <span className='text-sm text-gray-400 pl-1'>{item.resolvedAddress}</span>
-                                                {/* <span className='text-sm text-gray-400 pl-1'>Địa chỉ</span> */}
-                                            </div>
-                                        </div>
+                                    <div className='flex items-start'>
+                                        <span className='material-icons-outlined text-sm text-gray-400'>location_on</span>
+                                        <span className='text-sm text-gray-400 pl-1'>{item.resolvedAddress}</span>
                                     </div>
-                                ))}
+                                </div>
                             </div>
-                        </div>
+                        ))}
                     </div> 
                   )}
             >
@@ -73,6 +81,7 @@ const MainHeader = () => {
                             className="grow" 
                             value={searchValue}
                             onChange={(e) => setSearchValue(e.target.value)}
+                            onFocus={() => setShowSearchResult(true)}
                             placeholder="Tìm địa điểm và lên kế hoạch du lịch ngay..." />
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -96,7 +105,7 @@ const MainHeader = () => {
                         <DropdownMenuTrigger className="ml-5">
                             <Avatar>
                             {userInfo.avatar 
-                                ? <AvatarImage src={userInfo.avatar} />
+                                ? <AvatarImage src={userInfo.avatar} className='object-cover' />
                                 : <AvatarImage src={DefaultAvatar} />
                             }
                                 <AvatarFallback>CN</AvatarFallback>

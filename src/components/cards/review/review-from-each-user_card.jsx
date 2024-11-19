@@ -14,7 +14,7 @@ const ReviewFromEachUserCard = (props) => {
                 <div className="flex items-center">
                     <Avatar>
                         {props.review.user.avatar ? 
-                            <AvatarImage src={props.review.user.avatar} /> :
+                            <AvatarImage src={props.review.user.avatar} className='object-cover' /> :
                             <AvatarImage src={DefaultAvatar} />
                         }
                         <AvatarFallback>CN</AvatarFallback>
@@ -40,7 +40,7 @@ const ReviewFromEachUserCard = (props) => {
 
                 <span className="flex items-center">
                     <span className="text-sm font-medium pr-1">Đã ở đây: </span>
-                    <span className="text-sm text-gray-500">{props.review.arrivalDate}</span>
+                    <span className="text-sm text-gray-500">{format(props.review.arrivalDate, "dd/MM/yyy")}</span>
                 </span>
 
                 <div className="grid grid-cols-3 gap-1 mt-3">

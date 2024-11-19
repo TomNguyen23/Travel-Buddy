@@ -29,7 +29,7 @@ const ReviewsFromUsersCard = () => {
                 <article>
                     <div className="flex items-center w-fit">
                         <div className="flex items-center text-2xl">
-                            <span className='font-semibold'>{siteDetail.averageRating.toFixed(1)}</span>
+                            <span className='font-semibold'>{siteDetail?.averageRating?.toFixed(1)}</span>
                             <span className='material-icons text-3xl text-yellow-400 pr-2'>star</span>
                         </div>
                         <div className='pt-1'>{siteDetail.totalRating} đánh giá</div>

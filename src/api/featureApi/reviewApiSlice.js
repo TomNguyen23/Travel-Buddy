@@ -17,6 +17,13 @@ export const reviewApiSlice = apiSlice.injectEndpoints({
             }),
             providesTags: ['SiteReview'],
         }),
+        likeReview: builder.mutation({
+            query: (reviewId) => ({
+                url: `/api/site-reviews/${reviewId}/like`,
+                method: 'POST',
+            }),
+            invalidatesTags: ['SiteReview'],
+        }),
 
     }),
 });

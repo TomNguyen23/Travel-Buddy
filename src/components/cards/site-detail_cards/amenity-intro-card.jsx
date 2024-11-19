@@ -55,7 +55,7 @@ const AmenityIntoCard = () => {
                     <div className="flex justify-between">
                         <div>
                             <div className="flex items-center text-5xl">
-                                <span className='font-semibold'>{siteDetail.averageRating.toFixed(1)}</span>
+                                <span className='font-semibold'>{siteDetail?.averageRating?.toFixed(1)}</span>
                                 <span className='material-icons text-5xl text-yellow-400 pr-2'>star</span>
                             </div>
     

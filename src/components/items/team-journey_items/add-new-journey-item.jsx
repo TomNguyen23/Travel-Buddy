@@ -13,6 +13,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { useToast } from '@/hooks/use-toast';
 import { ToastAction } from '@/components/ui/toast';
+import { useCreatNewTravelPlanMutation } from "@/api/featureApi/teamJourneyApiSlice";
 
 const AddNewJourneyItem = () => {
     const { toast } = useToast();
@@ -21,16 +22,20 @@ const AddNewJourneyItem = () => {
 
     const [journeyName, setJourneyName] = useState('');
 
-    const getCurrentDate = () => {
+    const [creatTravelPlan, {isLoading}] = useCreatNewTravelPlanMutation();
+
+    const getCurrentDateTime = () => {
         const now = new Date();
         const year = now.getFullYear();
         const month = String(now.getMonth() + 1).padStart(2, '0');
         const day = String(now.getDate()).padStart(2, '0');
-        return `${year}-${month}-${day}`;
+        const hours = String(now.getHours()).padStart(2, '0');
+        const minutes = String(now.getMinutes()).padStart(2, '0');
+        return `${year}-${month}-${day}T${hours}:${minutes}`;
     };
-    const minDateTime = getCurrentDate();
+    const minDateTime = getCurrentDateTime();
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         if (isBefore(new Date(endDate), new Date(startDate))) {
             toast({
@@ -52,19 +57,36 @@ const AddNewJourneyItem = () => {
             return;
         }
 
-        const formData = {
-            journeyName: journeyName,
-            startDate: startDate,
-            endDate: endDate,
+        const newJourneyData = {
+            name: journeyName,
+            startTime: startDate,
+            endTime: endDate,
+            description: '',
+            // userIds: [],
         };
 
-        console.log("Create new journey: ", formData);
+        await creatTravelPlan(newJourneyData)
+            .unwrap()
+            .then(() => {
+                toast({
+                    title: "Tạo kế hoạch thành công",
+                    description: "Kế hoạch của bạn đã được tạo thành công",
+                })
+            })
+            .catch((error) => {
+                toast({
+                    variant: "destructive",
+                    title: "Uh oh! Có gì đó sai sai.",
+                    description: error.data.message,
+                    action: <ToastAction altText="Try again">Thử lại</ToastAction>,
+                })
+            })
     } 
 
     return ( 
         <Sheet>
             <SheetTrigger asChild>
-                <div className="w-full flex flex-col justify-center items-center border shadow rounded-lg cursor-pointer bg-cover dark:bg-gray-800 hover:bg-slate-100 dark:hover:bg-gray-900">
+                <div className="w-72 h-48 flex flex-col justify-center items-center border shadow rounded-lg cursor-pointer bg-cover dark:bg-gray-800 hover:bg-slate-100 dark:hover:bg-gray-900">
                     <span className="material-icons text-7xl">add</span>
                     <h1 className="font-medium">Hành trình mới</h1>
                 </div>
@@ -93,7 +115,7 @@ const AddNewJourneyItem = () => {
                             <span className="label-text">Thời gian bắt đầu</span>
                         </div>
                         <input
-                            type="date"
+                            type="datetime-local"
                             id="datetime"
                             className="border px-2 py-3 rounded-sm dark:bg-[#1D232A]"
                             value={startDate}
@@ -107,7 +129,7 @@ const AddNewJourneyItem = () => {
                             <span className="label-text">Thời gian kết thúc</span>
                         </div>
                         <input
-                            type="date"
+                            type="datetime-local"
                             id="datetime"
                             className="border px-2 py-3 rounded-sm dark:bg-[#1D232A]"
                             value={endDate}
@@ -117,7 +139,13 @@ const AddNewJourneyItem = () => {
 
                     <SheetFooter>
                         <SheetClose asChild>
-                            <Button type="submit" className="mt-4 bg-main hover:bg-main-hover">Tạo mới</Button>
+                            {isLoading 
+                            ? <Button className="mt-4 bg-main hover:bg-main-hover" disabled>
+                                Đang tạo
+                                <span className="loading loading-dots loading-md ml-2"></span>
+                            </Button> 
+                            :<Button type="submit" className="mt-4 bg-main hover:bg-main-hover">Tạo mới</Button>
+                            }
                         </SheetClose>
                     </SheetFooter>
                 </form>

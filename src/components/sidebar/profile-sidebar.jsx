@@ -10,7 +10,7 @@ import { useToast } from '@/hooks/use-toast';
 import { ToastAction } from '@/components/ui/toast';
 
 import { useDispatch } from "react-redux";
-import { logout } from "@/redux/reducer/auth.reducer";
+import { logout, setAvatar } from "@/redux/reducer/auth.reducer";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
@@ -25,7 +25,7 @@ const ProfileSidebar = () => {
     const dispatch = useDispatch();
     const navigateTo = useNavigate();
 
-    const [uploadUserAvatar] = useUploadImgMutation();
+    const [uploadUserAvatar, {isLoading}] = useUploadImgMutation();
 
     const changeAccountHandler = () => {
         dispatch(logout());
@@ -38,52 +38,65 @@ const ProfileSidebar = () => {
     }
 
     useEffect(() => {
-        const uploadAvatarHandler = async () => {
-            if (avatarFile) {
-                const validImageTypes = ['image/png', 'image/jpg', 'image/jpeg'];
-                if (!validImageTypes.includes(avatarFile.type)) {
-                    toast({
-                        variant: "destructive",
-                        title: "Uh oh! Có gì đó sai sai.",
-                        description: "Chỉ chấp nhận file ảnh có định dạng PNG, JPG, JPEG.",
-                        action: <ToastAction altText="Try again">Thử lại</ToastAction>,
-                    })
-                    return;
-                }
-    
-                const formData = {avatar: avatarFile};
-                console.log(formData);
-    
-                // await uploadUserAvatar(formData)
-                // .unwrap()
-                // .then((res) => {
-                //     console.log(res);
-                // })
-                // .catch((err) => {
-                //     console.log(err);
-                // })
-            }   
-        }
         uploadAvatarHandler();
-    }, [avatarFile, toast]);
+    }, [avatarFile]);
     
-    
+    const uploadAvatarHandler = async () => {
+        if (avatarFile) {
+            const validImageTypes = ['image/png', 'image/jpg', 'image/jpeg'];
+            if (!validImageTypes.includes(avatarFile.type)) {
+                toast({
+                    variant: "destructive",
+                    title: "Uh oh! Có gì đó sai sai.",
+                    description: "Chỉ chấp nhận file ảnh có định dạng PNG, JPG, JPEG.",
+                    action: <ToastAction altText="Try again">Thử lại</ToastAction>,
+                })
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('avatar', avatarFile);
+
+            await uploadUserAvatar(formData)
+            .unwrap()
+            .then(() => {
+                const avatarURL = URL.createObjectURL(avatarFile);
+                dispatch(setAvatar(avatarURL));
+            })
+            .catch((error) => {
+                toast({
+                    variant: "destructive",
+                    title: "Uh oh! Có gì đó sai sai.",
+                    description: error.data.message,
+                    action: <ToastAction altText="Try again">Thử lại</ToastAction>,
+                })
+            })
+        }   
+    }
 
     return ( 
         <aside className="px-3">
             <div className="flex items-center px-5 py-7">
                 <form id="avatarForm" className="relative z-20 min-w-20">
                     {userInfo.avatar 
-                        ? <img src={userInfo.avatar} className="size-20 rounded-full" alt="" />
+                        ? <img src={userInfo.avatar} className="size-20 rounded-full object-cover" alt="" />
                         : <img src={DefaultAvatar} className="size-20 rounded-full" alt="" />
                     }
 
-                    <div className="size-7 rounded-full bg-slate-100 dark:bg-[#28313a] flex justify-center items-center absolute right-0 bottom-0">
-                        <input onChange={(e) => setAvatarFile(e.target.files[0])} type="file" id="myAvatar" name="myAvatar" accept="image/png, image/jpg, image/jpeg" hidden />
-                        <label htmlFor="myAvatar" className="cursor-pointer">
-                            <span className="material-icons text-base">edit</span>
-                        </label>
-                    </div>
+                    {isLoading ? 
+                    (
+                        <div className="absolute inset-0 bg-black bg-opacity-50 flex justify-center items-center rounded-full">
+                            <span className="loading loading-spinner loading-md text-white"></span>
+                        </div>
+                    ) : 
+                    (
+                        <div className="size-7 rounded-full bg-slate-100 dark:bg-[#28313a] flex justify-center items-center absolute right-0 bottom-0">
+                            <input onChange={(e) => setAvatarFile(e.target.files[0])} type="file" id="myAvatar" name="myAvatar" accept="image/png, image/jpg, image/jpeg" hidden />
+                            <label htmlFor="myAvatar" className="cursor-pointer">
+                                <span className="material-icons text-base">edit</span>
+                            </label>
+                        </div>  
+                    )}
                 </form>
 
 

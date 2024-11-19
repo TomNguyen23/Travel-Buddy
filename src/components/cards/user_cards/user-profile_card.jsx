@@ -9,13 +9,14 @@ import { Button } from "@/components/ui/button"
 
 import { useState } from "react";
 import { useSelector } from "react-redux";
+import format from 'date-fns/format'
 
 const UserProfileCard = () => {
     const userInfo = useSelector((state) => state.auth.login.user);
 
     const [username, setUsername] = useState(userInfo.fullName);
     const [email, setEmail] = useState(userInfo.email);
-    const [socialLink, setSocialLink] = useState("https://facebook.com/profile=.....");
+    const [socialLink, setSocialLink] = useState(userInfo.socialUrl);
 
 
     const handleUpdateProfile = () => {
@@ -78,7 +79,7 @@ const UserProfileCard = () => {
                 </div>
 
                 <div className="flex items-center">
-                    <p className="font-semibold">Đã tham gia vào 20/11/2024</p>
+                    <p className="font-semibold">Đã tham gia vào {format(userInfo?.createdAt, "dd/MM/yyyy")}</p>
                     <div className="badge badge-info text-white ml-2">Công khai</div>
                 </div>
             </CardContent>

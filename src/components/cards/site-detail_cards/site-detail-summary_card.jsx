@@ -33,7 +33,7 @@ const SiteDetailSummaryCard = () => {
             <div className="mb-5">
                 <h1 className="text-3xl font-bold">{siteDetail?.siteName}</h1>
                 <div className='flex mt-2'>
-                    <span className='text-gray-400'>{siteDetail.averageRating.toFixed(1)}</span>
+                    <span className='text-gray-400'>{siteDetail?.averageRating?.toFixed(1)}</span>
                     <span className='material-icons text-yellow-400 pr-2'>star</span>
                     <span className='text-gray-400'>{siteDetail.totalRating} đánh giá</span>
 
