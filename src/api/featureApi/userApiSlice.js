@@ -30,10 +30,15 @@ export const userApiSlice = apiSlice.injectEndpoints({
                 method: 'PUT',
             }),
         }),
+
+        searchUser: builder.query({
+            query: ({searchValue}) => `/api/users/search?q=${searchValue}&page=1`,
+        }),
     }),
 });
 
 export const { useUploadImgMutation, 
                 useUserInfoQuery, 
                 useChangePasswordMutation,
-                useRemoveAccountMutation } = userApiSlice;
+                useRemoveAccountMutation,
+                useSearchUserQuery } = userApiSlice;

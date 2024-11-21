@@ -25,8 +25,11 @@ const ReviewFromEachUserCard = (props) => {
                     </div>
                 </div>
 
-                <div>
-                    <LikeItem />
+                <div className="flex items-center">
+                    <div className="flex items-center">
+                        <LikeItem reviewID={props.review.id} />
+                        <span className="pl-1">{props?.review?.likeCount}</span>
+                    </div>
                     <ReportItem />
                 </div>
             </div>
@@ -75,12 +78,14 @@ const ReviewFromEachUserCard = (props) => {
 }
 ReviewFromEachUserCard.propTypes = {
     review: PropTypes.shape({
+        id: PropTypes.number.isRequired,
         date: PropTypes.string.isRequired,
         arrivalDate: PropTypes.string.isRequired,
         user: PropTypes.shape({
             avatar: PropTypes.string,
             nickname: PropTypes.string.isRequired,
         }).isRequired,
+        likeCount: PropTypes.number.isRequired,
         generalRating: PropTypes.number.isRequired,
         comment: PropTypes.string.isRequired,
         medias: PropTypes.arrayOf(PropTypes.shape({

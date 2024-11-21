@@ -5,13 +5,14 @@ import { persistReducer, persistStore } from 'redux-persist';
 import authReducer from "@/redux/reducer/auth.reducer";
 import discoverReducer from "@/redux/reducer/discover.reducer";
 import siteDetailReducer from "@/redux/reducer/site-detail.reducer";
+import teamJourneyReducer from "@/redux/reducer/team-journey.reducer";
 import { apiSlice } from "@/api/apiSlice";
 
 
 const persistConfig = {
     key: 'root',
     storage: storageSession,  // muốn lưu vào local storage thì thay storageSession thành storage
-    whitelist: ['auth', 'siteDetail'] // muốn chỉ lưu thg nào thì bỏ vào whitelist
+    whitelist: ['auth', 'siteDetail', 'teamJourney'] // muốn chỉ lưu thg nào thì bỏ vào whitelist
 };
 
 const rootReducer = combineReducers({
@@ -19,6 +20,7 @@ const rootReducer = combineReducers({
     auth: authReducer,
     discover: discoverReducer,
     siteDetail: siteDetailReducer,
+    teamJourney: teamJourneyReducer,
 }); 
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

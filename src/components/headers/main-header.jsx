@@ -27,11 +27,13 @@ const MainHeader = () => {
     // const[searchResult, setSearchResult] = useState([]);
     const [showSearchResult, setShowSearchResult] = useState(false);
     const [searchValue, setSearchValue] = useState('');
-    const searchValueDebounce = useDebound(searchValue, 1000);
+    const searchValueDebounce = useDebound(searchValue);
 
     const { data: sites } = useSearchSitesQuery(
         {searchValue: searchValueDebounce}, 
-        {refetchOnMountOrArgChange: true});
+        {refetchOnMountOrArgChange: true, 
+            enabled: searchValueDebounce !== '',
+            skip: searchValueDebounce === ''});
 
     // const { data: sites } = useSearchSitesQuery();
 

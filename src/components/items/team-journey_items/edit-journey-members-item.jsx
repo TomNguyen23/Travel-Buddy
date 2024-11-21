@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import PropTypes from 'prop-types';
 
 import { Button } from "@/components/ui/button"
@@ -15,32 +15,87 @@ import {
 import {
     Dialog,
     DialogContent,
-    DialogFooter,
     DialogHeader,
     DialogTitle,
     DialogTrigger,
   } from "@/components/ui/dialog"  
+import DefaultAvatar from "@/assets/images/default-avt.png";
+import { useToast } from '@/hooks/use-toast';
+import { ToastAction } from '@/components/ui/toast';
 
-const EditJourneyMember = ({ members }) => {
-    
+import { useSelector } from "react-redux";
+import { useChangeRoleOfMemberMutation, useRemoveMemeberOutPlanMutation } from "@/api/featureApi/teamJourneyApiSlice";
 
+const EditJourneyMember = () => {
+    const { toast } = useToast();
+    const planID = useSelector((state) => state.teamJourney.journeyID);
+    const members = useSelector((state) => state.teamJourney.travelPlanDetail.members);
     const [memberPositions, setMemberPositions] = useState(members);
 
-    const setPosition = (id, value) => {
+    useEffect(() => {
+        if (members) {
+            setMemberPositions(members);
+        }
+    }, [members]);
+
+    const [changeMemberRole] = useChangeRoleOfMemberMutation();
+    const setPosition = async (userId, value) => {
         setMemberPositions(prevState => 
-            prevState.map(member => 
-                member.id === id ? { ...member, role: value } : member
+            prevState?.map(member => 
+                member.userId === userId ? { ...member, role: value } : member
             )
         );
+        console.log(`User ID: ${userId}, New Role: ${value}`);
+        const formData = {
+            planId: planID,
+            userId: userId,
+            role: value
+        };
+
+        await changeMemberRole(formData)
+            .unwrap()
+            .then(() => {
+                toast({
+                    title: "Thành công!",
+                    description: "Vai trò thành viên đã được cập nhật.",
+                })
+            })
+            .catch((error) => {
+                toast({
+                    variant: "destructive",
+                    title: "Uh oh! Có gì đó sai sai.",
+                    description: error.data.message,
+                    action: <ToastAction altText="Try again">Thử lại</ToastAction>,
+                })
+            })
     };
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        console.log(memberPositions);
-    };
-
+    const [removeMember] = useRemoveMemeberOutPlanMutation();
     const handleDeleteMember = (id) => {
-        console.log("Delete: ", id);
+        const formData = {
+            planId: planID,
+            userId: id
+        };
+
+        removeMember(formData)
+            .unwrap()
+            .then(() => {
+                setMemberPositions(prevState => 
+                    prevState?.filter(member => member.id !== id)
+                );
+                toast({
+                    title: "Thành công!",
+                    description: "Thành viên đã được xóa khỏi chuyến đi.",
+                })
+            })
+            .catch((error) => {
+                toast({
+                    variant: "destructive",
+                    title: "Uh oh! Có gì đó sai sai.",
+                    description: error.data.message,
+                    action: <ToastAction altText="Try again">Thử lại</ToastAction>,
+                })
+            })
     }
     
     return ( 
@@ -55,43 +110,52 @@ const EditJourneyMember = ({ members }) => {
                         <DialogTitle>Chỉnh sửa thành viên</DialogTitle>
                     </DialogHeader>
 
-                    <form onSubmit={handleSubmit}>
+                    <form>
                         <div className="max-h-96 overflow-y-auto">
 
-                            {memberPositions.map(member => (
-                                <div key={member.id} className="flex items-center justify-between mt-3">
+                            {memberPositions?.map(member => (
+                                <div key={member.userId} className="flex items-center justify-between mt-3">
                                     <div className="flex items-center">
-                                        <img src={member.avatar} className="size-12 rounded-full" alt="" />
-                                        <p className="pl-2 text-lg">{member.nick_name}</p>
+                                    {member.avatarUrl
+                                        ? <img src={member.avatarUrl} className="size-12 rounded-full object-cover" alt="" />
+                                        : <img src={DefaultAvatar} className="size-12 rounded-full object-cover" alt="" />
+                                    }
+                                        <p className="pl-2 text-lg">{member.nickname}</p>
                                     </div>
 
                                     <DropdownMenu>
                                         <DropdownMenuTrigger asChild>
-                                            <Button className="bg-transparent hover:bg-inherit text-inherit">
-                                                {member.role === "moderator" ? "Quản trị viên" : "Thành viên"}
-                                                <span className="material-icons text-lg">arrow_drop_down</span>
-                                            </Button>
+                                        <Button className="bg-transparent hover:bg-inherit text-inherit" disabled={member.role === "OWNER"}>
+                                            {member.role === "ADMIN" ? "Quản trị viên" : member.role === "MEMBER" ? "Thành viên" : "Người lập nhóm"}
+                                            <span className="material-icons text-lg">arrow_drop_down</span>
+                                        </Button>
                                         </DropdownMenuTrigger>
+
                                         <DropdownMenuContent>
-                                            <DropdownMenuRadioGroup value={member.role} onValueChange={(value) => setPosition(member.id, value)}>
-                                                <DropdownMenuRadioItem value="moderator">Quản trị viên</DropdownMenuRadioItem>
-                                                <DropdownMenuRadioItem value="member">Thành viên</DropdownMenuRadioItem>
+                                            <DropdownMenuRadioGroup value={member.role} onValueChange={(value) => setPosition(member.userId, value)}>
+                                                {member.role !== "OWNER" && (
+                                                    <>
+                                                        <DropdownMenuRadioItem value="ADMIN">Quản trị viên</DropdownMenuRadioItem>
+                                                        <DropdownMenuRadioItem value="MEMBER">Thành viên</DropdownMenuRadioItem>
+                                                    </>
+                                                )}
                                             </DropdownMenuRadioGroup>
 
-                                            <DropdownMenuSeparator />
-                                            <DropdownMenuItem className="text-red-500" onClick={() => handleDeleteMember(member.id)}>
-                                                <span className="material-icons-outlined text-lg">delete</span>
-                                                Xóa
-                                            </DropdownMenuItem>
+                                            {member.role !== "OWNER" && (
+                                                <>
+                                                    <DropdownMenuSeparator />
+                                                    <DropdownMenuItem className="text-red-500" onClick={() => handleDeleteMember(member.userId)}>
+                                                        <span className="material-icons-outlined text-lg">delete</span>
+                                                        Xóa
+                                                    </DropdownMenuItem>
+                                                </>
+                                            )}
                                         </DropdownMenuContent>
                                     </DropdownMenu>
                                 </div>
                             ))}
                         </div>
 
-                        <DialogFooter>
-                            <Button type='submit' className="mt-4 bg-main hover:bg-main-hover">Lưu thay đổi</Button>
-                        </DialogFooter>
                     </form>
 
                 </DialogContent>

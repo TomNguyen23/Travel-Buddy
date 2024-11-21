@@ -18,7 +18,7 @@ export const reviewApiSlice = apiSlice.injectEndpoints({
             providesTags: ['SiteReview'],
         }),
         likeReview: builder.mutation({
-            query: (reviewId) => ({
+            query: ({reviewId}) => ({
                 url: `/api/site-reviews/${reviewId}/like`,
                 method: 'POST',
             }),
@@ -28,4 +28,4 @@ export const reviewApiSlice = apiSlice.injectEndpoints({
     }),
 });
 
-export const { usePostReviewMutation, useGetSiteReviewsQuery } = reviewApiSlice;
+export const { usePostReviewMutation, useGetSiteReviewsQuery, useLikeReviewMutation } = reviewApiSlice;

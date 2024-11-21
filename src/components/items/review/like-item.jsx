@@ -1,31 +1,34 @@
+import { useLikeReviewMutation } from "@/api/featureApi/reviewApiSlice";
 import { useState } from "react";
+import PropTypes from 'prop-types';
 
-const LikeItem = () => {
+import { useToast } from '@/hooks/use-toast';
+import { ToastAction } from '@/components/ui/toast';
+
+const LikeItem = ({ reviewID }) => {
+    const { toast } = useToast();
     const [liked, setLiked] = useState(false);
     const [isFetching, setIsFetching] = useState(false);
 
+    const [likeReviewAction] = useLikeReviewMutation();
 
-    const handleLikeUnlike = () => {
-        // setIsFetching(true);
-        setLiked(!liked);
-        // try {
-        //     const response = await fetch(
-        //         "https://www.greatfrontend.com/api/questions/like-button",
-        //         {
-        //             method: "POST",
-        //             headers: { "Content-Type": "application/json" },
-        //             body: JSON.stringify({
-        //                 action: liked ? "unlike" : "like",
-        //             }),
-        //         }
-        //     );
+    const handleLikeUnlike = async () => {
+        setIsFetching(true);
+        await likeReviewAction({reviewId: reviewID})
+            .unwrap()
+            .then(() => {
+                setLiked(!liked);
+                setIsFetching(false);
+            })
+            .catch((error) => {
+                toast({
+                    variant: "destructive",
+                    title: "Uh oh! Có gì đó sai sai.",
+                    description: error.data.message,
+                    action: <ToastAction altText="Try again">Thử lại</ToastAction>,
+                })
+            })
 
-        //     if (response.status >= 200 && response.status < 300) {
-        //         setLiked(!liked);
-        //     }
-        // } finally {
-        //     setIsFetching(false);
-        // }
     };
     return ( 
         <button onClick={handleLikeUnlike}>
@@ -36,5 +39,8 @@ const LikeItem = () => {
         </button>
      );
 }
- 
+LikeItem.propTypes = {
+    reviewID: PropTypes.string.isRequired,
+};
+
 export default LikeItem;
