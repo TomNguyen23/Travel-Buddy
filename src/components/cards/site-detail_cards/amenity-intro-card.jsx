@@ -1,5 +1,6 @@
 import { useEffect, useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import {
     Card,
     CardContent,
@@ -10,6 +11,7 @@ import { Separator } from "@/components/ui/separator";
 
 import { useGetAmenityDetailQuery } from "@/api/featureApi/siteApiSlice";
 import { getAmenityDetail } from '@/redux/reducer/site-detail.reducer';
+import SiteMapCard from '../map_cards/site-map';
 
 const paragraphStyle = {
     WebkitLineClamp: 6,
@@ -25,7 +27,7 @@ const AmenityIntoCard = () => {
     const dispatch = useDispatch();
 
     const sideID = useSelector((state) => state.siteDetail.siteID);
-    const siteDetail = useSelector((state) => state.siteDetail.amenityDetail);
+    // const siteDetail = useSelector((state) => state.siteDetail.amenityDetail);
     const { data } = useGetAmenityDetailQuery(sideID);
 
     useEffect(() => {
@@ -45,6 +47,16 @@ const AmenityIntoCard = () => {
         }
     }, [data, dispatch])
 
+    const dayMapping = {
+        MO: "Thứ 2",
+        TU: "Thứ 3",
+        WE: "Thứ 4",
+        TH: "Thứ 5",
+        FR: "Thứ 6",
+        SA: "Thứ 7",
+        SU: "Chủ nhật"
+    };
+
     return ( 
         <Card className="my-5">
             <CardHeader>
@@ -55,11 +67,11 @@ const AmenityIntoCard = () => {
                     <div className="flex justify-between">
                         <div>
                             <div className="flex items-center text-5xl">
-                                <span className='font-semibold'>{siteDetail?.averageRating?.toFixed(1)}</span>
+                                <span className='font-semibold'>{data?.averageRating?.toFixed(1)}</span>
                                 <span className='material-icons text-5xl text-yellow-400 pr-2'>star</span>
                             </div>
     
-                            <div className='pt-1'>{siteDetail.totalRating} đánh giá</div>
+                            <div className='pt-1'>{data?.totalRating} đánh giá</div>
                         </div>
 
                         <div className="grid grid-cols-2 gap-x-10 gap-y-3">
@@ -137,7 +149,12 @@ const AmenityIntoCard = () => {
 
                     <div>
                         <h1 className='text-lg font-semibold mb-3'>Địa chỉ & thông tin liên hệ</h1>
-                        <div className="bg-[url('https://cdn6.agoda.net/images/MAPS-1214/default/property-map-entry-1.svg?s=375x')] bg-cover bg-center rounded-md mb-4 h-52"></div>
+                        <Link to="/details/map">
+                            <div className="rounded-md mb-4 h-56 relative">
+                                {data && <SiteMapCard />}
+                            </div>
+                        </Link>
+
 
                         {data?.resolvedAddress && 
                             <div className='flex items-start'>
@@ -159,6 +176,25 @@ const AmenityIntoCard = () => {
                                 {data?.phoneNumbers.map((phone, index) => (
                                     <span key={index} className='text-md font-light pl-2'>{phone}</span>
                                 ))}
+                            </div>
+                        }
+
+                        {data?.openingTimes && data?.openingTimes.length > 0 &&
+                            <div className="collapse collapse-arrow w-2/5">
+                                <input type="checkbox" />
+                                <div className="collapse-title p-0 h-0 text-md font-light flex items-center">
+                                    <span className='material-icons-outlined text-2xl text-gray-400 '>schedule</span>
+                                    <p className='pl-2'>Giờ mở cửa</p>
+                                </div>
+                                <div className="collapse-content">
+                                    
+                                    {data?.openingTimes.map((openingTime, index) => (
+                                        <p key={index} className='flex items-center justify-between'>
+                                            <span className='text-md font-medium pl-2'>{dayMapping[openingTime.dayOfWeek]}</span>
+                                            <span className='text-md font-light pl-2'>{openingTime.openTime} - {openingTime.closeTime}</span>
+                                        </p>
+                                    ))}
+                                </div>
                             </div>
                         }
 

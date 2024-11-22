@@ -65,7 +65,6 @@ const AddJourneyMember = () => {
             .unwrap()
             .then(() => {
                 toast({
-                    variant: "success",
                     title: "Thêm thành viên thành công",
                     description: "Người dùng đã được thêm vào hành trình",
                     action: <ToastAction altText="OK">OK</ToastAction>,

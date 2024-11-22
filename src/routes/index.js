@@ -29,6 +29,7 @@ import DiscoverRankingCuisine from "@/pages/discover/discover-ranking-cuisine"
 import DiscoverRankingNature from "@/pages/discover/discover-ranking-nature"
 import DiscoverRankingEntertainment from "@/pages/discover/discover-ranking-entetainment"
 import HotelDetail from "@/pages/site-detail/hotel-detail"
+import SiteMapDetail from "@/pages/site-detail/site-map-detail"
 
 const publicRoutes = [
     {path: '/', element: UserProfile},
@@ -48,6 +49,7 @@ const publicRoutes = [
     {path: '/discover/entertainment', element: DiscoverRankingEntertainment, Layout: DiscoverRankingListLayout },
 
     {path: '/details/hotel', element: HotelDetail, Layout: SiteDetailsLayout },
+    {path: '/details/map', element: SiteMapDetail },
     
 ]
 
