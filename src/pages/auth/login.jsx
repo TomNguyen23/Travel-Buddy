@@ -38,7 +38,7 @@ const LoginPage = () => {
             .unwrap()
             .then((res) => {
                 dispatch(setCredentials(res));
-                navigateTo('/your-profile');
+                navigateTo('/');
             })
             .catch((error) => {
                 toast({

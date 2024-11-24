@@ -30,9 +30,10 @@ import DiscoverRankingNature from "@/pages/discover/discover-ranking-nature"
 import DiscoverRankingEntertainment from "@/pages/discover/discover-ranking-entetainment"
 import HotelDetail from "@/pages/site-detail/hotel-detail"
 import SiteMapDetail from "@/pages/site-detail/site-map-detail"
+import HomePage from "@/pages/home/home"
 
 const publicRoutes = [
-    {path: '/', element: UserProfile},
+    {path: '/', element: HomePage},
     {path: '/login', element: LoginPage, Layout: AuthLayout },
     {path: '/register', element: RegisterPage, Layout: AuthLayout },
     {path: '/register/username', element: RegisterUsername, Layout: AuthLayout },
