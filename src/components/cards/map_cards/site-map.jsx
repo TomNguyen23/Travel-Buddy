@@ -82,7 +82,7 @@ const SiteMapCard = ({ className, canMove }) => {
 
             {nearbySites?.map((site) => (
                 <Marker 
-                    key={site.siteID}
+                    key={site.siteId}
                     longitude={site.lng} latitude={site.lat}
                     className={cn('', className)}
                     anchor="top"
@@ -99,7 +99,7 @@ const SiteMapCard = ({ className, canMove }) => {
                     closeOnClick={false}
                     className='font-medium text-2xl px-2 pt-10'
                 >
-                    <div className="card card-compact h-60">
+                    <div className="card card-compact h-64">
                         <figure className="h-2/3">
                             <img
                             src="https://images.unsplash.com/photo-1518623489648-a173ef7824f3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2762&q=80"
@@ -107,16 +107,16 @@ const SiteMapCard = ({ className, canMove }) => {
                             alt="Movie" />
                         </figure>
                         <div className="card-body">
-                            <h2 onClick={() => handleGetNearbySiteID(selectedSite.siteId)} className="font-medium text-lg text-gray-600 cursor-pointer hover:underline">{selectedSite.name}</h2>
-                            <p className="flex items-end">
-                                {/* <div className="flex items-center">
-                                    <span className='text-sm pr-0.5'>{item.star}</span>
+                            <h2 onClick={() => handleGetNearbySiteID(selectedSite.siteId)} className="font-medium text-gray-600 cursor-pointer hover:underline">{selectedSite.name}</h2>
+                            <p className='text-xs text-gray-500'>{selectedSite.siteType.name}</p>
+                            <p className="flex items-center">
+                                <div className="flex items-center">
+                                    <span className='text-sm pr-0.5'>{selectedSite.averageRating.toFixed(1)}</span>
                                     <span className='material-icons text-sm text-yellow-400'>star</span>
-                                </div> */}
+                                </div>
                                 
-                                <span className="text-xs text-gray-500 ">
-                                    {/* {item["review quantity"]} đánh giá */}
-                                    {selectedSite.siteType.name}
+                                <span className="text-xs text-gray-500 pl-2">
+                                    {selectedSite.totalRating} đánh giá
                                 </span>
                             </p>
                         </div>

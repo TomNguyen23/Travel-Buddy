@@ -1,7 +1,11 @@
 import PropTypes from 'prop-types';
 import { cn } from "@/lib/utils"
+import { useLocation } from 'react-router-dom';
 
 const StarRatingItem = (props) => {
+    const path = useLocation().pathname;
+    const isUpdateReview = path.includes('/review/site/update');
+
     const handleRatingChange = (e) => {
         props.getRating(e.target.value);
     }
@@ -21,7 +25,8 @@ const StarRatingItem = (props) => {
                         name="rating-1" 
                         value={i + 1} 
                         className={cn("mask mask-star-2", props.className)} 
-                        onChange={handleRatingChange} 
+                        onChange={handleRatingChange}
+                        {...isUpdateReview && {checked: props.rating === i + 1}}
                 />
             ))}
         </div>
@@ -32,6 +37,8 @@ StarRatingItem.propTypes = {
     getRating: PropTypes.func.isRequired,
     className: PropTypes.string,
     size: PropTypes.string,
+    rating: PropTypes.number
 };
+
  
 export default StarRatingItem;

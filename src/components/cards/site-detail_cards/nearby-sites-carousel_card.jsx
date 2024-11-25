@@ -22,7 +22,7 @@ const NearbySitesCarouselCard = (props) => {
                 <CarouselContent className="-ml-1">
                     {props?.data?.map((item) => (
                         <CarouselItem key={item.siteId} className="pl-1 md:basis-1/2 lg:basis-1/4">
-                            <div className="card card-compact h-60 border rounded-lg">
+                            <div className="card card-compact h-64 border rounded-lg">
                                 <figure className="h-1/2">
                                     <img
                                     src="https://images.unsplash.com/photo-1518623489648-a173ef7824f3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2762&q=80"
@@ -32,16 +32,16 @@ const NearbySitesCarouselCard = (props) => {
                                 <div className="card-body">
                                     <h2 onClick={() => handleGetNearbySiteID(item.siteId)} className="font-medium cursor-pointer hover:underline">{item.name}</h2>
                                     <p className="flex items-end">
-                                        {/* <div className="flex items-center">
-                                            <span className='text-sm pr-0.5'>{item.star}</span>
+                                        <div className="flex items-center">
+                                            <span className='text-sm pr-0.5'>{item.averageRating.toFixed(1)}</span>
                                             <span className='material-icons text-sm text-yellow-400'>star</span>
-                                        </div> */}
+                                        </div>
                                         
-                                        <span className="text-sm text-gray-500 ">
-                                            {/* {item["review quantity"]} đánh giá */}
-                                            {item.siteType.name}
+                                        <span className="text-sm text-gray-500 pl-2">
+                                            {item.totalRating} đánh giá
                                         </span>
                                     </p>
+                                    {item.siteType.name}
                                 </div>
                             </div>
                         </CarouselItem>

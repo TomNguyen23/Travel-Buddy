@@ -145,8 +145,82 @@ const AmenityIntoCard = () => {
                         )}
                     </div>
 
-                    <Separator className="my-5" />
+                    {data?.groupedServices.length > 0 && (
+                    <div>
+                        <Separator className="my-5" />
 
+                        <div>
+                            <h1 className='text-lg font-semibold mb-3'>Địa chỉ & thông tin liên hệ</h1>
+                            <Link to="/details/map">
+                                <div className="rounded-md mb-4 h-56 relative">
+                                    {data && <SiteMapCard />}
+                                </div>
+                            </Link>
+
+
+                            {data?.resolvedAddress && 
+                                <div className='flex items-start'>
+                                    <span className='material-icons-outlined text-2xl text-gray-400'>location_on</span>
+                                    <span className='text-md font-light pl-2'>{data?.resolvedAddress}</span>
+                                </div>
+                            }
+
+                            {data?.website && 
+                                <div className='flex items-center'>
+                                    <span className='material-icons-outlined text-2xl text-gray-400'>language</span>
+                                    <a href={data?.website} target='blank' className='text-md text-blue-600 font-light pl-2'>Truy cập trang web</a>
+                                </div>
+                            }
+
+                            {data?.phoneNumbers && data?.phoneNumbers.length > 0 &&
+                                <div className='flex items-center'>
+                                    <span className='material-icons-outlined text-2xl text-gray-400'>call</span>
+                                    {data?.phoneNumbers.map((phone, index) => (
+                                        <span key={index} className='text-md font-light pl-2'>{phone}</span>
+                                    ))}
+                                </div>
+                            }
+
+                            {data?.openingTimes && data?.openingTimes.length > 0 &&
+                                <div className="collapse collapse-arrow w-2/5">
+                                    <input type="checkbox" />
+                                    <div className="collapse-title p-0 h-0 text-md font-light flex items-center">
+                                        <span className='material-icons-outlined text-2xl text-gray-400 '>schedule</span>
+                                        <p className='pl-2'>Giờ mở cửa</p>
+                                    </div>
+                                    <div className="collapse-content">
+                                        
+                                        {data?.openingTimes.map((openingTime, index) => (
+                                            <p key={index} className='flex items-center justify-between'>
+                                                <span className='text-md font-medium pl-2'>{dayMapping[openingTime.dayOfWeek]}</span>
+                                                <span className='text-md font-light pl-2'>{openingTime.openTime} - {openingTime.closeTime}</span>
+                                            </p>
+                                        ))}
+                                    </div>
+                                </div>
+                            }
+
+                        </div>
+                    </div>
+                    )}
+                </article>
+
+                {data?.groupedServices.length > 0 ? (
+                    <article>
+                        {data?.groupedServices.map((service, index) => (
+                            <div key={index} className='mb-8'>
+                                <h1 className='font-semibold'>{service.serviceGroup.serviceGroupName}</h1>
+                                
+
+                                <div className='grid grid-cols-2 gap-y-3 my-2'>
+                                    {service.services.map((item, index) => (
+                                        <span key={index} className='text-sm font-light'>{item.serviceName}</span>
+                                    ))}
+                                </div>
+                            </div>
+                        ))}
+                    </article>
+                ) : (
                     <div>
                         <h1 className='text-lg font-semibold mb-3'>Địa chỉ & thông tin liên hệ</h1>
                         <Link to="/details/map">
@@ -166,7 +240,7 @@ const AmenityIntoCard = () => {
                         {data?.website && 
                             <div className='flex items-center'>
                                 <span className='material-icons-outlined text-2xl text-gray-400'>language</span>
-                                <a href={data?.website} target='blank' className='text-md text-blue-600 font-light pl-2'>{data?.website}</a>
+                                <a href={data?.website} target='blank' className='text-md text-blue-600 font-light pl-2'>Truy cập trang web</a>
                             </div>
                         }
 
@@ -199,22 +273,7 @@ const AmenityIntoCard = () => {
                         }
 
                     </div>
-                </article>
-
-                <article>
-                    {data?.groupedServices.map((service, index) => (
-                        <div key={index} className='mb-8'>
-                            <h1 className='font-semibold'>{service.serviceGroup.serviceGroupName}</h1>
-                            
-
-                            <div className='grid grid-cols-2 gap-y-3 my-2'>
-                                {service.services.map((item, index) => (
-                                    <span key={index} className='text-sm font-light'>{item.serviceName}</span>
-                                ))}
-                            </div>
-                        </div>
-                    ))}
-                </article>
+                )}
             </CardContent>
         
         </Card>

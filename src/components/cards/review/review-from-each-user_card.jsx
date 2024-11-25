@@ -3,11 +3,54 @@ import ReportItem from "@/components/items/review/report-item";
 import StarRatingLabelItem from "@/components/items/review/star-rating-label-item";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import DefaultAvatar from "@/assets/images/default-avt.png";
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { useToast } from '@/hooks/use-toast';
+import { ToastAction } from '@/components/ui/toast';
 
 import PropTypes from 'prop-types';
 import format from 'date-fns/format'
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { getReviewID } from "@/redux/reducer/site-detail.reducer";
+import { useRemoveReviewMutation } from "@/api/featureApi/reviewApiSlice";
 
 const ReviewFromEachUserCard = (props) => {
+    const { toast } = useToast();
+    const dispatch = useDispatch();
+    const navigateTo = useNavigate();
+    const myID = useSelector((state) => state.auth.login.user.id);
+
+    const handleGetReviewID = (id) => {
+        dispatch(getReviewID(id));
+        navigateTo('/review/site/update');
+    }
+
+    const [removeReview] = useRemoveReviewMutation();
+    const handleDeleteReview = (reviewId) => {
+        removeReview(reviewId)
+            .unwrap()
+            .then(() => {
+                toast({
+                    title: "Xóa đánh giá thành công",
+                    description: "Đánh giá của bạn đã được xóa thành công",
+                })
+            })
+            .catch((error) => {
+                toast({
+                    variant: "destructive",
+                    title: "Uh oh! Có gì đó sai sai.",
+                    description: error.data.message,
+                    action: <ToastAction altText="Try again">Thử lại</ToastAction>,
+                })
+            })
+    }
+
     return ( 
         <section>
             <div className="flex justify-between items-center">
@@ -26,6 +69,22 @@ const ReviewFromEachUserCard = (props) => {
                 </div>
 
                 <div className="flex items-center">
+                    {myID === props.review.user.id &&
+                        <DropdownMenu>
+                            <DropdownMenuTrigger className="mr-4">
+                                <span className="material-icons text-xl">more_horiz</span>
+                            </DropdownMenuTrigger>
+        
+                            <DropdownMenuContent align="end">
+                                <DropdownMenuItem onClick={() => handleGetReviewID(props.review.id)} >
+                                    Chỉnh sửa
+                                </DropdownMenuItem>
+                                <DropdownMenuItem onClick={() => handleDeleteReview(props.review.id)} className="text-red-700">
+                                    Xóa đánh giá
+                                </DropdownMenuItem>
+                            </DropdownMenuContent>
+                        </DropdownMenu>
+                    }
                     <div className="flex items-center">
                         <LikeItem reviewID={props.review.id} />
                         <span className="pl-1">{props?.review?.likeCount}</span>
@@ -82,6 +141,7 @@ ReviewFromEachUserCard.propTypes = {
         date: PropTypes.string.isRequired,
         arrivalDate: PropTypes.string.isRequired,
         user: PropTypes.shape({
+            id: PropTypes.number.isRequired,
             avatar: PropTypes.string,
             nickname: PropTypes.string.isRequired,
         }).isRequired,

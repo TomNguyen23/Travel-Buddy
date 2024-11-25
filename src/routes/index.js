@@ -6,6 +6,7 @@ import DiscoverCategoriesLayout from "@/layouts/discover/discover-categoties"
 import DiscoverRankingListLayout from "@/layouts/discover/discover-ranking-list"
 import ReviewLayout from "@/layouts/review/review-layout"
 import SiteDetailsLayout from "@/layouts/site-detail/site-detail"
+import MapLayout from "@/layouts/map/map-layout"
 
 import LoginPage from "@/pages/auth/login"
 import RegisterPage from "@/pages/auth/register"
@@ -31,6 +32,7 @@ import DiscoverRankingEntertainment from "@/pages/discover/discover-ranking-ente
 import HotelDetail from "@/pages/site-detail/hotel-detail"
 import SiteMapDetail from "@/pages/site-detail/site-map-detail"
 import HomePage from "@/pages/home/home"
+import SiteReviewUpdate from "@/pages/review/site-review-update"
 
 const publicRoutes = [
     {path: '/', element: HomePage},
@@ -50,7 +52,7 @@ const publicRoutes = [
     {path: '/discover/entertainment', element: DiscoverRankingEntertainment, Layout: DiscoverRankingListLayout },
 
     {path: '/details/hotel', element: HotelDetail, Layout: SiteDetailsLayout },
-    {path: '/details/map', element: SiteMapDetail },
+    {path: '/details/map', element: SiteMapDetail, Layout: MapLayout },
     
 ]
 
@@ -63,6 +65,7 @@ const privateRoutes = [
     {path: '/team-journey-schedule', element: TeamJourneySchedule, Layout: TeamJourneyDetailLayout },
 
     {path: '/review/site', element: SiteReview, Layout: ReviewLayout },
+    {path: '/review/site/update', element: SiteReviewUpdate, Layout: ReviewLayout },
 ]
 
 export { publicRoutes, privateRoutes }
