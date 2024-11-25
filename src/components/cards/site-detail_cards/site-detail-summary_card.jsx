@@ -1,30 +1,6 @@
 import { useSelector } from "react-redux";
 
-const SiteDetailSummaryCard = () => {
-    const data = [
-        {
-            imgelink:
-            "https://images.unsplash.com/photo-1499696010180-025ef6e1a8f9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
-        },
-        {
-            imgelink:
-            "https://images.unsplash.com/photo-1432462770865-65b70566d673?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80",
-        },
-        {
-            imgelink:
-            "https://images.unsplash.com/photo-1493246507139-91e8fad9978e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80",
-        },
-        {
-            imgelink:
-            "https://images.unsplash.com/photo-1518623489648-a173ef7824f3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2762&q=80",
-        },
-        {
-            imgelink:
-            "https://images.unsplash.com/photo-1682407186023-12c70a4a35e0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2832&q=80",
-        },
-        
-    ];
-    
+const SiteDetailSummaryCard = () => {    
     const siteDetail = useSelector((state) => state.siteDetail.amenityDetail);
 
     return (
@@ -51,30 +27,102 @@ const SiteDetailSummaryCard = () => {
 
             {/* ảnh về địa điểm */}
             <div className="grid grid-cols-4 gap-1">
-                <div className="col-span-2 row-span-2 relative">
-                    <img src={data[0].imgelink} alt="" className="w-full h-96 object-cover rounded-md" />
-                    
-                    <button className="px-2 py-1 bg-gray-300/30 dark:bg-gray-700/30 backdrop-blur-md rounded-full flex items-center text-xs absolute top-2 left-2" onClick={()=>document.getElementById('all-images').showModal()}>
-                        <span className="material-icons-outlined text-sm pr-1">image</span>
-                        Xem tất cả ảnh
-                    </button>
-                </div>
+                {siteDetail?.medias[0] && (
+                    <div className="col-span-2 row-span-2 relative">
+                        {siteDetail?.medias[0]?.mediaType === 'IMAGE' 
+                            ? <img src={siteDetail?.medias[0]?.url} alt="" className="w-full h-96 object-cover rounded-md" /> 
+                            : (
+                                <video className="w-full h-96 object-cover rounded-md" 
+                                        controls 
+                                        autoPlay 
+                                        loop
+                                        muted
+                                    >
+                                    <source src={siteDetail?.medias[0]?.url} type="video/mp4"/>
+                                </video>
+                            )
+                        }
+                        
+                        <button className="px-2 py-1 bg-gray-300/30 dark:bg-gray-700/30 backdrop-blur-md rounded-full flex items-center text-xs absolute top-2 left-2" onClick={()=>document.getElementById('all-images').showModal()}>
+                            <span className="material-icons-outlined text-sm pr-1">image</span>
+                            Xem tất cả ảnh
+                        </button>
+                    </div>
+                )}
+                
+                {siteDetail?.medias[1] && (
+                    <div className="col-start-3">
+                        {/* <img src={data[1].imgelink} alt="" className="w-full h-48 object-cover object-center rounded-md" /> */}
+                        {siteDetail?.medias[1]?.mediaType === 'IMAGE' 
+                            ? <img src={siteDetail?.medias[1]?.url} alt="" className="w-full h-48 object-cover object-center rounded-md" /> 
+                            : (
+                                <video className="w-full h-48 object-cover object-center rounded-md" 
+                                        controls 
+                                        autoPlay 
+                                        loop
+                                        muted
+                                    >
+                                    <source src={siteDetail?.medias[1]?.url} type="video/mp4"/>
+                                </video>
+                            )
+                        }
+                    </div>
+                )}
 
-                <div className="col-start-3">
-                    <img src={data[1].imgelink} alt="" className="w-full h-48 object-cover object-center rounded-md" />
-                </div>
+                {siteDetail?.medias[2] && (
+                    <div className="col-start-4">
+                        {siteDetail?.medias[2] && siteDetail?.medias[2]?.mediaType === 'IMAGE' 
+                            ? <img src={siteDetail?.medias[2]?.url} alt="" className="w-full h-48 object-cover object-center rounded-md" /> 
+                            : (
+                                <video className="w-full h-48 object-cover object-center rounded-md" 
+                                        controls 
+                                        autoPlay 
+                                        loop
+                                        muted
+                                    >
+                                    <source src={siteDetail?.medias[2]?.url} type="video/mp4"/>
+                                </video>
+                            )
+                        }
+                    </div>
+                )}
 
-                <div className="col-start-4">
-                    <img src={data[2].imgelink} alt="" className="w-full h-48 object-cover object-center rounded-md" />
-                </div>
+                {siteDetail?.medias[3] && (
+                    <div className="col-start-3 row-start-2">
+                        {siteDetail?.medias[3] && siteDetail?.medias[3]?.mediaType === 'IMAGE' 
+                            ? <img src={siteDetail?.medias[3]?.url} alt="" className="w-full h-48 object-cover object-center rounded-md" /> 
+                            : (
+                                <video className="w-full h-48 object-cover object-center rounded-md" 
+                                        controls 
+                                        autoPlay 
+                                        loop
+                                        muted
+                                    >
+                                    <source src={siteDetail?.medias[3]?.url} type="video/mp4"/>
+                                </video>
+                            )
+                        }
+                    </div>
+                )}
 
-                <div className="col-start-3 row-start-2">
-                    <img src={data[3].imgelink} alt="" className="w-full h-48 object-cover object-center rounded-md" />
-                </div>
+                {siteDetail?.medias[4] && (
+                    <div className="col-start-4 row-start-2">
+                        {siteDetail?.medias[4] && siteDetail?.medias[4]?.mediaType === 'IMAGE' 
+                            ? <img src={siteDetail?.medias[4]?.url} alt="" className="w-full h-48 object-cover object-center rounded-md" /> 
+                            : (
+                                <video className="w-full h-48 object-cover object-center rounded-md" 
+                                        controls 
+                                        autoPlay 
+                                        loop
+                                        muted
+                                    >
+                                    <source src={siteDetail?.medias[4]?.url} type="video/mp4"/>
+                                </video>
+                            )
+                        }
+                    </div>
+                )}
 
-                <div className="col-start-4 row-start-2">
-                    <img src={data[4].imgelink} alt="" className="w-full h-48 object-cover object-center rounded-md" />
-                </div>
             </div>
             {/* ---------------------------- */}
 
@@ -84,9 +132,29 @@ const SiteDetailSummaryCard = () => {
                     <h3 className="font-bold text-lg">Tất cả ảnh về {siteDetail.siteName}</h3>
                     
                     <div className="grid grid-cols-4 grid-rows-2 gap-2 mt-4">
-                        {data.map((item, index) => (
-                            <img src={item.imgelink} alt="" className="w-full h-48 object-cover rounded-md" key={index} />
-                        ))}
+                        {siteDetail.medias.map((item, index) => {
+                            // <img src={item.imgelink} alt="" className="w-full h-48 object-cover rounded-md" key={index} />
+                            if (item.mediaType === 'IMAGE') {
+                                return <img key={index} 
+                                            src={item.url} 
+                                            className="w-full h-36 object-cover rounded-md" 
+                                            alt="Review Media" 
+                                        />;
+                            } else if (item.mediaType === 'VIDEO') {
+                                return <video key={index} 
+                                            className="w-full h-36 object-cover rounded-md" 
+                                            controls 
+                                            autoPlay 
+                                            loop
+                                            muted
+                                        >
+                                        <source src={item.url} type="video/mp4"/>
+                                        Your browser does not support the video tag.
+                                    </video>;
+                            } else {
+                                return null;
+                            }
+                        })}
                     </div>
                 </div>
                 <form method="dialog" className="modal-backdrop">

@@ -26,7 +26,7 @@ const StarRatingItem = (props) => {
                         value={i + 1} 
                         className={cn("mask mask-star-2", props.className)} 
                         onChange={handleRatingChange}
-                        {...isUpdateReview && {checked: props.rating === i + 1}}
+                        // {...isUpdateReview && {checked: props.rating === i + 1}}
                 />
             ))}
         </div>

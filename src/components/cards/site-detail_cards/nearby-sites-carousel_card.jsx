@@ -25,9 +25,9 @@ const NearbySitesCarouselCard = (props) => {
                             <div className="card card-compact h-64 border rounded-lg">
                                 <figure className="h-1/2">
                                     <img
-                                    src="https://images.unsplash.com/photo-1518623489648-a173ef7824f3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2762&q=80"
+                                    src={item?.medias[0]?.url}
                                     className="w-full object-cover bg-center"
-                                    alt="Movie" />
+                                    alt="Sites" />
                                 </figure>
                                 <div className="card-body">
                                     <h2 onClick={() => handleGetNearbySiteID(item.siteId)} className="font-medium cursor-pointer hover:underline">{item.name}</h2>

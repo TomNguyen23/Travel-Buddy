@@ -4,11 +4,7 @@ export const teamJourneyApiSlice = apiSlice.injectEndpoints({
     endpoints: (builder) => ({
         getAllPlans: builder.query({
             query: () => '/api/travel-plans',
-            providesTags(result) {
-                if (result) {
-                    return [...result.map(({ id }) => ({ type: 'TravelPlan', id }))];
-                }
-            }
+            providesTags: ['TravelPlan'],
         }),
         getTravelPlanDetail: builder.query({
             query: (id) => `/api/travel-plans/${id}`,

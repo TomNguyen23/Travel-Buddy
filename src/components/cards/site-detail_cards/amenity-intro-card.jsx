@@ -125,7 +125,7 @@ const AmenityIntoCard = () => {
                             className="text-gray-600 dark:text-gray-400"
                             ref={ref}
                         >
-                            Mang nét văn hóa tinh túy đậm đà Á Đông, Nhật Bản là nơi vẻ đẹp thiên nhiên, 
+                            {/* Mang nét văn hóa tinh túy đậm đà Á Đông, Nhật Bản là nơi vẻ đẹp thiên nhiên, 
                             văn hóa và ẩm thực luôn được ca tụng. Với tinh thần lan tỏa tinh hoa văn hóa 
                             Nhật Bản trên đất Việt, Da Nang Mikazuki được lấy cảm hứng là nơi đất trời hội tụ 
                             và nhịp sống bắt đầu. Đến với chúng tôi để sẵn sàng cho một hành trình khám phá 
@@ -133,7 +133,8 @@ const AmenityIntoCard = () => {
                             đạt chuẩn 5 sao ngay tại Đà Nẵng. Được tạo hóa ưu đãi với bờ biển trong xanh quyến rũ, 
                             Vịnh Đà Nẵng là nơi tọa lạc của Da Nang Mikazuki Japanese Resorts & Spa, một tổ hợp nghỉ dưỡng 
                             được quản lý bởi Công ty TNHH ODK Mikazuki Việt Nam. Trên diện tích 13 hecta, Da Nang Mikazuki 
-                            mang đến cho bạn nhiều loại hình dịch vụ hấp dẫn, mang đậm bản sắc văn hóa Nhật Bản. 
+                            mang đến cho bạn nhiều loại hình dịch vụ hấp dẫn, mang đậm bản sắc văn hóa Nhật Bản.  */}
+                            {data?.description}
                         </p>
 
                         {showReadMore && (
