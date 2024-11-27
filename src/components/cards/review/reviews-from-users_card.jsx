@@ -59,9 +59,6 @@ const ReviewsFromUsersCard = () => {
                         </div>
                     ))}
 
-                    {/* <ReviewFromEachUserCard /> */}
-                    
-                    
                 </article>
             </CardContent>
 
@@ -71,7 +68,7 @@ const ReviewsFromUsersCard = () => {
                         breakLabel="..."
                         nextLabel=">>"
                         // onPageChange={handlePageClick}
-                        pageRangeDisplayed={5}
+                        pageRangeDisplayed={4}
                         pageCount={siteReviews?.pagination?.totalPages}
                         previousLabel="<<"
 

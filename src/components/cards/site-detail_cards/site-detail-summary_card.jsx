@@ -27,7 +27,7 @@ const SiteDetailSummaryCard = () => {
 
             {/* ảnh về địa điểm */}
             <div className="grid grid-cols-4 gap-1">
-                {siteDetail?.medias[0] && (
+                {siteDetail?.medias && siteDetail?.medias[0] && (
                     <div className="col-span-2 row-span-2 relative">
                         {siteDetail?.medias[0]?.mediaType === 'IMAGE' 
                             ? <img src={siteDetail?.medias[0]?.url} alt="" className="w-full h-96 object-cover rounded-md" /> 
@@ -50,9 +50,8 @@ const SiteDetailSummaryCard = () => {
                     </div>
                 )}
                 
-                {siteDetail?.medias[1] && (
+                {siteDetail?.medias && siteDetail?.medias[1] && (
                     <div className="col-start-3">
-                        {/* <img src={data[1].imgelink} alt="" className="w-full h-48 object-cover object-center rounded-md" /> */}
                         {siteDetail?.medias[1]?.mediaType === 'IMAGE' 
                             ? <img src={siteDetail?.medias[1]?.url} alt="" className="w-full h-48 object-cover object-center rounded-md" /> 
                             : (
@@ -69,7 +68,7 @@ const SiteDetailSummaryCard = () => {
                     </div>
                 )}
 
-                {siteDetail?.medias[2] && (
+                {siteDetail?.medias && siteDetail?.medias[2] && (
                     <div className="col-start-4">
                         {siteDetail?.medias[2] && siteDetail?.medias[2]?.mediaType === 'IMAGE' 
                             ? <img src={siteDetail?.medias[2]?.url} alt="" className="w-full h-48 object-cover object-center rounded-md" /> 
@@ -87,7 +86,7 @@ const SiteDetailSummaryCard = () => {
                     </div>
                 )}
 
-                {siteDetail?.medias[3] && (
+                {siteDetail?.medias && siteDetail?.medias[3] && (
                     <div className="col-start-3 row-start-2">
                         {siteDetail?.medias[3] && siteDetail?.medias[3]?.mediaType === 'IMAGE' 
                             ? <img src={siteDetail?.medias[3]?.url} alt="" className="w-full h-48 object-cover object-center rounded-md" /> 
@@ -105,7 +104,7 @@ const SiteDetailSummaryCard = () => {
                     </div>
                 )}
 
-                {siteDetail?.medias[4] && (
+                {siteDetail?.medias && siteDetail?.medias[4] && (
                     <div className="col-start-4 row-start-2">
                         {siteDetail?.medias[4] && siteDetail?.medias[4]?.mediaType === 'IMAGE' 
                             ? <img src={siteDetail?.medias[4]?.url} alt="" className="w-full h-48 object-cover object-center rounded-md" /> 
@@ -132,7 +131,7 @@ const SiteDetailSummaryCard = () => {
                     <h3 className="font-bold text-lg">Tất cả ảnh về {siteDetail.siteName}</h3>
                     
                     <div className="grid grid-cols-4 grid-rows-2 gap-2 mt-4">
-                        {siteDetail.medias.map((item, index) => {
+                        {siteDetail?.medias?.map((item, index) => {
                             // <img src={item.imgelink} alt="" className="w-full h-48 object-cover rounded-md" key={index} />
                             if (item.mediaType === 'IMAGE') {
                                 return <img key={index} 

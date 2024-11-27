@@ -33,6 +33,7 @@ import HotelDetail from "@/pages/site-detail/hotel-detail"
 import SiteMapDetail from "@/pages/site-detail/site-map-detail"
 import HomePage from "@/pages/home/home"
 import SiteReviewUpdate from "@/pages/review/site-review-update"
+import MyReviews from "@/pages/profile/my-reviews"
 
 const publicRoutes = [
     {path: '/', element: HomePage},
@@ -60,6 +61,7 @@ const publicRoutes = [
 const privateRoutes = [
     {path: '/your-profile', element: UserProfile, Layout: UserSettingProfileLayout },
     {path: '/password-and-security', element: PasswordAndSecurity, Layout: UserSettingProfileLayout },
+    {path: '/my-reviews', element: MyReviews, Layout: UserSettingProfileLayout },
     {path: '/my-notifications', element: MyNotifications, Layout: UserSettingProfileLayout },
     {path: '/my-journeys', element: TeamJourneys, Layout: TeamJourneySummaryLayout },
     {path: '/team-journey-schedule', element: TeamJourneySchedule, Layout: TeamJourneyDetailLayout },

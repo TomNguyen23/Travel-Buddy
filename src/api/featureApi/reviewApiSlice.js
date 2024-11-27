@@ -24,6 +24,7 @@ export const reviewApiSlice = apiSlice.injectEndpoints({
             }),
             providesTags: ['SiteDetail'],
         }),
+
         likeReview: builder.mutation({
             query: ({reviewId}) => ({
                 url: `/api/site-reviews/${reviewId}/like`,
@@ -31,6 +32,14 @@ export const reviewApiSlice = apiSlice.injectEndpoints({
             }),
             invalidatesTags: ['SiteReview'],
         }),
+        unlikeReview: builder.mutation({
+            query: ({reviewId}) => ({
+                url: `/api/site-reviews/${reviewId}/dislike`,
+                method: 'POST',
+            }),
+            invalidatesTags: ['SiteReview'],
+        }),
+
         updateReview: builder.mutation({
             query: ({reviewId, formData}) => ({
                 url: `/api/site-reviews/${reviewId}`,
@@ -47,12 +56,21 @@ export const reviewApiSlice = apiSlice.injectEndpoints({
             invalidatesTags: ['SiteReview'],
         }),
 
+        getMyReviews: builder.query({
+            query: () => ({
+                url: '/api/site-reviews/my-reviews',
+                method: 'GET',
+            }),
+        }),
+
     }),
 });
 
 export const { usePostReviewMutation, 
                 useGetSiteReviewsQuery, 
                 useLikeReviewMutation,
+                useUnlikeReviewMutation,
                 useGetSiteDetailReviewQuery,
                 useUpdateReviewMutation,
-                useRemoveReviewMutation } = reviewApiSlice;
+                useRemoveReviewMutation,
+                useGetMyReviewsQuery } = reviewApiSlice;

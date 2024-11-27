@@ -67,7 +67,7 @@ const SiteMapCard = ({ className, canMove }) => {
             width='100%'
             height='100%'
             mapboxAccessToken={import.meta.env.VITE_REACT_APP_MAPBOX_API_KEY}
-            mapStyle="mapbox://styles/mapbox/streets-v12"
+            mapStyle="mapbox://styles/mapbox/standard"
             {...(canMove ? {onMove: evt => setViewport(evt.viewState)} : {})}
         >
             <Marker 
@@ -76,8 +76,9 @@ const SiteMapCard = ({ className, canMove }) => {
                 draggable
                 anchor="bottom"
                 onDragEnd={onMarkerDragEnd}
+                color='red'
             >
-                <span className='material-icons text-red-600 text-5xl'>location_on</span>
+                {/* <span className='material-icons text-red-600 text-5xl'>location_on</span> */}
             </Marker>
 
             {nearbySites?.map((site) => (

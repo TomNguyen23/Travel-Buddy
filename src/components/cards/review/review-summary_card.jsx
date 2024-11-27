@@ -9,7 +9,7 @@ const ReviewSummaryCard = () => {
             <div className="card card-compact bg-base-100 w-full shadow-xl rounded-lg">
                 {siteDetail?.medias[0] && 
                     <figure>
-                        <img src={siteDetail?.medias[0]} className="h-full max-h-72 w-full" alt="Site" />
+                        <img src={siteDetail?.medias[0].url} className="h-full max-h-72 w-full" alt="Site" />
                     </figure>
                 }
 

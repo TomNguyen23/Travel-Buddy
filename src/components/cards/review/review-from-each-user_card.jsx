@@ -86,7 +86,7 @@ const ReviewFromEachUserCard = (props) => {
                         </DropdownMenu>
                     }
                     <div className="flex items-center">
-                        <LikeItem reviewID={props.review.id} />
+                        <LikeItem reviewID={props.review.id} likeStatus={props.review.userReaction} />
                         <span className="pl-1">{props?.review?.likeCount}</span>
                     </div>
                     <ReportItem />
@@ -110,7 +110,7 @@ const ReviewFromEachUserCard = (props) => {
                     if (media.mediaType === 'IMAGE') {
                         return <img key={index} 
                                     src={media.url} 
-                                    className="w-full h-36 object-cover rounded-md" 
+                                    className="w-full h-40 object-cover bg-center rounded-md" 
                                     alt="Review Media" 
                                 />;
                     } else if (media.mediaType === 'VIDEO') {
@@ -152,6 +152,7 @@ ReviewFromEachUserCard.propTypes = {
             mediaType: PropTypes.string.isRequired,
             url: PropTypes.string.isRequired,
         })).isRequired,
+        userReaction: PropTypes.string.isRequired,
     }).isRequired,
 };
 

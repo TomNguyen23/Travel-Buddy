@@ -1,33 +1,51 @@
-import { useLikeReviewMutation } from "@/api/featureApi/reviewApiSlice";
+import { useLikeReviewMutation, useUnlikeReviewMutation } from "@/api/featureApi/reviewApiSlice";
 import { useState } from "react";
 import PropTypes from 'prop-types';
 
 import { useToast } from '@/hooks/use-toast';
 import { ToastAction } from '@/components/ui/toast';
 
-const LikeItem = ({ reviewID }) => {
+const LikeItem = ({ reviewID, likeStatus }) => {
     const { toast } = useToast();
-    const [liked, setLiked] = useState(false);
+    const [liked, setLiked] = useState(likeStatus === null || likeStatus === 'DISLIKE' ? false : true);
     const [isFetching, setIsFetching] = useState(false);
 
     const [likeReviewAction] = useLikeReviewMutation();
+    const [unlikeReviewAction] = useUnlikeReviewMutation();
 
     const handleLikeUnlike = async () => {
         setIsFetching(true);
-        await likeReviewAction({reviewId: reviewID})
-            .unwrap()
-            .then(() => {
-                setLiked(!liked);
-                setIsFetching(false);
-            })
-            .catch((error) => {
-                toast({
-                    variant: "destructive",
-                    title: "Uh oh! Có gì đó sai sai.",
-                    description: error.data.message,
-                    action: <ToastAction altText="Try again">Thử lại</ToastAction>,
+        if (liked === false) {
+            await likeReviewAction({reviewId: reviewID})
+                .unwrap()
+                .then(() => {
+                    setLiked(!liked);
+                    setIsFetching(false);
                 })
-            })
+                .catch((error) => {
+                    toast({
+                        variant: "destructive",
+                        title: "Uh oh! Có gì đó sai sai.",
+                        description: error.data.message,
+                        action: <ToastAction altText="Try again">Thử lại</ToastAction>,
+                    })
+                })
+        } else {
+            await unlikeReviewAction({reviewId: reviewID})
+                .unwrap()
+                .then(() => {
+                    setLiked(!liked);
+                    setIsFetching(false);
+                })
+                .catch((error) => {
+                    toast({
+                        variant: "destructive",
+                        title: "Uh oh! Có gì đó sai sai.",
+                        description: error.data.message,
+                        action: <ToastAction altText="Try again">Thử lại</ToastAction>,
+                    })
+                })
+        }
 
     };
     return ( 
@@ -41,6 +59,7 @@ const LikeItem = ({ reviewID }) => {
 }
 LikeItem.propTypes = {
     reviewID: PropTypes.string.isRequired,
+    likeStatus: PropTypes.string.isRequired,
 };
 
 export default LikeItem;

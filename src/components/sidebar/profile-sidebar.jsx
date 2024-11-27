@@ -104,7 +104,11 @@ const ProfileSidebar = () => {
                     <h1 className="text-2xl font-bold">{userInfo.fullName}</h1>
                     <p className="flex items-center">
                         <span className="material-icons text-[#FFAB3E] text-3xl">workspace_premium</span>
-                        <span className="">1020 điểm</span>
+                        {userInfo.score 
+                            ? <span className="">{userInfo.score} điểm</span>
+                            : <span>0 điểm</span>
+                        }
+                        
                     </p>
                 </div>
             </div>
@@ -125,7 +129,7 @@ const ProfileSidebar = () => {
 
                 <Separator />
 
-                <ProfileSideBarItem navigateTo="/profile">
+                <ProfileSideBarItem navigateTo="/my-reviews">
                     <div className="flex items-center">
                         <span className="material-icons-outlined text-2xl mr-2">border_color</span> 
                         <span>Bài đánh giá</span>

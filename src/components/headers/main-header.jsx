@@ -52,6 +52,11 @@ const MainHeader = () => {
                             <DropdownMenuItem>
                                 <Link to="/your-profile">Trang cá nhân</Link>
                             </DropdownMenuItem>
+
+                            <DropdownMenuItem>
+                                <Link to="/my-reviews">Đánh giá của tôi</Link>
+                            </DropdownMenuItem>
+
                             <DropdownMenuItem onClick={logoutHandler} className='text-red-600'>Đăng xuất</DropdownMenuItem>
                         </DropdownMenuContent>
                     </DropdownMenu>
