@@ -2,8 +2,16 @@ import { useGetMyReviewsQuery } from '@/api/featureApi/reviewApiSlice';
 import MyReviewItem from '@/components/items/user_items/my-review-item';
 import ReactPaginate from 'react-paginate';
 
+import { useState } from 'react';
+
 const MyReviews = () => {
-    const {data: myReviews} = useGetMyReviewsQuery();
+    const [page, setPage] = useState(1);
+    const {data: myReviews} = useGetMyReviewsQuery(page, {refetchOnMountOrArgChange: true});
+
+    const handleChangePage = (e) => {
+        setPage(e.selected + 1);
+    }
+
     return ( 
         <>
             <h1 className="text-3xl font-semibold">Đánh giá của tôi về các địa điểm</h1>
@@ -17,7 +25,7 @@ const MyReviews = () => {
                 <ReactPaginate
                     breakLabel="..."
                     nextLabel=">>"
-                    // onPageChange={handlePageClick}
+                    onPageChange={handleChangePage}
                     pageRangeDisplayed={5}
                     pageCount={myReviews?.pagination?.totalPages}
                     previousLabel="<<"

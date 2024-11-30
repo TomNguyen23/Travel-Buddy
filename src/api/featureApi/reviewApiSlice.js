@@ -11,8 +11,8 @@ export const reviewApiSlice = apiSlice.injectEndpoints({
             invalidatesTags: ['SiteReview', 'SiteDetail'],
         }),
         getSiteReviews: builder.query({
-            query: (siteId) => ({
-                url: `/api/sites/${siteId}/reviews`,
+            query: ({siteId, page}) => ({
+                url: `/api/sites/${siteId}/reviews?page=${page}`,
                 method: 'GET',
             }),
             providesTags: ['SiteReview'],
@@ -57,8 +57,8 @@ export const reviewApiSlice = apiSlice.injectEndpoints({
         }),
 
         getMyReviews: builder.query({
-            query: () => ({
-                url: '/api/site-reviews/my-reviews',
+            query: (page) => ({
+                url: `/api/site-reviews/my-reviews?page=${page}`,
                 method: 'GET',
             }),
         }),

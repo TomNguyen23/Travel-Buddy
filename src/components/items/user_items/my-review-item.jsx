@@ -46,12 +46,13 @@ const MyReviewItem = (props) => {
 
                 <div className='pt-3'>
                     <StarRatingLabelItem star={props.review.generalRating} size='sm' />
-                    <p 
-                        style={paragraphStyle}
-                        className="text-sm"
-                    >
+                    <p style={paragraphStyle} className="text-sm">
                         {props.review.comment} 
                     </p>
+
+                    {props.review.medias && props.review.medias.length > 0 &&
+                        <p className='text-xs text-slate-500 py-0.5'>Cùng với {props.review.medias.length} ảnh/video</p>
+                    }
                 </div>
 
             </div>
@@ -65,6 +66,9 @@ MyReviewItem.propTypes = {
         generalRating: PropTypes.number.isRequired,
         date: PropTypes.string.isRequired,
         comment: PropTypes.string.isRequired,
+        medias: PropTypes.arrayOf(PropTypes.shape({
+            url: PropTypes.string.isRequired
+        })),
 
         site: PropTypes.shape({
             siteName: PropTypes.string.isRequired,

@@ -9,6 +9,7 @@ import {
 import { Separator } from "@/components/ui/separator";
 import ReviewFromEachUserCard from "./review-from-each-user_card";
 
+import { useState } from "react";
 import ReactPaginate from 'react-paginate';
 import { useSelector } from "react-redux";
 import { useGetSiteReviewsQuery } from "@/api/featureApi/reviewApiSlice";
@@ -17,7 +18,15 @@ import { useGetSiteReviewsQuery } from "@/api/featureApi/reviewApiSlice";
 const ReviewsFromUsersCard = () => {
     // const sideID = useSelector((state) => state.siteDetail.siteID);
     const siteDetail = useSelector((state) => state.siteDetail.amenityDetail);
-    const { data: siteReviews } = useGetSiteReviewsQuery(siteDetail.siteId);
+    const [page, setPage] = useState(1);
+    const { data: siteReviews } = useGetSiteReviewsQuery(
+        {siteId: siteDetail.siteId, page: page},
+        {refetchOnMountOrArgChange: true}
+    );
+
+    const handleChangePage = (e) => {
+        setPage(e.selected + 1);
+    }
 
     return ( 
         <Card className='mb-5'>
@@ -67,7 +76,7 @@ const ReviewsFromUsersCard = () => {
                     <ReactPaginate
                         breakLabel="..."
                         nextLabel=">>"
-                        // onPageChange={handlePageClick}
+                        onPageChange={handleChangePage}
                         pageRangeDisplayed={4}
                         pageCount={siteReviews?.pagination?.totalPages}
                         previousLabel="<<"

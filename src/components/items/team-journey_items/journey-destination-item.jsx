@@ -130,9 +130,11 @@ const JourneyDestinationItem = ( props ) => {
     }
 
     return ( 
-        <div className="w-full px-3 py-2 my-2 rounded-sm flex justify-between items-center hover:bg-slate-100 dark:hover:bg-slate-700 cursor-pointer">
-            <img src="https://picsum.photos/200" className="h-28 w-1/4 object-cover rounded-md" alt="" />
-
+        <div className="w-full px-3 py-2 my-2 rounded-sm flex justify-between items-stretch hover:bg-slate-100 dark:hover:bg-slate-700 cursor-pointer">
+            {props.data.siteBasicInfoRspnDto.medias && props.data.siteBasicInfoRspnDto.medias.length > 0 && (
+                <img src={props.data.siteBasicInfoRspnDto.medias[0].url} className="h-32 w-2/5 object-cover rounded-md" alt="" />
+            )}
+            
             <div className="w-3/4 pl-3">
                 <div className="badge badge-accent text-white">{getProvince()}</div>
                 <h1 
@@ -239,7 +241,11 @@ JourneyDestinationItem.propTypes = {
             siteType: PropTypes.shape({
                 name: PropTypes.string.isRequired,
             }).isRequired,
-            
+            medias: PropTypes.arrayOf(
+                PropTypes.shape({
+                    url: PropTypes.string.isRequired,
+                })
+            ),
         }),
     }).isRequired,
 };

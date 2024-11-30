@@ -112,7 +112,7 @@ const SiteMapCard = ({ className, canMove }) => {
                             <p className='text-xs text-gray-500'>{selectedSite.siteType.name}</p>
                             <p className="flex items-center">
                                 <div className="flex items-center">
-                                    <span className='text-sm pr-0.5'>{selectedSite.averageRating.toFixed(1)}</span>
+                                    <span className='text-sm text-gray-500 pr-0.5'>{selectedSite.averageRating.toFixed(1)}</span>
                                     <span className='material-icons text-sm text-yellow-400'>star</span>
                                 </div>
                                 
