@@ -48,7 +48,7 @@ const HomeHeader = () => {
         <header className="bg-transparent fixed top-0 left-0 right-0 z-30">
             <nav className={`px-16 py-4 ${isSticky ? "sticky top-0 left-0 right-0 flex justify-between items-center border-b duration-300 bg-white dark:bg-[#020817]" : "flex justify-between items-center text-white"}`}>
                 <Link to="/" className="flex items-center">
-                    <img className="h-11 w-11 rounded-full" src="https://picsum.photos/200" alt="" />
+                    {/* <img className="h-11 w-11 rounded-full" src="https://picsum.photos/200" alt="" /> */}
                     <h1 className="text-2xl font-bold ml-3">Travel Buddy</h1>
                 </Link>
     

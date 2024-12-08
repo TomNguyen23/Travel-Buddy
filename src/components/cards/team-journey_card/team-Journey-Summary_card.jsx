@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -27,9 +27,15 @@ const TeamJourneySummaryCard = () => {
     const myMember = members?.find(member => member.userId === myID);
     const myRole = myMember ? myMember.role : null;
 
-    const [journeyName, setJourneyName] = useState(planDetail.name);
-    const [startTime, setStartTime] = useState(planDetail.startTime);
-    const [endTime, setEndTime] = useState(planDetail.endTime);
+    const [journeyName, setJourneyName] = useState("");
+    const [startTime, setStartTime] = useState();
+    const [endTime, setEndTime] = useState();
+
+    useEffect(() => {
+        setJourneyName(planDetail.name);
+        setStartTime(planDetail.startTime);
+        setEndTime(planDetail.endTime);
+    }, [planDetail]);
     
     const formatDateTime = (dateTime) => {
         const date = new Date(dateTime);

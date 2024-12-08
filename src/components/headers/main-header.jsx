@@ -26,7 +26,7 @@ const MainHeader = () => {
     return ( 
         <header className="flex justify-between items-center px-16 py-4 bg-white/30 dark:bg-[#020817]/30 backdrop-blur-md border-b fixed top-0 left-0 right-0 z-30">
             <Link to="/" className="flex items-center">
-                <img className="h-11 w-11 rounded-full" src="https://picsum.photos/200" alt="" />
+                {/* <img className="h-11 w-11 rounded-full" src="https://picsum.photos/200" alt="" /> */}
                 <h1 className="text-2xl font-bold ml-3">Travel Buddy</h1>
             </Link>
 

@@ -130,7 +130,7 @@ const JourneyDestinationItem = ( props ) => {
     }
 
     return ( 
-        <div className="w-full px-3 py-2 my-2 rounded-sm flex justify-between items-stretch hover:bg-slate-100 dark:hover:bg-slate-700 cursor-pointer">
+        <div className="w-full px-3 py-2 my-2 rounded-sm flex justify-between items-stretch hover:bg-slate-100 dark:hover:bg-slate-700">
             {props.data.siteBasicInfoRspnDto.medias && props.data.siteBasicInfoRspnDto.medias.length > 0 && (
                 <img src={props.data.siteBasicInfoRspnDto.medias[0].url} className="h-32 w-2/5 object-cover rounded-md" alt="" />
             )}
@@ -138,7 +138,7 @@ const JourneyDestinationItem = ( props ) => {
             <div className="w-3/4 pl-3">
                 <div className="badge badge-accent text-white">{getProvince()}</div>
                 <h1 
-                    className="text-2xl font-semibold hover:underline"
+                    className="text-2xl font-semibold hover:underline cursor-pointer"
                     onClick={() => handleGetSiteDetail(props.data.siteBasicInfoRspnDto.siteId)}
                 >
                     {props.data.siteBasicInfoRspnDto.siteName}
@@ -155,8 +155,8 @@ const JourneyDestinationItem = ( props ) => {
                 </div>
             </div>
 
-            <div className="w-2/12 flex justify-end">
-                <DropdownMenu>
+            <div className="w-2/12 h-fit flex justify-end">
+                {/* <DropdownMenu>
                     <DropdownMenuTrigger className="ml-5">
                         <span className="material-icons text-3xl">more_horiz</span>
                     </DropdownMenuTrigger>
@@ -167,7 +167,18 @@ const JourneyDestinationItem = ( props ) => {
                         </DropdownMenuItem>
                         <DropdownMenuItem onClick={() => handleDeleteDestination(props.data.siteBasicInfoRspnDto.siteId)} className="text-red-700">Xóa</DropdownMenuItem>
                     </DropdownMenuContent>
-                </DropdownMenu>
+                </DropdownMenu> */}
+
+                <span className="material-icons text-2xl cursor-pointer pr-3 hover:text-slate-500" 
+                    onClick={()=>document.getElementById(`edit-destination-${props.data.siteBasicInfoRspnDto.siteId}`).showModal()}
+                >
+                    tune
+                </span>
+                <span className="material-icons-outlined text-2xl text-red-500 hover:text-red-300 cursor-pointer" 
+                    onClick={() => handleDeleteDestination(props.data.siteBasicInfoRspnDto.siteId)}
+                >
+                    delete
+                </span>
             </div>
 
 

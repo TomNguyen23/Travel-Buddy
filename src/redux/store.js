@@ -5,6 +5,7 @@ import { persistReducer, persistStore } from 'redux-persist';
 import authReducer from "@/redux/reducer/auth.reducer";
 import discoverReducer from "@/redux/reducer/discover.reducer";
 import siteDetailReducer from "@/redux/reducer/site-detail.reducer";
+import newSiteReducer from "@/redux/reducer/new-site.reducer";
 import teamJourneyReducer from "@/redux/reducer/team-journey.reducer";
 import { apiSlice } from "@/api/apiSlice";
 
@@ -20,6 +21,7 @@ const rootReducer = combineReducers({
     auth: authReducer,
     discover: discoverReducer,
     siteDetail: siteDetailReducer,
+    newSite: newSiteReducer,
     teamJourney: teamJourneyReducer,
 }); 
 

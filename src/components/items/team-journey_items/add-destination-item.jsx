@@ -31,17 +31,6 @@ const AddDestinationItem = () => {
     const planDetail = useSelector((state) => state.teamJourney.travelPlanDetail);
     const planID = useSelector((state) => state.teamJourney.journeyID);
 
-    const getCurrentDateTime = () => {
-        const now = new Date();
-        const year = now.getFullYear();
-        const month = String(now.getMonth() + 1).padStart(2, '0');
-        const day = String(now.getDate()).padStart(2, '0');
-        const hours = String(now.getHours()).padStart(2, '0');
-        const minutes = String(now.getMinutes()).padStart(2, '0');
-        return `${year}-${month}-${day}T${hours}:${minutes}`;
-    };
-    const minDateTime = getCurrentDateTime();
-
     const [showSearchResult, setShowSearchResult] = useState(false);
     const searchValueDebounce = useDebound(destination);
 
@@ -185,7 +174,7 @@ const AddDestinationItem = () => {
                             type="datetime-local"
                             id="datetime"
                             className="border px-2 py-3 rounded-sm dark:bg-[#1D232A]"
-                            min={minDateTime}
+                            min={planDetail.startTime}
                             autoFocus
                             value={startTime}
                             onChange={(e) => setStartTime(e.target.value)}
@@ -201,7 +190,7 @@ const AddDestinationItem = () => {
                             id="datetime"
                             className="border px-2 py-3 rounded-sm dark:bg-[#1D232A]"
                             value={endTime}
-                            min={minDateTime}
+                            min={planDetail.startTime}
                             onChange={(e) => setEndTime(e.target.value)}
                         />
                     </label>

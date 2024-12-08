@@ -7,6 +7,7 @@ import DiscoverRankingListLayout from "@/layouts/discover/discover-ranking-list"
 import ReviewLayout from "@/layouts/review/review-layout"
 import SiteDetailsLayout from "@/layouts/site-detail/site-detail"
 import MapLayout from "@/layouts/map/map-layout"
+import NewSitelayout from "@/layouts/new-site/new-site"
 
 import LoginPage from "@/pages/auth/login"
 import RegisterPage from "@/pages/auth/register"
@@ -34,6 +35,9 @@ import SiteMapDetail from "@/pages/site-detail/site-map-detail"
 import HomePage from "@/pages/home/home"
 import SiteReviewUpdate from "@/pages/review/site-review-update"
 import MyReviews from "@/pages/profile/my-reviews"
+import ChooseSiteType from "@/pages/new-site/choose-site-type"
+import NewSiteInfo from "@/pages/new-site/new-site-info"
+import SiteMedia from "@/pages/new-site/site-media"
 
 const publicRoutes = [
     {path: '/', element: HomePage},
@@ -54,7 +58,11 @@ const publicRoutes = [
 
     {path: '/details/hotel', element: HotelDetail, Layout: SiteDetailsLayout },
     {path: '/details/map', element: SiteMapDetail, Layout: MapLayout },
-    
+
+
+    {path: '/new-site/site-type', element: ChooseSiteType, Layout: BlankContentWithLogo },
+    {path: '/new-site/site-info', element: NewSiteInfo, Layout: NewSitelayout },
+    {path: '/new-site/site-media', element: SiteMedia, Layout: NewSitelayout },
 ]
 
 // "roles" trong này do mình tự quyết định nó phân quyền cho đối tượng nào được truy cập vào route này
