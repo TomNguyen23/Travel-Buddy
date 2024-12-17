@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import PersionlizeCard from "@/components/cards/personalize_card";
+import PersionlizeCard from "@/components/cards/other_cards/personalize_card";
 import { Button } from "@/components/ui/button";
 
 const PersonalizeIdeas = () => {

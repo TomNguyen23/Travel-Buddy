@@ -5,15 +5,23 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import { useDispatch } from 'react-redux';
 import { cn } from "@/lib/utils"
 import { getNewSiteCoordinates } from '@/redux/reducer/new-site.reducer';
+import { useGetCoordinatesByAddressQuery } from '@/api/featureApi/siteApiSlice';
 
-const NewSiteMapCard = ({ className, canMove }) => {
+const NewSiteMapCard = ({ className, canMove, address }) => {
     const dispatch = useDispatch();
-    const [coordinates, setCoordinates] = useState({lat: 21.028511, lng: 105.804817});
+    const [coordinates, setCoordinates] = useState({lat: null, lng: null});
     const [viewport, setViewport] = useState({
         latitude: coordinates.lat,
         longitude: coordinates.lng,
-        zoom: 15
+        zoom: 12
     });
+
+    const {data: localSiteCoordinates} = useGetCoordinatesByAddressQuery({address},
+        {
+            skip: !address,
+            refetchOnMountOrArgChange: true,
+        }
+    );
 
     useEffect(() => {
         if (navigator.geolocation) {
@@ -32,10 +40,19 @@ const NewSiteMapCard = ({ className, canMove }) => {
     }, []);
 
     useEffect(() => {
+        if (address && localSiteCoordinates) {
+            setCoordinates({
+                lat: localSiteCoordinates?.features[0].geometry.coordinates[1],
+                lng: localSiteCoordinates?.features[0].geometry.coordinates[0]
+            })
+            
+        }
+    }, [address, localSiteCoordinates]);
+
+    useEffect(() => {
         setViewport({
             latitude: coordinates.lat,
             longitude: coordinates.lng,
-            zoom: 15
         });
     }, [coordinates]);
 
@@ -44,7 +61,7 @@ const NewSiteMapCard = ({ className, canMove }) => {
         setViewport({
             latitude: event.lngLat.lat,
             longitude: event.lngLat.lng,
-            zoom: 15
+            // zoom: 15
         });
         dispatch(getNewSiteCoordinates({lat: event.lngLat.lat, lng: event.lngLat.lng}));
         // console.log(event.lngLat.lat, event.lngLat.lng);
@@ -80,6 +97,7 @@ const NewSiteMapCard = ({ className, canMove }) => {
 NewSiteMapCard.propTypes = {
     className: PropTypes.string,
     canMove: PropTypes.bool,
+    address: PropTypes.string,
 };
 
 export default NewSiteMapCard;

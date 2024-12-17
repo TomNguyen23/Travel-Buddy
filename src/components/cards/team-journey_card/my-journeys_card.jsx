@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 import PropTypes from 'prop-types';
-import { format } from "date-fns";
+import { format, isBefore } from "date-fns";
 
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -29,10 +29,15 @@ const MyJourneysCard = (props) => {
         navigateTo('/team-journey-schedule');
     }
 
+    const isJourneyDone = isBefore(new Date(props?.journey?.endTime), new Date());
+
     return ( 
         <Card className="w-72 h-48 bg-[url('@/assets/images/layered-waves-haikei.png')] bg-cover  dark:bg-gray-800 hover:bg-slate-100 dark:hover:bg-gray-900">
             <CardHeader className='h-36 flex flex-col justify-between'>
-                <CardTitle className='cursor-pointer hover:underline' onClick={() => handleGetTravelPlanDetail(props?.journey?.id)}>{props?.journey?.name}</CardTitle>
+                <CardTitle className='cursor-pointer hover:underline' onClick={() => handleGetTravelPlanDetail(props?.journey?.id)}>
+                    {props?.journey?.name}
+                    {isJourneyDone && <div className="badge badge-warning ml-1 text-white font-light">Đã kết thúc</div>}
+                </CardTitle>
                 <CardDescription>
                     <div className="flex items-center">
                         <span className="material-icons text-lg">calendar_month</span>

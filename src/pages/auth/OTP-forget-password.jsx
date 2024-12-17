@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useOTPforgetPasswordMutation } from "@/api/featureApi/authApiSlice";
 import { clearForgetPassword } from "@/redux/reducer/auth.reducer";
-import OTPcard from "@/components/cards/OTP_card";
+import OTPcard from "@/components/cards/other_cards/OTP_card";
 
 const OTPforgetPassword = () => {
     const { toast } = useToast();

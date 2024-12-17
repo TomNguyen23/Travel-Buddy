@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 
 import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
+import { Link } from "react-router-dom";
 
 const NewSitelayout = ({children}) => {
     const location = useLocation();
@@ -10,7 +11,8 @@ const NewSitelayout = ({children}) => {
     const pathToStepMap = {
         '/new-site/site-type': 1,
         '/new-site/site-info': 2,
-        '/new-site/site-media': 3,
+        '/new-site/site-business-info': 3,
+        '/new-site/site-media': 4,
     };
 
     useEffect(() => {
@@ -21,6 +23,13 @@ const NewSitelayout = ({children}) => {
             stepElements[currentStep - 1].classList.add('step-neutral');
           }
         }
+        //all steps before current step should be marked as neutral
+        for (let i = 0; i < pathToStepMap[location.pathname]; i++) {
+          const stepElements = document.querySelectorAll('.steps li');
+          if (stepElements[i]) {
+            stepElements[i].classList.add('step-neutral');
+          }
+        }
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [location.pathname]);
 
@@ -28,8 +37,10 @@ const NewSitelayout = ({children}) => {
     return ( 
         <>
             <header className="flex items-center px-16 py-4">
-                {/* <img className="h-11 w-11 rounded-full" src="https://picsum.photos/200" alt="" /> */}
-                <h1 className="text-2xl font-bold ml-3">Travel Buddy</h1>
+                <Link to="/" className="flex items-center">
+                    {/* <img className="h-11 w-11 rounded-full" src="https://picsum.photos/200" alt="" /> */}
+                    <h1 className="text-2xl font-bold ml-3">Travel Buddy</h1>
+                </Link>
             </header>
 
             <div className="px-52 flex justify-between items-start min-h-screen">

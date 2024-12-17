@@ -1,8 +1,9 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import useDebound from "@/hooks/use-debound";
 import Tippy from "@tippyjs/react/headless";
 import { useSelector } from "react-redux";
 import { isAfter, isBefore } from "date-fns";
+import PropTypes from 'prop-types';
 
 import {
     Sheet,
@@ -17,16 +18,21 @@ import {
 import { Button } from "@/components/ui/button"
 import { useToast } from '@/hooks/use-toast';
 import { ToastAction } from '@/components/ui/toast';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHeart } from "@fortawesome/free-regular-svg-icons";
 
 import { useSearchSitesQuery } from "@/api/featureApi/siteApiSlice";
 import { useAddSiteToPlanMutation } from "@/api/featureApi/teamJourneyApiSlice";
+import { useLocation } from "react-router-dom";
 
-const AddDestinationItem = () => {
+const AddDestinationItem = ({ forTeam_SiteID, forTeam_SiteName }) => {
     const { toast } = useToast();
     const [startTime, setStartTime] = useState('');
     const [endTime, setEndTime] = useState('');
     const [destination, setDestination] = useState('');
     const [sideID, setSideID] = useState('');
+
+    const isForTeam = useLocation().pathname.includes('/for-your-team');
 
     const planDetail = useSelector((state) => state.teamJourney.travelPlanDetail);
     const planID = useSelector((state) => state.teamJourney.journeyID);
@@ -46,6 +52,13 @@ const AddDestinationItem = () => {
         setDestination(siteName);
         setShowSearchResult(false);
     }
+
+    useEffect(() => {
+        if (forTeam_SiteID) {
+            setSideID(forTeam_SiteID);
+            setDestination(forTeam_SiteName);
+        }
+    }, [forTeam_SiteID, forTeam_SiteName])
 
     const [addSiteToPlan] = useAddSiteToPlanMutation();
     const handleSubmit = async (e) => {
@@ -114,10 +127,17 @@ const AddDestinationItem = () => {
     return ( 
         <Sheet>
             <SheetTrigger asChild>
-                <Button variant="outline">
-                    <span className="mr-2">+</span>
-                    Thêm địa điểm
-                </Button>
+                {isForTeam ? (
+                    <div className="px-2 py-1 rounded-full cursor-pointer bg-white dark:bg-gray-800">
+                        <FontAwesomeIcon icon={faHeart} size="md" />
+                    </div>
+                ) : (
+                    <Button variant="outline">
+                        <span className="mr-2">+</span>
+                        Thêm địa điểm
+                    </Button>
+                )}
+               
             </SheetTrigger>
             <SheetContent >
                 <SheetHeader>
@@ -205,6 +225,11 @@ const AddDestinationItem = () => {
             </SheetContent>
         </Sheet>
      );
+}
+
+AddDestinationItem.propTypes = {
+    forTeam_SiteID: PropTypes.string,
+    forTeam_SiteName: PropTypes.string,
 }
  
 export default AddDestinationItem;

@@ -38,6 +38,8 @@ import MyReviews from "@/pages/profile/my-reviews"
 import ChooseSiteType from "@/pages/new-site/choose-site-type"
 import NewSiteInfo from "@/pages/new-site/new-site-info"
 import SiteMedia from "@/pages/new-site/site-media"
+import NewBusinessSiteINfo from "@/pages/new-site/new-business-site-info"
+import SiteForTeam from "@/pages/team-journey/site-for-team"
 
 const publicRoutes = [
     {path: '/', element: HomePage},
@@ -59,10 +61,7 @@ const publicRoutes = [
     {path: '/details/hotel', element: HotelDetail, Layout: SiteDetailsLayout },
     {path: '/details/map', element: SiteMapDetail, Layout: MapLayout },
 
-
-    {path: '/new-site/site-type', element: ChooseSiteType, Layout: BlankContentWithLogo },
-    {path: '/new-site/site-info', element: NewSiteInfo, Layout: NewSitelayout },
-    {path: '/new-site/site-media', element: SiteMedia, Layout: NewSitelayout },
+    {path: '/for-your-team', element: SiteForTeam, Layout: TeamJourneyDetailLayout },
 ]
 
 // "roles" trong này do mình tự quyết định nó phân quyền cho đối tượng nào được truy cập vào route này
@@ -76,6 +75,11 @@ const privateRoutes = [
 
     {path: '/review/site', element: SiteReview, Layout: ReviewLayout },
     {path: '/review/site/update', element: SiteReviewUpdate, Layout: ReviewLayout },
+
+    {path: '/new-site/site-type', element: ChooseSiteType, Layout: BlankContentWithLogo },
+    {path: '/new-site/site-info', element: NewSiteInfo, Layout: NewSitelayout },
+    {path: '/new-site/site-business-info', element: NewBusinessSiteINfo, Layout: NewSitelayout },
+    {path: '/new-site/site-media', element: SiteMedia, Layout: NewSitelayout },
 ]
 
 export { publicRoutes, privateRoutes }

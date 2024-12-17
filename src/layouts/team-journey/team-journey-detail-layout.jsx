@@ -18,12 +18,12 @@ const TeamJourneyLayout = ({ children }) => {
                             <Link to="/team-journey-schedule" 
                                 className={(window.location.href.indexOf("/team-journey-schedule") !== -1) 
                                     ? "border-b-4 border-b-black dark:border-b-white px-2 py-1 mr-2 text-lg font-semibold" 
-                                    : "p1 mr-2 text-lg font-semibold"}>
+                                    : "p-1 mr-2 text-lg font-semibold"}>
                                 Hành trình
                             </Link>
 
-                            <Link to="/team-journey-foryourteam" 
-                                className={(window.location.href.indexOf("/team-journey-foryourteam") !== -1) 
+                            <Link to="/for-your-team" 
+                                className={(window.location.href.indexOf("/for-your-team") !== -1) 
                                     ? "border-b-4 border-b-black dark:border-b-white px-2 py-1 text-lg font-semibold" 
                                     : "p-1 text-lg font-semibold"}>
                                 Gợi ý cho đội

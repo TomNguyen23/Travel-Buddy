@@ -71,7 +71,7 @@ const ChooseSiteType = () => {
                               onChange={handleRadioChange} 
                               value={item.id}
                               // checked={isChecked}
-                              className="appearance-none relative h-full w-full bg-white border rounded-xl shadow-lg cursor-pointer hover:scale-110 hover:transition ease-in-out delay-150 duration-300 checked:ring-4 checked:ring-main" />
+                              className="appearance-none relative h-full w-full bg-white dark:bg-gray-800 border rounded-xl shadow-lg cursor-pointer hover:scale-110 hover:transition ease-in-out delay-150 duration-300 checked:ring-4 checked:ring-main" />
                       <label htmlFor={`siteType-${item.id}`} className="absolute top-0 left-0 h-full w-full hover:scale-110 hover:transition ease-in-out delay-150 duration-300 cursor-pointer flex items-center justify-center">
                           <p className="text-center font-medium ">{item["name"]}</p>
                       </label>

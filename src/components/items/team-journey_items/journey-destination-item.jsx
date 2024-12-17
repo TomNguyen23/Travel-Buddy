@@ -131,8 +131,14 @@ const JourneyDestinationItem = ( props ) => {
 
     return ( 
         <div className="w-full px-3 py-2 my-2 rounded-sm flex justify-between items-stretch hover:bg-slate-100 dark:hover:bg-slate-700">
-            {props.data.siteBasicInfoRspnDto.medias && props.data.siteBasicInfoRspnDto.medias.length > 0 && (
+            {props.data.siteBasicInfoRspnDto.medias && props.data.siteBasicInfoRspnDto.medias.length > 0 ? (
                 <img src={props.data.siteBasicInfoRspnDto.medias[0].url} className="h-32 w-2/5 object-cover rounded-md" alt="" />
+            ) : (
+                <img
+                    src="https://images.unsplash.com/photo-1518623489648-a173ef7824f3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2762&q=80"
+                    className="h-32 w-2/5 object-cover rounded-md"
+                    alt=""
+                />
             )}
             
             <div className="w-3/4 pl-3">

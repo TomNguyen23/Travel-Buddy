@@ -13,7 +13,7 @@ import { apiSlice } from "@/api/apiSlice";
 const persistConfig = {
     key: 'root',
     storage: storageSession,  // muốn lưu vào local storage thì thay storageSession thành storage
-    whitelist: ['auth', 'siteDetail', 'teamJourney'] // muốn chỉ lưu thg nào thì bỏ vào whitelist
+    whitelist: ['auth', 'siteDetail', 'teamJourney', 'newSite'] // muốn chỉ lưu thg nào thì bỏ vào whitelist
 };
 
 const rootReducer = combineReducers({

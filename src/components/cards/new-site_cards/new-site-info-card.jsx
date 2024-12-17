@@ -16,7 +16,7 @@ import * as Yup from 'yup';
 import { useDispatch } from "react-redux";
 import { getNewSitebasicInfo } from "@/redux/reducer/new-site.reducer";
 import { useNavigate } from "react-router-dom";
-import NewSiteFeeItem from "@/components/items/new-site_items/new-site-fee-item";
+import useDebound from "@/hooks/use-debound";
 
 const NewSiteInfoCard = () => {
     const dispatch = useDispatch();
@@ -76,18 +76,21 @@ const NewSiteInfoCard = () => {
             }));
     };
 
-    const [fees, setFees] = useState([]);
+    const [resolvedAddress, setResolvedAddress] = useState('');
+    const deboundResolvedAddress = useDebound(resolvedAddress);
 
     const formik = useFormik({
         initialValues: {
             siteName: '',
-            resolvedAddress: '',
+            // resolvedAddress: '',
             website: '',
             phoneNumbers: [],
+            description: '',
         },
         validationSchema: Yup.object({
             siteName: Yup.string().required('Băt buộc nhập'),
-            resolvedAddress: Yup.string().required('Bắt buộc nhập'),
+            // resolvedAddress: Yup.string().required('Bắt buộc nhập'),
+            description: Yup.string().required('Bắt buộc nhập'),
         }),
         onSubmit: (values) => {
             const openingTimes = formatOpeningTimes();
@@ -96,11 +99,11 @@ const NewSiteInfoCard = () => {
                 ...values,
                 openingTimes,
                 phoneNumbers,
-                fees
+                resolvedAddress,
             };
 
             dispatch(getNewSitebasicInfo(data));
-            navigateTo('/new-site/site-media');
+            navigateTo('/new-site/site-business-info');
         }
             
     });
@@ -166,16 +169,33 @@ const NewSiteInfoCard = () => {
                             <input type="text" 
                                     id="resolvedAddress"
                                     name="resolvedAddress"
-                                    value={formik.values.resolvedAddress}
-                                    onChange={formik.handleChange}
+                                    value={resolvedAddress}
+                                    onChange={(e) => setResolvedAddress(e.target.value)}
                                     className="input input-bordered w-full rounded-sm" />
                         </label>
-                        {formik.errors.resolvedAddress && <div className='text-red-500 text-sm'>{formik.errors.resolvedAddress}</div>}
                     </div>
     
                     <div className="flex flex-col space-y-3 h-[30rem]">
-                        <NewSiteMapCard canMove />
+                        <NewSiteMapCard canMove 
+                                        address={deboundResolvedAddress} 
+                        />
                     </div>
+
+                    <label className="form-control">
+                        <div className="label">
+                            <span className="label-text">Giới thiệu về địa điểm</span>
+                        </div>
+                        <textarea 
+                            className="textarea textarea-bordered textarea-lg h-28 rounded-md text-sm" placeholder="..."
+                            id="description"
+                            name="description"
+                            value={formik.values.description}
+                            onChange={formik.handleChange}
+                        >
+                        </textarea>
+                        {formik.errors.description && <div className='text-red-500 text-sm'>{formik.errors.description}</div>}
+
+                    </label>
     
                     <div className="flex flex-col space-y-3">
                         <div className="label">
@@ -216,13 +236,6 @@ const NewSiteInfoCard = () => {
                             </div>
                         ))}
                     </div>
-
-                    <div className="flex flex-col space-y-3">
-                        <div className="label">
-                            <span className="label-text font-medium">Các loại chi phí (không bắt buộc)</span>
-                        </div>
-                        <NewSiteFeeItem getFees={(fees) => setFees(fees)} />
-                    </div>                    
                 </CardContent>
                 <CardFooter>
                     <Button type='submit' className='bg-main hover:bg-main-hover'>Tiếp theo</Button>
