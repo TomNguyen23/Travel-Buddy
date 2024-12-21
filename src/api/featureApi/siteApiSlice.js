@@ -28,6 +28,14 @@ export const siteApiSlice = apiSlice.injectEndpoints({
             query: ({address}) => `https://api.mapbox.com/search/geocode/v6/forward?q=${address}&access_token=${import.meta.env.VITE_REACT_APP_MAPBOX_API_KEY}`,
         }),
 
+        postNewSite: builder.mutation({
+            query: (newSite) => ({
+                url: '/api/sites',
+                method: 'POST',
+                body: newSite,
+            }),
+        }),
+
         getAllSites: builder.query({
             query: (page) => `/api/sites/discover?page=${page}`,
         }),
@@ -41,4 +49,5 @@ export const { useGetAmenityDetailQuery,
                 useGetSiteTypeAspectsFeeQuery,
                 useGetSiteServicesQuery,
                 useGetCoordinatesByAddressQuery,
+                usePostNewSiteMutation,
                 useGetAllSitesQuery } = siteApiSlice;

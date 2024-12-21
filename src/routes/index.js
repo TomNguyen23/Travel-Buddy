@@ -40,6 +40,8 @@ import NewSiteInfo from "@/pages/new-site/new-site-info"
 import SiteMedia from "@/pages/new-site/site-media"
 import NewBusinessSiteINfo from "@/pages/new-site/new-business-site-info"
 import SiteForTeam from "@/pages/team-journey/site-for-team"
+import NewSiteConfirmCard from "@/components/cards/new-site_cards/new-site-confirm-card"
+import NewSiteDone from "@/pages/new-site/new-site-done"
 
 const publicRoutes = [
     {path: '/', element: HomePage},
@@ -80,6 +82,8 @@ const privateRoutes = [
     {path: '/new-site/site-info', element: NewSiteInfo, Layout: NewSitelayout },
     {path: '/new-site/site-business-info', element: NewBusinessSiteINfo, Layout: NewSitelayout },
     {path: '/new-site/site-media', element: SiteMedia, Layout: NewSitelayout },
+    {path: '/new-site/confirmation', element: NewSiteConfirmCard, Layout: NewSitelayout },
+    {path: '/new-site/done', element: NewSiteDone, Layout: BlankContentWithLogo },
 ]
 
 export { publicRoutes, privateRoutes }

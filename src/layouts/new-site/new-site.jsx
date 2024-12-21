@@ -13,6 +13,7 @@ const NewSitelayout = ({children}) => {
         '/new-site/site-info': 2,
         '/new-site/site-business-info': 3,
         '/new-site/site-media': 4,
+        '/new-site/confirmation': 5,
     };
 
     useEffect(() => {
@@ -28,6 +29,14 @@ const NewSitelayout = ({children}) => {
           const stepElements = document.querySelectorAll('.steps li');
           if (stepElements[i]) {
             stepElements[i].classList.add('step-neutral');
+          }
+        }
+
+        //when user goes back, all steps after current step should be marked as neutral
+        for (let i = pathToStepMap[location.pathname]; i < 5; i++) {
+          const stepElements = document.querySelectorAll('.steps li');
+          if (stepElements[i]) {
+            stepElements[i].classList.remove('step-neutral');
           }
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -47,6 +56,7 @@ const NewSitelayout = ({children}) => {
                 <ul className="steps steps-vertical w-[20rem]">
                     <li className="step step-neutral">Chọn loại hình địa điểm</li>
                     <li className="step step-neutral">Thông tin về địa điểm</li>
+                    <li className="step step-neutral">Thông tin kinh doanh</li>
                     <li className="step">Hình ảnh về địa điểm</li>
                     <li className="step">Xác nhận và chờ xét duyệt</li>
                 </ul>

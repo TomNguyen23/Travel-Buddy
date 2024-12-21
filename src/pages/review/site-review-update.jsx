@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import StarRatingItem from "@/components/items/review/star-rating-item";
-import UploadImagesItem from "@/components/items/review/upload-images-item";
+import UploadImage_v2Item from "@/components/items/review/upload-images-v2-item";
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
 import { useToast } from '@/hooks/use-toast';
@@ -17,8 +17,7 @@ const SiteReviewUpdate = () => {
     const [rating, setRating] = useState(0);
     const [date, setDate] = useState('');
     const [writeReview, setWriteReview] = useState('');
-    const [images, setImages] = useState([]);
-    const [videos, setVideos] = useState([]);
+    const [newMedias, setNewMedias] = useState([]);
 
     const reviewID = useSelector((state) => state.siteDetail.reviewID);
 
@@ -49,6 +48,10 @@ const SiteReviewUpdate = () => {
         setMedia(updatedMedia);
     };
 
+    const handleRemoveNewMedia = (url) => {
+        setNewMedias((prev) => prev.filter((media) => media.url !== url));
+    };
+
     const [updateRivew, {isLoading}] = useUpdateReviewMutation();
     const handleSubmit = async () => {
         if (rating === 0) {
@@ -71,35 +74,16 @@ const SiteReviewUpdate = () => {
             return;
         }
 
-        if ((images.length + videos.length) > 5) {
-            toast({
-                variant: "destructive",
-                title: "Uh oh! Có gì đó sai sai.",
-                description: "Bạn đã đăng quá số lượng ảnh giới hạn",
-                action: <ToastAction altText="Try again">Thử lại</ToastAction>,
-            });
-            return;
-        }
-
         const review = {
             generalRating: rating,
             comment: writeReview,
             arrivalDate: date,
             mediaIds: media.map((media) => media.id),
+            newMedias: newMedias,
         };
 
-        const formData = new FormData();
-        formData.append('review', JSON.stringify(review));
         
-        images.forEach((image) => {
-            formData.append('images', image);
-        });
-
-        videos.forEach((video) => {
-            formData.append('videos', video);
-        });
-        
-        await updateRivew({reviewId: reviewID, formData}).unwrap()
+        await updateRivew({reviewId: reviewID, formData: review}).unwrap()
             .then(() => {
                 toast({
                     title: "Cập nhật đánh giá thành công",
@@ -186,9 +170,9 @@ const SiteReviewUpdate = () => {
             <div>
                 <h1 className="text-xl font-semibold pb-1">Thêm ảnh/video vào đánh giá</h1>
                 <p className="text-gray-500 mb-3">Bạn chỉ được tải lên tối đa 5 ảnh & video</p>
-                <UploadImagesItem 
-                    getImages={(images) => setImages(images)} 
-                    getVideos={(videos) => setVideos(videos)}
+                <UploadImage_v2Item 
+                    getMediaInParent={(media) => setNewMedias([...newMedias, media])} 
+                    removeMediaInParent={handleRemoveNewMedia}
                 />
             </div>
 

@@ -49,7 +49,7 @@ const NewBusinessSiteInfoCard = () => {
 
     }
     return ( 
-        <Card>
+        <Card className="mb-10">
             <CardHeader>
                 <CardTitle>Thông tin doanh nghiệp</CardTitle>
                 <CardDescription>

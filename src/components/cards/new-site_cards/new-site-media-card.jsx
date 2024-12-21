@@ -10,13 +10,28 @@ import { Button } from "@/components/ui/button"
 import UploadImage_v2Item from "@/components/items/review/upload-images-v2-item";
 
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { getNewSitebasicInfo } from "@/redux/reducer/new-site.reducer";
 
 const NewSiteMediaCard = () => {
-    const [media, setMedia] = useState([]);
+    const dispatch = useDispatch();
+    const navigateTo = useNavigate();
+    const [medias, setMedias] = useState([]);
 
-    const handlePostImage = async (imageFile) => {
-        console.log(imageFile);
+    const handlePostImage = () => {
+        const mediaData = {
+            medias: medias,
+        };
+
+        dispatch(getNewSitebasicInfo(mediaData));
+        navigateTo('/new-site/confirmation');
     }
+
+    const handleRemoveMedia = (url) => {
+        setMedias((prev) => prev.filter((media) => media.url !== url));
+    };
+
     return ( 
         <Card>
             <CardHeader>
@@ -69,12 +84,15 @@ const NewSiteMediaCard = () => {
                 </div>
 
                 <div className="mt-8">
-                    <UploadImage_v2Item postImageInParent={handlePostImage} />
+                    <UploadImage_v2Item 
+                        getMediaInParent={(media) => setMedias([...medias, media])} 
+                        removeMediaInParent={handleRemoveMedia}
+                    />
                 </div>
             </CardContent>
 
             <CardFooter>
-                <Button className='bg-main hover:bg-main-hover'>Tiếp theo</Button>
+                <Button onClick={handlePostImage} className='bg-main hover:bg-main-hover'>Tiếp theo</Button>
             </CardFooter>
         </Card>
 
