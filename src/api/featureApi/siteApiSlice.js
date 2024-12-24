@@ -39,6 +39,13 @@ export const siteApiSlice = apiSlice.injectEndpoints({
         getAllSites: builder.query({
             query: (page) => `/api/sites/discover?page=${page}`,
         }),
+
+        getMyPostedSites: builder.query({
+            query: () => '/api/sites/my-sites',
+        }),
+        getMyOwnedSites: builder.query({
+            query: (siteID) => `/api/sites?version=${siteID}`,
+        }),
     }),
 });
 
@@ -50,4 +57,6 @@ export const { useGetAmenityDetailQuery,
                 useGetSiteServicesQuery,
                 useGetCoordinatesByAddressQuery,
                 usePostNewSiteMutation,
+                useGetMyPostedSitesQuery,
+                useGetMyOwnedSitesQuery,
                 useGetAllSitesQuery } = siteApiSlice;

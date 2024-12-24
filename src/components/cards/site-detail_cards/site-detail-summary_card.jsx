@@ -1,3 +1,5 @@
+import ReportSiteItem from "@/components/items/review/report-site-item";
+import AddSiteOutsidePlan from "@/components/items/team-journey_items/add-site-outside-plan";
 import { useSelector } from "react-redux";
 
 const SiteDetailSummaryCard = () => {    
@@ -7,7 +9,13 @@ const SiteDetailSummaryCard = () => {
         <div>
             {/* tiêu đề về địa điểm */}
             <div className="mb-5">
-                <h1 className="text-3xl font-bold">{siteDetail?.siteName}</h1>
+                <div className="flex justify-between items-center">
+                    <h1 className="text-3xl font-bold">{siteDetail?.siteName}</h1>
+                    <span className="flex items-center gap-2">
+                        <AddSiteOutsidePlan />
+                        <ReportSiteItem />
+                    </span>
+                </div>
                 <div className='flex mt-2'>
                     <span className='text-gray-400'>{siteDetail?.averageRating?.toFixed(1)}</span>
                     <span className='material-icons text-yellow-400 pr-2'>star</span>

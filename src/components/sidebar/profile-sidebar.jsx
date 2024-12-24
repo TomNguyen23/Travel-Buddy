@@ -136,7 +136,7 @@ const ProfileSidebar = () => {
                     </div>
                 </ProfileSideBarItem>
 
-                <ProfileSideBarItem navigateTo="/profile">
+                <ProfileSideBarItem navigateTo="/my-sites">
                     <div className="flex items-center">
                         <span className="material-icons-outlined text-2xl mr-2">add_location_alt</span> 
                         <span>Địa điểm đã đăng</span>

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
@@ -22,6 +22,24 @@ const NewBusinessSiteInfoCard = () => {
     const navigateTo = useNavigate();
 
     const [fees, setFees] = useState([]);
+    // const [feesDemo, setFeesDemo] = useState([]);
+    // useEffect(() => {
+    //     const demoData = [{
+    //         id: 60,
+    //         aspect: {
+    //             id: 30,
+    //             typeId: 53,
+    //             aspectName: "Dùng bữa"
+    //         },
+    //         feeLow: 15000,
+    //         feeHigh: 50000
+    //     }];
+    //     console.log("Initial Fees Demo: ", demoData); // Kiểm tra dữ liệu
+    //     setFeesDemo(demoData);
+    // }, []);
+    const getFeesCallback = useCallback((fees) => setFees(fees), []);
+
+
     const [serviceIDs, setServiceIDs] = useState([]);
 
     const handleServicesChange = (serviceID, isChecked) => {
@@ -62,7 +80,10 @@ const NewBusinessSiteInfoCard = () => {
                 <div className="label">
                     <span className="label-text font-medium">Các loại chi phí</span>
                 </div>
-                <NewSiteFeeItem getFees={(fees) => setFees(fees)} />
+                <NewSiteFeeItem 
+                    getFees={getFeesCallback} 
+                    // initialFees={feesDemo} 
+                />
             </div>
 
             <div className="flex flex-col space-y-3">

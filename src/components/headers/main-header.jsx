@@ -54,6 +54,10 @@ const MainHeader = () => {
                             </DropdownMenuItem>
 
                             <DropdownMenuItem>
+                                <Link to="/my-sites">Địa điểm đã đăng</Link>
+                            </DropdownMenuItem>
+
+                            <DropdownMenuItem>
                                 <Link to="/my-reviews">Đánh giá của tôi</Link>
                             </DropdownMenuItem>
 

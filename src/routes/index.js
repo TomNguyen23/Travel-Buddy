@@ -42,6 +42,8 @@ import NewBusinessSiteINfo from "@/pages/new-site/new-business-site-info"
 import SiteForTeam from "@/pages/team-journey/site-for-team"
 import NewSiteConfirmCard from "@/components/cards/new-site_cards/new-site-confirm-card"
 import NewSiteDone from "@/pages/new-site/new-site-done"
+import MySites from "@/pages/profile/my-sites"
+import MySitesDetail from "@/pages/profile/my-sites-detail"
 
 const publicRoutes = [
     {path: '/', element: HomePage},
@@ -72,6 +74,9 @@ const privateRoutes = [
     {path: '/password-and-security', element: PasswordAndSecurity, Layout: UserSettingProfileLayout },
     {path: '/my-reviews', element: MyReviews, Layout: UserSettingProfileLayout },
     {path: '/my-notifications', element: MyNotifications, Layout: UserSettingProfileLayout },
+    {path: '/my-sites', element: MySites, Layout: UserSettingProfileLayout },
+    {path: '/my-sites/detail', element: MySitesDetail, Layout: UserSettingProfileLayout },
+
     {path: '/my-journeys', element: TeamJourneys, Layout: TeamJourneySummaryLayout },
     {path: '/team-journey-schedule', element: TeamJourneySchedule, Layout: TeamJourneyDetailLayout },
 

@@ -211,6 +211,7 @@ const AddDestinationItem = ({ forTeam_SiteID, forTeam_SiteName }) => {
                             className="border px-2 py-3 rounded-sm dark:bg-[#1D232A]"
                             value={endTime}
                             min={planDetail.startTime}
+                            max={planDetail.endTime}
                             onChange={(e) => setEndTime(e.target.value)}
                         />
                     </label>

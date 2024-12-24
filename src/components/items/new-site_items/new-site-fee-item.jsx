@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 
-const NewSiteFeeItem = ({ getFees }) => {
+const NewSiteFeeItem = ({ getFees, initialFees }) => {
     const newSiteTypeID = useSelector(state => state.newSite.newSiteInfo.typeId);
 
     const [aspects, setAspects] = useState([]);
@@ -13,16 +13,37 @@ const NewSiteFeeItem = ({ getFees }) => {
         setAspects([...aspects, { aspectName: '', feeLow: '', feeHigh: '' }]);
     };
 
+    // const handleAspectChange = (index, field, value) => {
+    //     const newAspects = [...aspects];
+    //     newAspects[index][field] = value;
+    //     setAspects(newAspects);
+    // };
+
     const handleAspectChange = (index, field, value) => {
-        const newAspects = [...aspects];
-        newAspects[index][field] = value;
-        setAspects(newAspects);
+        setAspects((prevAspects) => {
+            const newAspects = [...prevAspects];
+            if (newAspects[index][field] !== value) {
+                newAspects[index][field] = value;
+            }
+            return newAspects;
+        });
     };
 
     const removeAspect = (index) => {
         const newAspects = aspects.filter((_, i) => i !== index);
         setAspects(newAspects);
     };
+
+    useEffect(() => {
+        if (initialFees && Array.isArray(initialFees)) {
+            console.log("Initial Fees: ", initialFees); // Debug dữ liệu
+            setAspects(initialFees.map(fee => ({
+                aspectName: fee.aspect?.aspectName || '', // Kiểm tra null hoặc undefined
+                feeLow: fee.feeLow ? fee.feeLow.toString() : '',
+                feeHigh: fee.feeHigh ? fee.feeHigh.toString() : '',
+            })));
+        }
+    }, [initialFees]);
 
     useEffect(() => {
         const fees = aspects.map(aspect => {
@@ -84,6 +105,7 @@ const NewSiteFeeItem = ({ getFees }) => {
 
 NewSiteFeeItem.propTypes = {
     getFees: PropTypes.func.isRequired,
+    initialFees: PropTypes.array,
 };
  
 export default NewSiteFeeItem;

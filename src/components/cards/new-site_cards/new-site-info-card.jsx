@@ -10,71 +10,25 @@ import { Button } from "@/components/ui/button";
 
 import NewSiteMapCard from "../map_cards/new-site-map";
 
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useDispatch } from "react-redux";
 import { getNewSitebasicInfo } from "@/redux/reducer/new-site.reducer";
 import { useNavigate } from "react-router-dom";
 import useDebound from "@/hooks/use-debound";
+import OpeningDayItem from "@/components/items/new-site_items/opening-day-item";
 
 const NewSiteInfoCard = () => {
     const dispatch = useDispatch();
     const navigateTo = useNavigate();
 
-    const [days, setDays] = useState({
-        monday: { checked: false, open: '', close: '' },
-        tuesday: { checked: false, open: '', close: '' },
-        wednesday: { checked: false, open: '', close: '' },
-        thursday: { checked: false, open: '', close: '' },
-        friday: { checked: false, open: '', close: '' },
-        saturday: { checked: false, open: '', close: '' },
-        sunday: { checked: false, open: '', close: '' },
-    });
+    // const [openingTimes, setOpeningTimes] = useState([]); // Mặc định trống
+    const [formattedOpeningTimes, setFormattedOpeningTimes] = useState([]);
 
-    const dayMapping = {
-        monday: 'MO',
-        tuesday: 'TU',
-        wednesday: 'WE',
-        thursday: 'TH',
-        friday: 'FR',
-        saturday: 'SA',
-        sunday: 'SU',
-    };
-
-    const dayMappingInVietnamese = {
-        monday: 'Thứ Hai',
-        tuesday: 'Thứ Ba',
-        wednesday: 'Thứ Tư',
-        thursday: 'Thứ Năm',
-        friday: 'Thứ Sáu',
-        saturday: 'Thứ Bảy',
-        sunday: 'Chủ Nhật',
-    };
-
-    const handleCheckboxChange = (day) => {
-        setDays({
-            ...days,
-            [day]: { ...days[day], checked: !days[day].checked }
-        });
-    };
-
-    const handleTimeChange = (day, type, value) => {
-        setDays({
-            ...days,
-            [day]: { ...days[day], [type]: value }
-        });
-    };
-
-    const formatOpeningTimes = () => {
-        return Object.keys(days)
-            .filter(day => days[day].checked)
-            .map(day => ({
-                dayOfWeek: dayMapping[day],
-                openTime: days[day].open,
-                closeTime: days[day].close
-            }));
-    };
+    const handleOpeningTimesChange = useCallback((updatedOpeningTimes) => {
+        setFormattedOpeningTimes(updatedOpeningTimes);
+    }, []);
 
     const [resolvedAddress, setResolvedAddress] = useState('');
     const deboundResolvedAddress = useDebound(resolvedAddress);
@@ -93,14 +47,14 @@ const NewSiteInfoCard = () => {
             description: Yup.string().required('Bắt buộc nhập'),
         }),
         onSubmit: (values) => {
-            const openingTimes = formatOpeningTimes();
             const phoneNumbers = Array.isArray(values.phoneNumbers) ? values.phoneNumbers : [values.phoneNumbers];
             const data = {
                 ...values,
-                openingTimes,
+                openingTimes: formattedOpeningTimes,
                 phoneNumbers,
                 resolvedAddress,
             };
+            console.log(data);
 
             dispatch(getNewSitebasicInfo(data));
             navigateTo('/new-site/site-business-info');
@@ -201,40 +155,20 @@ const NewSiteInfoCard = () => {
                         <div className="label">
                             <span className="label-text font-medium">Giờ mở cửa (không bắt buộc)</span>
                         </div>
-    
-                        {Object.keys(days).map((day) => (
-                            <div key={day} className="flex flex-col space-y-3">
-                                <label className="form-control w-full">
-                                    <div className="label">
-                                        <span className="label-text flex items-center">
-                                            <input
-                                                type="checkbox"
-                                                className="checkbox"
-                                                checked={days[day].checked}
-                                                onChange={() => handleCheckboxChange(day)}
-                                                />
-                                            <p className="pl-2">{dayMappingInVietnamese[day]}</p>
-                                        </span>
-                                    </div>
-                                    {days[day].checked && (
-                                        <div className="flex space-x-3">
-                                            <input
-                                                type="time"
-                                                value={days[day].open}
-                                                onChange={(e) => handleTimeChange(day, 'open', e.target.value)}
-                                                className="input input-bordered w-full rounded-sm"
-                                            />
-                                            <input
-                                                type="time"
-                                                value={days[day].close}
-                                                onChange={(e) => handleTimeChange(day, 'close', e.target.value)}
-                                                className="input input-bordered w-full rounded-sm"
-                                            />
-                                        </div>
-                                    )}
-                                </label>
-                            </div>
-                        ))}
+
+                        <OpeningDayItem 
+                            // openingTimes={openingTimes}
+                            onOpeningTimesChange={handleOpeningTimesChange}
+                            dayMappingInVietnamese={{
+                                monday: 'Thứ Hai',
+                                tuesday: 'Thứ Ba',
+                                wednesday: 'Thứ Tư',
+                                thursday: 'Thứ Năm',
+                                friday: 'Thứ Sáu',
+                                saturday: 'Thứ Bảy',
+                                sunday: 'Chủ Nhật',
+                            }}
+                        />
                     </div>
                 </CardContent>
                 <CardFooter>
