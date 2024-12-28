@@ -1,14 +1,25 @@
 import { useGetSiteServicesQuery } from "@/api/featureApi/siteApiSlice";
 
 import { useSelector } from "react-redux";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import PropTypes from 'prop-types';
 
-const ChooseSiteServiceCard = ({ onServicesChange }) => {
+const ChooseSiteServiceCard = ({ onServicesChange, selectedServices }) => {
     const newSiteTypeID = useSelector(state => state.newSite.newSiteInfo.typeId);
     const { data: services } = useGetSiteServicesQuery(newSiteTypeID);
 
     const [checkedServices, setCheckedServices] = useState({});
+
+    useEffect(() => {
+        if (selectedServices) {
+            const initialCheckedServices = selectedServices.reduce((acc, serviceId) => {
+                acc[serviceId] = true;
+                return acc;
+            }, {});
+            setCheckedServices(initialCheckedServices);
+            // console.log(initialCheckedServices);
+        }
+    }, [selectedServices]);
 
     const handleServicesChange = (e) => {
         const { value, checked } = e.target;
@@ -19,7 +30,7 @@ const ChooseSiteServiceCard = ({ onServicesChange }) => {
         onServicesChange(value, checked);
     };
 
-    return ( 
+    return (
         <div>
             {services?.groupedSiteServices && services?.groupedSiteServices.map(service => (
                 <div key={service.id}>
@@ -46,9 +57,11 @@ const ChooseSiteServiceCard = ({ onServicesChange }) => {
             ))}
         </div>
     );
-}
+};
+
 ChooseSiteServiceCard.propTypes = {
     onServicesChange: PropTypes.func.isRequired,
+    selectedServices: PropTypes.array.isRequired
 };
 
 export default ChooseSiteServiceCard;

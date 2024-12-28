@@ -42,11 +42,11 @@ const SiteMapCard = ({ className, canMove }) => {
     }, []);
 
     const onMarkerDragEnd = useCallback((event) => {
-        setViewport({
+        setViewport((prev) => ({
+            ...prev,
             latitude: event.lngLat.lat,
             longitude: event.lngLat.lng,
-            zoom: 15
-        });
+        }));
       }, []);
 
     const {data} = useGetNearbySitesQuery(
@@ -71,7 +71,7 @@ const SiteMapCard = ({ className, canMove }) => {
             {...(canMove ? {onMove: evt => setViewport(evt.viewState)} : {})}
         >
             <Marker 
-                longitude={viewport.longitude} latitude={viewport.latitude}
+                longitude={coordinates.lng} latitude={coordinates.lat}
                 className={cn('', className)}
                 draggable
                 anchor="bottom"

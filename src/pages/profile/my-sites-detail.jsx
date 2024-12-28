@@ -8,9 +8,12 @@ import {
 } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { useSelector } from "react-redux";
+import EditMySiteInfoItem from "@/components/items/user_items/edit-my-site-info-item";
+import EditSiteBusinessItem from "@/components/items/user_items/edit-site-business-item";
 
 const MySitesDetail = () => {
     const siteID = useSelector((state) => state.siteDetail.siteID);
+    const siteState = useSelector((state) => state.siteDetail.siteState);
     const { data: mySite } = useGetMyOwnedSitesQuery(siteID);
 
     const dayMapping = {
@@ -34,11 +37,13 @@ const MySitesDetail = () => {
         <>
             <h1 className="text-3xl font-semibold">Địa điểm đã đăng tải</h1>
 
-            <Card className="my-4">
+            <Card className="mt-4 mb-10">
                 <CardHeader>
                     <CardTitle>
                         {mySite?.siteName}
-                        {/* <span className="badge badge-warning text-white ml-2">Đang chờ</span> */}
+                        {siteState === 'APPROVED' ? <span className="badge badge-success text-white ml-2">Đã duyệt</span>
+                        : siteState === 'REJECTED' ? <span className="badge badge-error text-white ml-2">Bị từ chối</span>
+                        : <span className="badge badge-warning text-white ml-2">Đang chờ</span>}
                     </CardTitle>
                     
                 </CardHeader>
@@ -82,16 +87,7 @@ const MySitesDetail = () => {
 
                         <div>
                             <span className='font-semibold'>Giới thiệu:</span>
-                            <p className='text-sm'>
-                            Nằm yên bình giữa làng quê Quảng Nam, quán ăn Cô Vân là điểm đến lý tưởng cho những ai yêu thích 
-                            hương vị đặc sản quê nhà. Với không gian mộc mạc, ấm cúng và sự hiếu khách chân tình, quán mang đến 
-                            trải nghiệm ẩm thực đậm chất miền Trung.Thực đơn tại quán Cô Vân đa dạng với các món đặc sản 
-                            nổi tiếng của Quảng Nam như mì Quảng, cao lầu, bánh tráng cuốn thịt heo, bún mắm nêm, và nhiều món 
-                            dân dã khác. Từng món ăn đều được chế biến từ nguyên liệu tươi ngon, giữ trọn hương vị truyền thống, 
-                            mang đến cảm giác như đang thưởng thức bữa cơm nhà.Hãy đến với quán Cô Vân để khám phá tinh hoa 
-                            ẩm thực Quảng Nam, tận hưởng những phút giây thư giãn giữa khung cảnh làng quê yên bình và lưu giữ 
-                            những kỷ niệm đẹp khó quên!
-                            </p>
+                            <p className='text-sm'>{mySite?.description}</p>
                         </div>
                     </div>
                     <Separator />
@@ -158,9 +154,13 @@ const MySitesDetail = () => {
                         </div>
                     </div>
                 </CardContent>
-                <CardFooter>
-                    {/* <Button>Save password</Button> */}
-                </CardFooter>
+
+                {siteState === 'APPROVED' && (
+                    <CardFooter className="flex justify-end space-x-3">
+                        <EditMySiteInfoItem site={mySite} />
+                        <EditSiteBusinessItem site={mySite} />
+                    </CardFooter>
+                )}
             </Card>
         </>
      );

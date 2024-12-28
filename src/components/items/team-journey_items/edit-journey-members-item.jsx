@@ -30,13 +30,16 @@ const EditJourneyMember = () => {
     const { toast } = useToast();
     const planID = useSelector((state) => state.teamJourney.journeyID);
     const members = useSelector((state) => state.teamJourney.travelPlanDetail.members);
+    const myID = useSelector((state) => state.auth.login.user.id);
     const [memberPositions, setMemberPositions] = useState(members);
 
     useEffect(() => {
         if (members) {
-            setMemberPositions(members);
+            setMemberPositions(members.map(member => 
+                member.userId === myID ? { ...member, nickname: `${member.nickname} (bạn)` } : member
+            ));
         }
-    }, [members]);
+    }, [members, myID]);
 
     const [changeMemberRole] = useChangeRoleOfMemberMutation();
     const setPosition = async (userId, value) => {

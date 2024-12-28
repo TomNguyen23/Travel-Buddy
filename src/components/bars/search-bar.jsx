@@ -41,12 +41,12 @@ const SearchBar = () => {
                         <div key={index} 
                             onClick={() => handleChooseSite(item.siteId)}
                             className="flex items-center gap-3 p-3 border-b cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-700">
-                            <div>
-                                <h1 className="font-semibold">{item.siteName}</h1>
+                            <div className="justify-self-start">
+                                <h1 className="font-semibold justify-self-start text-black dark:text-white">{item.siteName}</h1>
 
                                 <div className='flex items-start'>
                                     <span className='material-icons-outlined text-sm text-gray-400'>location_on</span>
-                                    <span className='text-sm text-gray-400 pl-1'>{item.resolvedAddress}</span>
+                                    <span className='justify-self-start text-start text-sm text-gray-400 pl-1'>{item.resolvedAddress}</span>
                                 </div>
                             </div>
                         </div>
@@ -56,7 +56,7 @@ const SearchBar = () => {
         >
             <label className="input input-bordered flex items-center gap-2 rounded-full w-[33.125rem] min-w-28 mr-3">
                 <input type="text" 
-                        className="grow" 
+                        className="grow text-black dark:text-white" 
                         value={searchValue}
                         onChange={(e) => setSearchValue(e.target.value)}
                         onFocus={() => setShowSearchResult(true)}

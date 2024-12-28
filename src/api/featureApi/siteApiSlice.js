@@ -15,7 +15,7 @@ export const siteApiSlice = apiSlice.injectEndpoints({
         }),
 
         getSiteType: builder.query({
-            query: () => '/api/admin/site-types',
+            query: () => '/api/site-types',
         }),
         getSiteTypeAspectsFee: builder.query({
             query: (siteTypeId) => `/api/site-types/${siteTypeId}/aspects`,
@@ -45,6 +45,15 @@ export const siteApiSlice = apiSlice.injectEndpoints({
         }),
         getMyOwnedSites: builder.query({
             query: (siteID) => `/api/sites?version=${siteID}`,
+            providesTags: ['MyOwnedSites'],
+        }),
+        editMyPostedSite: builder.mutation({
+            query: (data) => ({
+                url: '/api/sites',
+                method: 'PUT',
+                body: data,
+            }),
+            invalidatesTags: ['MyOwnedSites'],
         }),
     }),
 });
@@ -59,4 +68,5 @@ export const { useGetAmenityDetailQuery,
                 usePostNewSiteMutation,
                 useGetMyPostedSitesQuery,
                 useGetMyOwnedSitesQuery,
+                useEditMyPostedSiteMutation,
                 useGetAllSitesQuery } = siteApiSlice;

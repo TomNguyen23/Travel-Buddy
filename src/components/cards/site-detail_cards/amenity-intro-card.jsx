@@ -14,7 +14,7 @@ import { getAmenityDetail } from '@/redux/reducer/site-detail.reducer';
 import SiteMapCard from '../map_cards/site-map';
 
 const paragraphStyle = {
-    WebkitLineClamp: 6,
+    WebkitLineClamp: 8,
     display: '-webkit-box',
     WebkitBoxOrient: 'vertical',
     overflow: 'hidden',
@@ -38,7 +38,7 @@ const AmenityIntoCard = () => {
         if (ref.current.clientHeight < ref.current.scrollHeight) {
             setShowReadMore(true);
         }
-    },[]);
+    },[data]);
 
 
     useEffect(() => {
@@ -64,7 +64,7 @@ const AmenityIntoCard = () => {
             </CardHeader>
             <CardContent className='grid grid-cols-2 gap-x-12'>
                 <article>
-                    <div className="flex justify-between">
+                    {/* <div className="flex justify-between">
                         <div>
                             <div className="flex items-center text-5xl">
                                 <span className='font-semibold'>{data?.averageRating?.toFixed(1)}</span>
@@ -117,7 +117,7 @@ const AmenityIntoCard = () => {
                         </div>
                     </div>
 
-                    <Separator className="my-5" />
+                    <Separator className="my-5" /> */}
 
                     <div>
                         <p 
@@ -125,19 +125,10 @@ const AmenityIntoCard = () => {
                             className="text-gray-600 dark:text-gray-400"
                             ref={ref}
                         >
-                            {/* Mang nét văn hóa tinh túy đậm đà Á Đông, Nhật Bản là nơi vẻ đẹp thiên nhiên, 
-                            văn hóa và ẩm thực luôn được ca tụng. Với tinh thần lan tỏa tinh hoa văn hóa 
-                            Nhật Bản trên đất Việt, Da Nang Mikazuki được lấy cảm hứng là nơi đất trời hội tụ 
-                            và nhịp sống bắt đầu. Đến với chúng tôi để sẵn sàng cho một hành trình khám phá 
-                            đầy thú vị với những giá trị chuẩn Nhật chưa từng có tại một tổ hợp nghỉ dưỡng 
-                            đạt chuẩn 5 sao ngay tại Đà Nẵng. Được tạo hóa ưu đãi với bờ biển trong xanh quyến rũ, 
-                            Vịnh Đà Nẵng là nơi tọa lạc của Da Nang Mikazuki Japanese Resorts & Spa, một tổ hợp nghỉ dưỡng 
-                            được quản lý bởi Công ty TNHH ODK Mikazuki Việt Nam. Trên diện tích 13 hecta, Da Nang Mikazuki 
-                            mang đến cho bạn nhiều loại hình dịch vụ hấp dẫn, mang đậm bản sắc văn hóa Nhật Bản.  */}
                             {data?.description}
                         </p>
 
-                        {showReadMore && (
+                        {showReadMore && data?.description && (
                             <span 
                                 className='text-blue-500 cursor-pointer'
                                 onClick={() => setIsReadMore(!isReadMore)}>
@@ -148,7 +139,7 @@ const AmenityIntoCard = () => {
 
                     {data?.groupedServices.length > 0 && (
                     <div>
-                        <Separator className="my-5" />
+                        {data?.description && <Separator className="my-5" />}
 
                         <div>
                             <h1 className='text-lg font-semibold mb-3'>Địa chỉ & thông tin liên hệ</h1>
@@ -181,7 +172,42 @@ const AmenityIntoCard = () => {
                                     ))}
                                 </div>
                             }
+                        </div>
+                    </div>
+                    )}
 
+                    {data?.description || data?.groupedServices && <Separator className="my-5" />}
+
+                    <div>
+                        <h1 className='text-lg font-semibold mb-3'>Thông tin cần biết</h1>
+
+                        <div className='flex flex-wrap justify-between'>
+                            <table className='w-2/5'>
+                                <tbody>
+                                    <tr>
+                                        <td className='w-0 pr-2'><span className='material-icons-outlined text-2xl text-gray-400'>account_circle</span></td>
+                                        <td className='text-md font-light'>Người đăng tải</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td className='text-sm font-medium'>{data?.ownerUsername}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <table className='w-2/5'>
+                                <tbody>
+                                    <tr>
+                                        <td className='w-0 pr-2'><span className='material-icons-outlined text-2xl text-gray-400'>bookmark</span></td>
+                                        <td className='text-md font-light'>Loại hình</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td className='text-sm font-medium'>{data?.siteType.name}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            
                             {data?.openingTimes && data?.openingTimes.length > 0 &&
                                 <div className="collapse collapse-arrow w-2/5">
                                     <input type="checkbox" />
@@ -190,20 +216,36 @@ const AmenityIntoCard = () => {
                                         <p className='pl-2'>Giờ mở cửa</p>
                                     </div>
                                     <div className="collapse-content">
-                                        
                                         {data?.openingTimes.map((openingTime, index) => (
-                                            <p key={index} className='flex items-center justify-between'>
-                                                <span className='text-md font-medium pl-2'>{dayMapping[openingTime.dayOfWeek]}</span>
-                                                <span className='text-md font-light pl-2'>{openingTime.openTime} - {openingTime.closeTime}</span>
+                                            <p key={index} className='grid grid-cols-2 gap-x-2 items-center'>
+                                                <span className='text-sm font-medium'>{dayMapping[openingTime.dayOfWeek]}</span>
+                                                <span className='text-sm font-light'>{openingTime.openTime} - {openingTime.closeTime}</span>
                                             </p>
                                         ))}
                                     </div>
                                 </div>
                             }
-
+    
+                            {data?.fees && data?.fees.length > 0 &&
+                                <div className="collapse collapse-arrow w-2/5">
+                                    <input type="checkbox" />
+                                    <div className="collapse-title p-0 h-0 text-md font-light flex items-center">
+                                        <span className='material-icons-outlined text-2xl text-gray-400 '>payments</span>
+                                        <p className='pl-2'>Loại chi phí</p>
+                                    </div>
+                                    <div className="collapse-content">
+                                        
+                                        {data?.fees.map((fee, index) => (
+                                            <p key={index} className='grid grid-cols-1 gap-x-2 items-center'>
+                                                <span className='text-sm font-medium'>{fee.aspect.aspectName}</span>
+                                                <span className='text-sm font-light'>{fee.feeLow.toLocaleString('vi-VN')}đ - {fee.feeHigh.toLocaleString('vi-VN')}đ</span>
+                                            </p>
+                                        ))}
+                                    </div>
+                                </div>
+                            }
                         </div>
                     </div>
-                    )}
                 </article>
 
                 {data?.groupedServices.length > 0 ? (
@@ -253,26 +295,6 @@ const AmenityIntoCard = () => {
                                 ))}
                             </div>
                         }
-
-                        {data?.openingTimes && data?.openingTimes.length > 0 &&
-                            <div className="collapse collapse-arrow w-2/5">
-                                <input type="checkbox" />
-                                <div className="collapse-title p-0 h-0 text-md font-light flex items-center">
-                                    <span className='material-icons-outlined text-2xl text-gray-400 '>schedule</span>
-                                    <p className='pl-2'>Giờ mở cửa</p>
-                                </div>
-                                <div className="collapse-content">
-                                    
-                                    {data?.openingTimes.map((openingTime, index) => (
-                                        <p key={index} className='flex items-center justify-between'>
-                                            <span className='text-md font-medium pl-2'>{dayMapping[openingTime.dayOfWeek]}</span>
-                                            <span className='text-md font-light pl-2'>{openingTime.openTime} - {openingTime.closeTime}</span>
-                                        </p>
-                                    ))}
-                                </div>
-                            </div>
-                        }
-
                     </div>
                 )}
             </CardContent>

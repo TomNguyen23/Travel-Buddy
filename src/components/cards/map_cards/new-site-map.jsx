@@ -81,7 +81,7 @@ const NewSiteMapCard = ({ className, canMove, address }) => {
             {...(canMove ? {onMove: evt => setViewport(evt.viewState)} : {})}
         >
             <Marker 
-                longitude={viewport.longitude} latitude={viewport.latitude}
+                longitude={coordinates.lng} latitude={coordinates.lat}
                 className={cn('', className)}
                 draggable
                 anchor="bottom"

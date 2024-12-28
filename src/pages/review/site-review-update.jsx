@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import StarRatingItem from "@/components/items/review/star-rating-item";
 import UploadImage_v2Item from "@/components/items/review/upload-images-v2-item";
+import MediaGallery from "@/components/items/review/media-gallery-item";
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
 import { useToast } from '@/hooks/use-toast';
@@ -13,7 +14,8 @@ import { useGetSiteDetailReviewQuery, useUpdateReviewMutation } from "@/api/feat
 const SiteReviewUpdate = () => {
     const { toast } = useToast();
     const navigateTo = useNavigate();
-    const [media, setMedia] = useState([]); 
+    const [media, setMedia] = useState([]);
+    const [mediaIds, setMediaIds] = useState([]); 
     const [rating, setRating] = useState(0);
     const [date, setDate] = useState('');
     const [writeReview, setWriteReview] = useState('');
@@ -38,6 +40,7 @@ const SiteReviewUpdate = () => {
             setDate(data.arrivalDate);
             setWriteReview(data.comment);
             setMedia(data.medias);
+            setMediaIds(data.medias.map((media) => media.id)); // Cập nhật mediaIds
         }
     }, [data]);
 
@@ -46,6 +49,9 @@ const SiteReviewUpdate = () => {
     const handleRemoveMedia = (index) => {
         const updatedMedia = media.filter((_, i) => i !== index);
         setMedia(updatedMedia);
+    
+        const updatedMediaIds = updatedMedia.map((media) => media.id);
+        setMediaIds(updatedMediaIds); // Cập nhật mediaIds
     };
 
     const handleRemoveNewMedia = (url) => {
@@ -78,7 +84,7 @@ const SiteReviewUpdate = () => {
             generalRating: rating,
             comment: writeReview,
             arrivalDate: date,
-            mediaIds: media.map((media) => media.id),
+            mediaIds: mediaIds,
             newMedias: newMedias,
         };
 
@@ -131,41 +137,7 @@ const SiteReviewUpdate = () => {
                 </textarea>
             </div>
 
-            {media.length > 0 && (
-                <div className="mb-10">
-                    <h1 className="text-xl font-semibold pb-3">Ảnh/video đã đăng tải từ trước</h1>
-                    <div className="grid grid-cols-3 gap-1 mt-3">
-                        {media.map((media, index) => (
-                            <div key={index} className="relative">
-                                {media.mediaType === 'IMAGE' ? (
-                                    <img 
-                                        src={media.url} 
-                                        className="w-full h-36 object-cover rounded-md" 
-                                        alt="Review Media" 
-                                    />
-                                ) : media.mediaType === 'VIDEO' ? (
-                                    <video 
-                                        className="w-full h-36 object-cover rounded-md" 
-                                        controls 
-                                        autoPlay 
-                                        loop 
-                                        muted
-                                    >
-                                        <source src={media.url} type="video/mp4"/>
-                                        Your browser does not support the video tag.
-                                    </video>
-                                ) : null}
-                                
-                                <span className="material-icons-outlined cursor-pointer absolute top-0 right-0 p-2 text-gray-500"
-                                    onClick={() => handleRemoveMedia(index)}
-                                >
-                                    cancel
-                                </span>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            )}
+            <MediaGallery media={media} onRemoveMedia={handleRemoveMedia} />
 
             <div>
                 <h1 className="text-xl font-semibold pb-1">Thêm ảnh/video vào đánh giá</h1>

@@ -13,12 +13,6 @@ const NewSiteFeeItem = ({ getFees, initialFees }) => {
         setAspects([...aspects, { aspectName: '', feeLow: '', feeHigh: '' }]);
     };
 
-    // const handleAspectChange = (index, field, value) => {
-    //     const newAspects = [...aspects];
-    //     newAspects[index][field] = value;
-    //     setAspects(newAspects);
-    // };
-
     const handleAspectChange = (index, field, value) => {
         setAspects((prevAspects) => {
             const newAspects = [...prevAspects];
@@ -36,7 +30,7 @@ const NewSiteFeeItem = ({ getFees, initialFees }) => {
 
     useEffect(() => {
         if (initialFees && Array.isArray(initialFees)) {
-            console.log("Initial Fees: ", initialFees); // Debug dữ liệu
+            // console.log("Initial Fees: ", initialFees); // Debug dữ liệu
             setAspects(initialFees.map(fee => ({
                 aspectName: fee.aspect?.aspectName || '', // Kiểm tra null hoặc undefined
                 feeLow: fee.feeLow ? fee.feeLow.toString() : '',
@@ -72,9 +66,15 @@ const NewSiteFeeItem = ({ getFees, initialFees }) => {
                             className="select select-bordered rounded-md"
                         >
                             <option value="" disabled>Loại chi phí</option>
-                            {aspectOptions?.map((option) => (
-                                <option key={option.aspectId} value={option.aspectName}>{option.aspectName}</option>
-                            ))}
+                            {aspectOptions?.length ? (
+                                aspectOptions.map((option) => (
+                                    <option key={option.aspectId} value={option.aspectName}>
+                                        {option.aspectName}
+                                    </option>
+                                ))
+                            ) : (
+                                <option value="" disabled>Không có loại chi phí</option>
+                            )}
                         </select>
                         <input
                             type="text"

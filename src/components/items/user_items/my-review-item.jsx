@@ -29,19 +29,25 @@ const MyReviewItem = (props) => {
 
     return ( 
         <div 
-            className="flex items-start w-full p-4 mb-1 shadow-md border dark:bg-[#1D232A] hover:bg-slate-200 dark:hover:bg-slate-700 rounded-md cursor-pointer"
+            className="flex items-stretch w-full p-4 mb-1 shadow-md border dark:bg-[#1D232A] hover:bg-slate-200 dark:hover:bg-slate-700 rounded-md cursor-pointer"
             onClick={() => handleChooseReview(props.review.site.siteId)}
         >
-            {props.review.site.medias &&
-                <img src={props.review.site.medias[0].url} className="size-52 object-cover bg-center rounded-md" alt="" />
+            {props.review.site.medias && props.review.site.medias.length > 0 ?
+                <img src={props.review.site.medias[0].url} className="w-52 object-cover bg-center rounded-md" alt="" style={{ height: 'auto' }} />
+                :
+                <div className='w-64 bg-center bg-cover rounded-md flex items-center justify-center' style={{ height: 'auto' }}>
+                    <span className='material-icons-outlined text-9xl text-gray-400'>hide_image</span>
+                </div>
             }
 
-            <div className="pl-5">
-            <p className="text-xs text-slate-500">{distanceToNow}</p>
-                <h1 className="text-lg font-semibold">{props.review.site.siteName}</h1>
-                <div className='flex items-center'>
-                    <span className='material-icons-outlined text-2xl text-gray-400'>location_on</span>
-                    <span className='text-sm text-gray-400 pl-1'>{props.review.site.resolvedAddress}</span>
+            <div className="pl-5 flex flex-col justify-between">
+                <div>
+                    <p className="text-xs text-slate-500">{distanceToNow}</p>
+                    <h1 className="text-lg font-semibold">{props.review.site.siteName}</h1>
+                    <div className='flex items-center'>
+                        <span className='material-icons-outlined text-2xl text-gray-400'>location_on</span>
+                        <span className='text-sm text-gray-400 pl-1'>{props.review.site.resolvedAddress}</span>
+                    </div>
                 </div>
 
                 <div className='pt-3'>
@@ -54,7 +60,6 @@ const MyReviewItem = (props) => {
                         <p className='text-xs text-slate-500 py-0.5'>Cùng với {props.review.medias.length} ảnh/video</p>
                     }
                 </div>
-
             </div>
         </div>
      );
