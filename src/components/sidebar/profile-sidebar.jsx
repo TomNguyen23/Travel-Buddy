@@ -143,12 +143,12 @@ const ProfileSidebar = () => {
                     </div>
                 </ProfileSideBarItem>
 
-                <ProfileSideBarItem navigateTo="/profile">
+                {/* <ProfileSideBarItem navigateTo="/profile">
                     <div className="flex items-center">
                         <span className="material-icons-outlined text-2xl mr-2">text_snippet</span> 
                         <span>Báo cáo đã gửi</span>
                     </div>
-                </ProfileSideBarItem>
+                </ProfileSideBarItem> */}
 
                 <ProfileSideBarItem navigateTo="/my-notifications">
                     <div className="flex items-center mb-3">

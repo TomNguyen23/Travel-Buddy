@@ -1,4 +1,4 @@
-import ReportSiteItem from "@/components/items/review/report-site-item";
+import ReportSiteItem from "@/components/items/report/report-site-item";
 import AddSiteOutsidePlan from "@/components/items/team-journey_items/add-site-outside-plan";
 import { useSelector } from "react-redux";
 
@@ -13,7 +13,7 @@ const SiteDetailSummaryCard = () => {
                     <h1 className="text-3xl font-bold">{siteDetail?.siteName}</h1>
                     <span className="flex items-center gap-2">
                         <AddSiteOutsidePlan />
-                        <ReportSiteItem />
+                        <ReportSiteItem siteID={siteDetail?.siteId} />
                     </span>
                 </div>
                 <div className='flex mt-2'>

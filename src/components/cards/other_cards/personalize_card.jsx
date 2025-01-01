@@ -16,7 +16,7 @@ const PersionlizeCard = ({ id, destination, onCheckboxChange }) => {
                     name={`option-${id}`} 
                     id={`option-${id}`}
                     onChange={handleCheckboxChange} 
-                    value={destination} 
+                    value={id} 
                     checked={isChecked}
                     className="appearance-none relative h-full w-full bg-white border rounded-xl shadow-lg cursor-pointer hover:scale-110 hover:transition ease-in-out delay-150 duration-300 checked:ring-4 checked:ring-main" />
             <label htmlFor={`option-${id}`} className="absolute top-0 left-0 h-full w-full hover:scale-110 hover:transition ease-in-out delay-150 duration-300 cursor-pointer">

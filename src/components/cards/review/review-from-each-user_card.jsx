@@ -1,5 +1,6 @@
 import LikeItem from "@/components/items/review/like-item";
-import ReportItem from "@/components/items/review/report-item";
+import ReportReviewItem from "@/components/items/report/report-review-item";
+import ReportUserItem from "@/components/items/report/report-user-item";
 import StarRatingLabelItem from "@/components/items/review/star-rating-label-item";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import DefaultAvatar from "@/assets/images/default-avt.png";
@@ -89,7 +90,16 @@ const ReviewFromEachUserCard = (props) => {
                         <LikeItem reviewID={props.review.id} likeStatus={props.review.userReaction} />
                         <span className="pl-1">{props?.review?.likeCount}</span>
                     </div>
-                    <ReportItem />
+
+                    <div className="dropdown dropdown-end">
+                        <div tabIndex={0} role="button" className="m-1">
+                            <span className="material-icons-outlined">flag</span>
+                        </div>
+                        <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-md border z-[1] w-52 p-1 shadow">
+                            <li><ReportReviewItem reviewID={props.review.id} /></li>
+                            <li><ReportUserItem userID={props.review.user.id} /></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
 

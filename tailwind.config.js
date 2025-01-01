@@ -14,9 +14,12 @@ export default {
   			md: 'calc(var(--radius) - 2px)',
   			sm: 'calc(var(--radius) - 4px)'
   		},
-		fontFamily: {
-			playpen: ['Playpen Sans', 'sans-serif'],
-		},
+  		fontFamily: {
+  			playpen: [
+  				'Playpen Sans',
+  				'sans-serif'
+  			]
+  		},
   		colors: {
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
@@ -58,14 +61,36 @@ export default {
   				'4': 'hsl(var(--chart-4))',
   				'5': 'hsl(var(--chart-5))'
   			},
-			main: {
-				DEFAULT: '#FFAB3E',
-				hover: '#f4c17e'
-			}
+  			main: {
+  				DEFAULT: '#006D5F',
+  				hover: '#008272'
+  			}
   		},
-		backgroundImage: {
-			blackOverlay: 'linear-gradient(to right, rgba(0, 0, 0, 0.34) 0%, rgba(202, 178, 125, 0.34) 100%)',
-		}
+  		backgroundImage: {
+  			blackOverlay: 'linear-gradient(to right, rgba(0, 0, 0, 0.34) 0%, rgba(202, 178, 125, 0.34) 100%)'
+  		},
+  		keyframes: {
+  			'accordion-down': {
+  				from: {
+  					height: '0'
+  				},
+  				to: {
+  					height: 'var(--radix-accordion-content-height)'
+  				}
+  			},
+  			'accordion-up': {
+  				from: {
+  					height: 'var(--radix-accordion-content-height)'
+  				},
+  				to: {
+  					height: '0'
+  				}
+  			}
+  		},
+  		animation: {
+  			'accordion-down': 'accordion-down 0.2s ease-out',
+  			'accordion-up': 'accordion-up 0.2s ease-out'
+  		}
   	}
   },
   plugins: [

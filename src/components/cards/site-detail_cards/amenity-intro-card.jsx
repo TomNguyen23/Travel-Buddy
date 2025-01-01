@@ -176,7 +176,7 @@ const AmenityIntoCard = () => {
                     </div>
                     )}
 
-                    {data?.description || data?.groupedServices && <Separator className="my-5" />}
+                    {(data?.description || data?.groupedServices) && <Separator className="my-5" />}
 
                     <div>
                         <h1 className='text-lg font-semibold mb-3'>Thông tin cần biết</h1>

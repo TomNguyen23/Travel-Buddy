@@ -56,11 +56,11 @@ const HomeHeader = () => {
 
                 {!isSticky && (
                     <div className="mr-28">
-                        <Link to="/discover" className="ml-5 font-semibold hover:text-main">Ăn gì</Link>
-                        <Link to="/discover" className="ml-5 font-semibold hover:text-main">Ở đâu</Link>
-                        <Link to="/discover" className="ml-5 font-semibold hover:text-main">Hoạt động</Link>
-                        <Link to="/discover" className="ml-5 font-semibold hover:text-main">Khám phá</Link>
-                        <Link to="/my-journeys" className="ml-5 font-semibold hover:text-main">Lên kế hoạch</Link>
+                        <Link to="/discover/cuisine" className="ml-5 font-semibold hover:text-slate-300">Ăn gì</Link>
+                        <Link to="/discover/hotel&resort" className="ml-5 font-semibold hover:text-slate-300">Ở đâu</Link>
+                        <Link to="/discover/entertainment" className="ml-5 font-semibold hover:text-slate-300">Hoạt động</Link>
+                        <Link to="/discover" className="ml-5 font-semibold hover:text-slate-300">Khám phá</Link>
+                        <Link to="/my-journeys" className="ml-5 font-semibold hover:text-slate-300">Lên kế hoạch</Link>
                     </div>
                 )}
 

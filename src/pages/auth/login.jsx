@@ -116,11 +116,11 @@ const LoginPage = () => {
             <div className="divider mt-10 mb-5">Or</div>
 
             <div>
-            <Button className='w-full bg-[#FEEEE1] hover:bg-[#fadbc2] text-black font-normal flex items-center mb-3'> 
+            <Button className='w-full bg-[#e0faf7] hover:bg-[#cbf6f1] text-black font-normal flex items-center mb-3'> 
                 <FontAwesomeIcon size='xl' icon={faFacebook} className='pr-2' /> Sign in with Facebook
             </Button>
 
-            <Button className='w-full bg-[#FEEEE1] hover:bg-[#fadbc2] text-black font-normal flex items-center pr-8'> 
+            <Button className='w-full bg-[#e0faf7] hover:bg-[#cbf6f1] text-black font-normal flex items-center pr-8'> 
                 <FontAwesomeIcon size='xl' icon={faGoogle} className='pr-2' /> Sign in with Google
             </Button>
             </div>

@@ -1,10 +1,4 @@
 import { useState } from 'react';
-import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 import { useToast } from '@/hooks/use-toast';
 import { ToastAction } from '@/components/ui/toast';
@@ -23,6 +17,11 @@ const JourneyDestinationItem = ( props ) => {
     const { toast } = useToast();
     const dispatch = useDispatch();
     const navigateTo = useNavigate();
+
+    const members = useSelector((state) => state.teamJourney.travelPlanDetail.members);
+    const myID = useSelector((state) => state.auth.login.user.id);
+    const myMember = members?.find(member => member.userId === myID);
+    const myRole = myMember ? myMember.role : null;
 
     const planID = useSelector((state) => state.teamJourney.journeyID);
     const planDetail = useSelector((state) => state.teamJourney.travelPlanDetail);
@@ -161,31 +160,20 @@ const JourneyDestinationItem = ( props ) => {
                 </div>
             </div>
 
-            <div className="w-2/12 h-fit flex justify-end">
-                {/* <DropdownMenu>
-                    <DropdownMenuTrigger className="ml-5">
-                        <span className="material-icons text-3xl">more_horiz</span>
-                    </DropdownMenuTrigger>
-
-                    <DropdownMenuContent align="end">
-                        <DropdownMenuItem onClick={()=>document.getElementById(`edit-destination-${props.data.siteBasicInfoRspnDto.siteId}`).showModal()}>
-                            Chỉnh sửa
-                        </DropdownMenuItem>
-                        <DropdownMenuItem onClick={() => handleDeleteDestination(props.data.siteBasicInfoRspnDto.siteId)} className="text-red-700">Xóa</DropdownMenuItem>
-                    </DropdownMenuContent>
-                </DropdownMenu> */}
-
-                <span className="material-icons text-2xl cursor-pointer pr-3 hover:text-slate-500" 
-                    onClick={()=>document.getElementById(`edit-destination-${props.data.siteBasicInfoRspnDto.siteId}`).showModal()}
-                >
-                    tune
-                </span>
-                <span className="material-icons-outlined text-2xl text-red-500 hover:text-red-300 cursor-pointer" 
-                    onClick={() => handleDeleteDestination(props.data.siteBasicInfoRspnDto.siteId)}
-                >
-                    delete
-                </span>
-            </div>
+            {myRole !== 'MEMBER' &&(
+                <div className="w-2/12 h-fit flex justify-end">
+                    <span className="material-icons text-2xl cursor-pointer pr-3 hover:text-slate-500" 
+                        onClick={()=>document.getElementById(`edit-destination-${props.data.siteBasicInfoRspnDto.siteId}`).showModal()}
+                    >
+                        tune
+                    </span>
+                    <span className="material-icons-outlined text-2xl text-red-500 hover:text-red-300 cursor-pointer" 
+                        onClick={() => handleDeleteDestination(props.data.siteBasicInfoRspnDto.siteId)}
+                    >
+                        delete
+                    </span>
+                </div>
+            )}
 
 
             {/* modal */}

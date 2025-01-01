@@ -21,7 +21,7 @@ const MemberCard = () => {
                         <AddJourneyMember />
                         <EditJourneyMember />
                     </span>
-                    ) : <AddJourneyMember />
+                    ) : null
                 }
             </div>
 

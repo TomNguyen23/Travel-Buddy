@@ -42,7 +42,7 @@ const MySitesCard = () => {
                         </div>
                     </div>
                 ): (
-                    <div className="grid grid-cols-1 gap-4">
+                    <div className="grid grid-cols-1">
                         {pendingSites?.map(site => (
                             <MySiteItem key={site.siteVersionId} site={site} />
                         ))}
@@ -59,7 +59,7 @@ const MySitesCard = () => {
                         </div>
                     </div>
                 ): (
-                    <div className="grid grid-cols-1 gap-4">
+                    <div className="grid grid-cols-1">
                         {approvedSites?.map(site => (
                             <MySiteItem key={site.siteVersionId} site={site} />
                         ))}
@@ -76,7 +76,7 @@ const MySitesCard = () => {
                         </div>
                     </div>
                 ): (
-                    <div className="grid grid-cols-1 gap-4">
+                    <div className="grid grid-cols-1">
                         {rejectedSites?.map(site => (
                             <MySiteItem key={site.siteVersionId} site={site} />
                         ))}
