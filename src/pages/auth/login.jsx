@@ -119,7 +119,7 @@ const LoginPage = () => {
             </form>
 
 
-            <div className="divider mt-10 mb-5">Or</div>
+            {/* <div className="divider mt-10 mb-5">Or</div>
 
             <div>
             <Button className='w-full bg-[#e0faf7] hover:bg-[#cbf6f1] text-black font-normal flex items-center mb-3'> 
@@ -129,7 +129,7 @@ const LoginPage = () => {
             <Button className='w-full bg-[#e0faf7] hover:bg-[#cbf6f1] text-black font-normal flex items-center pr-8'> 
                 <FontAwesomeIcon size='xl' icon={faGoogle} className='pr-2' /> Sign in with Google
             </Button>
-            </div>
+            </div> */}
 
             <div className='text-center text-sm mt-2'>Chưa có tài khoản? <Link to='/register' className='text-[#7C572B]'>Đăng kí ngay</Link></div>
         </div>
