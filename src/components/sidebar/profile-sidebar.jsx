@@ -100,7 +100,7 @@ const ProfileSidebar = () => {
                 </form>
 
 
-                <div className="ml-3">
+                {/* <div className="ml-3">
                     <h1 className="text-2xl font-bold">{userInfo.fullName}</h1>
                     <p className="flex items-center">
                         <span className="material-icons text-[#FFAB3E] text-3xl">workspace_premium</span>
@@ -110,7 +110,7 @@ const ProfileSidebar = () => {
                         }
                         
                     </p>
-                </div>
+                </div> */}
             </div>
 
             <Separator />
