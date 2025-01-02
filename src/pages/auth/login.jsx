@@ -10,10 +10,10 @@ import { Link } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useLoginMutation } from '@/api/featureApi/authApiSlice';
-import { setCredentials } from '@/redux/reducer/auth.reducer';
+import { setCredentials, setIsFromOTP } from '@/redux/reducer/auth.reducer';
 
 
 
@@ -21,6 +21,7 @@ const LoginPage = () => {
     const { toast } = useToast();
     const dispatch = useDispatch();
     const navigateTo = useNavigate();
+    const isFromOTP = useSelector((state) => state.auth.isFromOTP)
 
     const [login, {isLoading}] = useLoginMutation();
 
@@ -38,7 +39,12 @@ const LoginPage = () => {
             .unwrap()
             .then((res) => {
                 dispatch(setCredentials(res));
-                navigateTo('/');
+                if (isFromOTP) {
+                    navigateTo('/personalize');
+                    dispatch(setIsFromOTP(false));
+                } else {
+                    navigateTo('/');
+                }      
             })
             .catch((error) => {
                 toast({

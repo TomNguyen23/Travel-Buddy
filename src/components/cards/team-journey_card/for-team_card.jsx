@@ -47,7 +47,7 @@ const ForTeamCard = (props) => {
                     </h2>
                 <p className="flex items-end">
                     <div className="flex items-center">
-                        <span className='text-sm pr-0.5'>{props?.site?.averageRating}</span>
+                        <span className='text-sm pr-0.5'>{props?.site?.averageRating?.toFixed(1)}</span>
                         <span className='material-icons text-sm text-yellow-400'>star</span>
                     </div>
                     

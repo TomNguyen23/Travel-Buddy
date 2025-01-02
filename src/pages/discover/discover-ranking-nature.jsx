@@ -1,69 +1,10 @@
 import SiterankingCard from "@/components/cards/discover_cards/site-ranking_card";
 import { Separator } from "@/components/ui/separator";
+import { useGetRecommendDiscoverQuery } from "@/api/featureApi/recommendApiSlice";
 
 const DiscoverRankingNature = () => {
-    const data = [{
-        "id": 1,
-        "site_name": "Poponcol",
-        "address": "89 Cardinal Center"
-      }, {
-        "id": 2,
-        "site_name": "Mardakyany",
-        "address": "682 Aberg Parkway"
-      }, {
-        "id": 3,
-        "site_name": "Lok",
-        "address": "7 Armistice Crossing"
-      }, {
-        "id": 4,
-        "site_name": "Zopilotepe",
-        "address": "07 Havey Terrace"
-      }, {
-        "id": 5,
-        "site_name": "Armstrong",
-        "address": "02218 Pearson Way"
-      }, {
-        "id": 6,
-        "site_name": "Dalang",
-        "address": "84 Waubesa Road"
-      }, {
-        "id": 7,
-        "site_name": "Kolobovo",
-        "address": "264 Mcbride Trail"
-      }, {
-        "id": 8,
-        "site_name": "Zumarraga",
-        "address": "9 Ronald Regan Street"
-      }, {
-        "id": 9,
-        "site_name": "Järfälla",
-        "address": "507 Lawn Road"
-      }, {
-        "id": 10,
-        "site_name": "Ube",
-        "address": "357 Prairie Rose Hill"
-      }, {
-        "id": 11,
-        "site_name": "Lagangilang",
-        "address": "48 Waxwing Place"
-      }, {
-        "id": 12,
-        "site_name": "Outeiro",
-        "address": "9 Springview Terrace"
-      }, {
-        "id": 13,
-        "site_name": "Bato",
-        "address": "991 Di Loreto Avenue"
-      }, {
-        "id": 14,
-        "site_name": "Cañazas",
-        "address": "2 Eastwood Street"
-      }, {
-        "id": 15,
-        "site_name": "Umeå",
-        "address": "555 Gina Road"
-      }]
-
+    const {data} = useGetRecommendDiscoverQuery({typeIds: [50, 37, 52, 42]});
+    
     return ( 
         <div className="px-44">
             <div className="py-10">
@@ -81,7 +22,7 @@ const DiscoverRankingNature = () => {
             <Separator />
 
             <div className="py-12">
-              {data.map((item, index) => (
+              {data?.data.map((item, index) => (
                   <SiterankingCard key={item.id} data={{ ...item, index: index + 1 }} />
               ))}
             </div>

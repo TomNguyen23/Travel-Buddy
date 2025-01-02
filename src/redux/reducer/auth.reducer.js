@@ -12,6 +12,7 @@ const initialState = {
         ErrorMessage: null,
     },
     forgetPasswordInfo: null,
+    isFromOTP: false,
 };
 
 export const login = createAsyncThunk('auth/login', async (body, thunkAPI) => {
@@ -72,6 +73,10 @@ const authSlice = createSlice({
 
         clearForgetPassword(state) {
             state.forgetPasswordInfo = null;
+        },
+
+        setIsFromOTP(state, action) {
+            state.isFromOTP = action.payload;
         }
     },
 
@@ -86,6 +91,6 @@ const authSlice = createSlice({
     }
 });
 
-export const { setCredentials, setAvatar, logout, register, clearRegister, forgetPassword, clearForgetPassword } = authSlice.actions;
+export const { setCredentials, setAvatar, logout, register, clearRegister, forgetPassword, clearForgetPassword, setIsFromOTP } = authSlice.actions;
 
 export default authSlice.reducer;

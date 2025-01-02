@@ -1,10 +1,14 @@
 import { useState, useEffect } from "react";
-import { useGetAllSitesQuery } from "@/api/featureApi/siteApiSlice";
+// import { useGetAllSitesQuery } from "@/api/featureApi/siteApiSlice";
 import ForTeamCard from "@/components/cards/team-journey_card/for-team_card";
+import { useGetRecommendForTeamQuery } from "@/api/featureApi/recommendApiSlice";
+import { useSelector } from "react-redux";
 
 const SiteForTeam = () => {
     const [page, setPage] = useState(1);
-    const { data: sites, isFetching } = useGetAllSitesQuery(page, {refetchOnMountOrArgChange: true});
+    // const { data: sites, isFetching } = useGetAllSitesQuery(page, {refetchOnMountOrArgChange: true});
+    const planID = useSelector((state) => state.teamJourney.journeyID);
+    const { data:sites, isFetching} = useGetRecommendForTeamQuery(planID, {refetchOnMountOrArgChange: true});
     const [allSites, setAllSites] = useState([]);
 
     useEffect(() => {

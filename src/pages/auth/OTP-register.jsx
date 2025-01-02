@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useOTPverificationMutation } from "@/api/featureApi/authApiSlice";
-import { clearRegister } from "@/redux/reducer/auth.reducer";
+import { clearRegister, setIsFromOTP } from "@/redux/reducer/auth.reducer";
 import OTPcard from "@/components/cards/other_cards/OTP_card";
 
 const OTPRegister = () => {
@@ -22,7 +22,8 @@ const OTPRegister = () => {
                 .unwrap()
                 .then(() => {
                     dispatch(clearRegister());
-                    navigateTo('/personalize')
+                    dispatch(setIsFromOTP(true));
+                    navigateTo('/login')
                 })
                 .catch((error) => {
                     toast({

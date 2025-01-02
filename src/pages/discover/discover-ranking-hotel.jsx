@@ -1,28 +1,9 @@
+import { useGetRecommendDiscoverQuery } from "@/api/featureApi/recommendApiSlice";
 import SiterankingCard from "@/components/cards/discover_cards/site-ranking_card";
 import { Separator } from "@/components/ui/separator";
 
 const DiscoverRankingHotel = () => {
-    const data = [{
-        "id": 1,
-        "site_name": "Dalongdong",
-        "address": "65290 Boyd Pass"
-      }, {
-        "id": 2,
-        "site_name": "Nahariya",
-        "address": "959 Crowley Center"
-      }, {
-        "id": 3,
-        "site_name": "Khong Chai",
-        "address": "0792 Lyons Court"
-      }, {
-        "id": 4,
-        "site_name": "Pećigrad",
-        "address": "6588 Bunting Terrace"
-      }, {
-        "id": 5,
-        "site_name": "Sinmak",
-        "address": "64 Memorial Center"
-      }];
+    const {data} = useGetRecommendDiscoverQuery({typeIds: [34, 36, 27, 28, 33, 40]});
     return ( 
         <div className="px-44">
             <div className="py-10">
@@ -37,7 +18,7 @@ const DiscoverRankingHotel = () => {
             <Separator />
 
             <div className="py-12">
-              {data.map((item, index) => (
+              {data?.data.map((item, index) => (
                   <SiterankingCard key={item.id} data={{ ...item, index: index + 1 }} />
               ))}
             </div>

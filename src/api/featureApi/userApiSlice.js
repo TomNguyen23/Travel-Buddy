@@ -34,6 +34,17 @@ export const userApiSlice = apiSlice.injectEndpoints({
         searchUser: builder.query({
             query: ({searchValue}) => `/api/users/search?q=${searchValue}&page=1`,
         }),
+
+        getPersonalize: builder.query({
+            query: () => '/api/personalization',
+        }),
+        postPersonalize: builder.mutation({
+            query: (data) => ({
+                url: '/api/personalization',
+                method: 'POST',
+                body: data
+            }),
+        })
     }),
 });
 
@@ -41,4 +52,6 @@ export const { useUploadImgMutation,
                 useUserInfoQuery, 
                 useChangePasswordMutation,
                 useRemoveAccountMutation,
-                useSearchUserQuery } = userApiSlice;
+                useSearchUserQuery,
+                useGetPersonalizeQuery,
+                usePostPersonalizeMutation } = userApiSlice;

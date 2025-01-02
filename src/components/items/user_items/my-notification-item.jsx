@@ -1,21 +1,25 @@
 import vi from 'date-fns/locale/vi'
 import formatDistanceToNow from 'date-fns/formatDistanceToNow'
+import PropTypes from 'prop-types'
 
-// eslint-disable-next-line react/prop-types
-const MyNotificationItem = ({date="2024-10-20"}) => {
+import DefaultAvatar from "@/assets/images/default-avt.png";
+
+const MyNotificationItem = (props) => {
     const distanceToNow = formatDistanceToNow(
-        new Date(date),
+        new Date(props.myNoti.createdAt),
         { locale: vi,addSuffix: true}
     );
     return ( 
         <div className="flex items-center w-full p-4 mb-1 shadow-md border dark:bg-[#1D232A] hover:bg-slate-200 dark:hover:bg-slate-700 rounded-md">
-            <img src="https://picsum.photos/200" className=" size-14 rounded-full" alt="" />
+            {props.myNoti.UserImageUrl 
+            ? <img src={props.myNoti.UserImageUrl} className=" size-14 rounded-full" alt="" /> 
+            : <img src={DefaultAvatar} className=" size-14 rounded-full" alt="" />
+            }
 
             <div className="pl-3">
-                <h1 className="text-lg font-semibold">Travel Buddy Admin</h1>
+                <h1 className="text-lg font-semibold">{props.myNoti.userName}</h1>
                 <p className="text-sm">
-                    Địa điểm của bạn đăng tải đã được phê duyệt. 
-                    Hãy tiếp tục chia sẻ những địa điểm mới lạ cho cộng đồng được biết và khám phá!!
+                    {props.myNoti.fullMessage}
                 </p>
 
                 <p className="text-xs text-slate-500">{distanceToNow}</p>
@@ -23,5 +27,13 @@ const MyNotificationItem = ({date="2024-10-20"}) => {
         </div>
      );
 }
- 
+MyNotificationItem.propTypes = {
+    myNoti: PropTypes.shape({
+        userName: PropTypes.string.isRequired,
+        createdAt: PropTypes.string.isRequired,
+        UserImageUrl: PropTypes.string.isRequired,
+        fullMessage: PropTypes.string.isRequired
+    }).isRequired,
+};
+
 export default MyNotificationItem;
