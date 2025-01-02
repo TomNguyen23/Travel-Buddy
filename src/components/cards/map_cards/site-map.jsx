@@ -66,7 +66,7 @@ const SiteMapCard = ({ className, canMove }) => {
             {...viewport}
             width='100%'
             height='100%'
-            mapboxAccessToken={import.meta.env.VITE_REACT_APP_MAPBOX_API_KEY}
+            mapboxAccessToken="pk.eyJ1IjoidGllbm5oYXQzMDYiLCJhIjoiY20zbjhtaXQ3MDF2bjJ2cjc0amx5OXhvMyJ9.BESqjGjW_MbXk3-H5xn6Hg"
             mapStyle="mapbox://styles/mapbox/standard"
             {...(canMove ? {onMove: evt => setViewport(evt.viewState)} : {})}
         >
