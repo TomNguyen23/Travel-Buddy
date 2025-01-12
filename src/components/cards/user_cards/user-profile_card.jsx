@@ -57,7 +57,9 @@ const UserProfileCard = () => {
                         <input type="text" 
                                 value={email} 
                                 onChange={(e) => setEmail(e.target.value)} 
-                                className="input input-bordered w-full rounded-sm" />
+                                className="input input-bordered w-full rounded-sm"
+                                disabled 
+                        />
                         <div className="label">
                             <span className="label-text-alt">
                                 E-mail sẽ được sử dụng trong một số trường hợp liên quan đến bảo mật

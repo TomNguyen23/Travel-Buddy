@@ -2,6 +2,7 @@ import DiscoverCategoriesCarousel from "@/components/cards/discover_cards/discov
 import DiscoverRankingPanel from "@/components/cards/discover_cards/discover-ranking-panel_card";
 import MainFooter from "@/components/cards/footer/main-footer";
 import MainHeader from "@/components/headers/main-header";
+import { Toaster } from "@/components/ui/toaster";
 import PropTypes from 'prop-types';
 
 import { useEffect } from 'react';
@@ -30,6 +31,8 @@ const DiscoverRankingListLayout = ({ children }) => {
             </div>
 
             <MainFooter />
+
+            <Toaster />
         </div>
      );
 }

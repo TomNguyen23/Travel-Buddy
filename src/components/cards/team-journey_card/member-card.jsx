@@ -3,6 +3,7 @@ import EditJourneyMember from "@/components/items/team-journey_items/edit-journe
 import DefaultAvatar from "@/assets/images/default-avt.png";
 
 import { useSelector } from "react-redux";
+import ExitJourneyItem from "@/components/items/team-journey_items/exit-journey-item";
 
 const MemberCard = () => {
     const members = useSelector((state) => state.teamJourney.travelPlanDetail.members);
@@ -16,13 +17,19 @@ const MemberCard = () => {
             <div className="flex justify-between items-center">
                 <h1 className="text-2xl font-bold">Thành viên</h1>
 
-                {myRole !== 'MEMBER' ? (
-                    <span>
-                        <AddJourneyMember />
-                        <EditJourneyMember />
-                    </span>
-                    ) : null
-                }
+                <div className="flex items-center gap-3">
+                    {myRole !== 'MEMBER' ? (
+                        <span>
+                            <AddJourneyMember />
+                            <EditJourneyMember />
+                        </span>
+                        ) : null
+                    }
+    
+                    {myRole !== 'OWNER' ? (
+                        <ExitJourneyItem />
+                    ) : null}
+                </div>
             </div>
 
             <div className="mt-2 max-h-[21.3rem] overflow-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">

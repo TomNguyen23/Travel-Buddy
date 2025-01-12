@@ -106,6 +106,13 @@ export const teamJourneyApiSlice = apiSlice.injectEndpoints({
             invalidatesTags: ['TravelPlanDetail'],
         }),
 
+        exitJourney: builder.mutation({
+            query: (id) => ({
+                url: `/api/travel-plans/${id}/exit`,
+                method: 'DELETE',
+            }),
+            invalidatesTags: ['TravelPlan'],
+        }),
     }),
 });
 
@@ -119,4 +126,5 @@ export const { useGetAllPlansQuery,
                 useEditSiteInPlanMutation,
                 useAddMemberToPlanMutation,
                 useChangeRoleOfMemberMutation,
-                useRemoveMemeberOutPlanMutation } = teamJourneyApiSlice;
+                useRemoveMemeberOutPlanMutation,
+                useExitJourneyMutation } = teamJourneyApiSlice;

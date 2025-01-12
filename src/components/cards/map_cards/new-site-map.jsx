@@ -76,7 +76,7 @@ const NewSiteMapCard = ({ className, canMove, address }) => {
             {...viewport}
             width='100%'
             height='100%'
-            mapboxAccessToken="pk.eyJ1IjoidGllbm5oYXQzMDYiLCJhIjoiY20zbjhtaXQ3MDF2bjJ2cjc0amx5OXhvMyJ9.BESqjGjW_MbXk3-H5xn6Hg"
+            mapboxAccessToken={import.meta.env.VITE_REACT_APP_MAPBOX_API_KEY}
             mapStyle="mapbox://styles/mapbox/streets-v12"
             {...(canMove ? {onMove: evt => setViewport(evt.viewState)} : {})}
         >

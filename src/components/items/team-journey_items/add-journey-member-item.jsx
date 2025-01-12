@@ -84,7 +84,7 @@ const AddJourneyMember = () => {
         <span>
             <Dialog>
                 <DialogTrigger>
-                    <span className="material-icons-outlined mr-4 cursor-pointer">person_add</span>
+                    <span className="material-icons-outlined mr-3 cursor-pointer">person_add</span>
                 </DialogTrigger>
 
                 <DialogContent className="dark:bg-gray-900">

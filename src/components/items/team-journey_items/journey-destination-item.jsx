@@ -46,6 +46,13 @@ const JourneyDestinationItem = ( props ) => {
         return province;
     }
 
+    const isCurrentTimeWithinDuration = () => {
+        const now = new Date();
+        const start = new Date(startTime);
+        const end = new Date(endTime);
+        return now >= start && now <= end;
+    };
+
     const handleGetSiteDetail = (id) => {
         dispatch(getSideID(id));
         navigateTo("/details/hotel");
@@ -129,7 +136,7 @@ const JourneyDestinationItem = ( props ) => {
     }
 
     return ( 
-        <div className="w-full px-3 py-2 my-2 rounded-sm flex justify-between items-stretch hover:bg-slate-100 dark:hover:bg-slate-700">
+        <div className={`w-full px-3 py-2 my-2 rounded-sm flex justify-between items-stretch ${isCurrentTimeWithinDuration() && 'bg-slate-300 dark:bg-slate-800'} hover:bg-slate-100 dark:hover:bg-slate-700`}>
             {props.data.siteBasicInfoRspnDto.medias && props.data.siteBasicInfoRspnDto.medias.length > 0 ? (
                 <img src={props.data.siteBasicInfoRspnDto.medias[0].url} className="h-32 w-2/5 object-cover rounded-md" alt="" />
             ) : (
@@ -141,7 +148,10 @@ const JourneyDestinationItem = ( props ) => {
             )}
             
             <div className="w-3/4 pl-3">
-                <div className="badge badge-accent text-white">{getProvince()}</div>
+                <div className='flex items-center space-x-1'>
+                    <div className="badge badge-accent text-white">{getProvince()}</div>
+                    {isCurrentTimeWithinDuration() && <span className="badge badge-info text-white">Đang diễn ra</span>}
+                </div>
                 <h1 
                     className="text-2xl font-semibold hover:underline cursor-pointer"
                     onClick={() => handleGetSiteDetail(props.data.siteBasicInfoRspnDto.siteId)}

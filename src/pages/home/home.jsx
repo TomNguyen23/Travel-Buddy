@@ -31,7 +31,7 @@ const HomePage = () => {
 
             <main className="px-44">
                 <IntroduceCard />
-                <RegionDiscoverCard />
+                {/* <RegionDiscoverCard /> */}
                 <HomePageForYouCard />
                 <AddNewSiteCard />
             </main>

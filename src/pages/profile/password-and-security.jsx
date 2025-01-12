@@ -8,7 +8,7 @@ const PasswordAndSecurity = () => {
             <h1 className="text-3xl font-semibold">Cài đặt</h1>
 
             <ChangePasswordCard />
-            <RemoveAccountCard />
+            {/* <RemoveAccountCard /> */}
         </>
      );
 }
