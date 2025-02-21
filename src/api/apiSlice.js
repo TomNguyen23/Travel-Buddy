@@ -18,19 +18,26 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
     let result = await baseQuery(args, api, extraOptions);
 
     if (result.error?.status === 403) {
+        const { refreshToken } = api.getState().auth.login; 
+        
+        if (!refreshToken) {
+            api.dispatch(logout());
+            return result;
+        }
+
         const refreshResult = await baseQuery(
         {
             url: '/api/auth/refresh-token',
             method: 'POST',
+            headers: { 'Authorization': `Bearer ${refreshToken}` }  
         }, api, extraOptions);
 
         if (refreshResult?.data) {
             const user = api.getState().auth.login.user;
-            api.dispatch(setCredentials({ ...refreshResult.data, user }));   // store new token
-            result = await baseQuery(args, api, extraOptions);   // retry the original request with the new token
-        }
-        else {
-            api.dispatch(logout());
+            api.dispatch(setCredentials({ ...refreshResult.data, user }));   
+            result = await baseQuery(args, api, extraOptions);   // Gửi lại request ban đầu với token mới
+        } else {
+            api.dispatch(logout());  // Đăng xuất nếu refresh token không hợp lệ
         }
     }
     return result;

@@ -1,10 +1,10 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "@/api/custom-axios";
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
     login: {
         user: null,
         token: null,
+        refreshToken: null,
     },
     register: {
         user: null,
@@ -15,22 +15,22 @@ const initialState = {
     isFromOTP: false,
 };
 
-export const login = createAsyncThunk('auth/login', async (body, thunkAPI) => {
-    try {
-        const res = await axios.post('api/login', body, {
-            signal: thunkAPI.signal
-        });
-        return res.data;
-    } catch (error) {
-        console.log(error);
-        if (error.response) {
-            return thunkAPI.rejectWithValue(error.response.data);
-        } else {
-            return thunkAPI.rejectWithValue({ message: error.message });
-        }
-    }
+// export const login = createAsyncThunk('auth/login', async (body, thunkAPI) => {
+//     try {
+//         const res = await axios.post('api/login', body, {
+//             signal: thunkAPI.signal
+//         });
+//         return res.data;
+//     } catch (error) {
+//         console.log(error);
+//         if (error.response) {
+//             return thunkAPI.rejectWithValue(error.response.data);
+//         } else {
+//             return thunkAPI.rejectWithValue({ message: error.message });
+//         }
+//     }
     
-})
+// })
 
 const authSlice = createSlice({
     name: "auth",
@@ -38,9 +38,10 @@ const authSlice = createSlice({
 
     reducers: {
         setCredentials(state, action) {
-            const { accessToken, userInfo } = action.payload;
+            const { accessToken, refreshToken, userInfo } = action.payload;
             state.login.user = userInfo;
             state.login.token = accessToken;
+            state.login.refreshToken = refreshToken;
         },
 
         setAvatar(state, action) {
@@ -80,15 +81,15 @@ const authSlice = createSlice({
         }
     },
 
-    extraReducers(builder) {
-        builder
-        .addCase(login.fulfilled, (state, action) => {
-            state.login.isFetching = false;
-            state.login.user = action.payload;
-            state.login.error = false;
-        });
+    // extraReducers(builder) {
+    //     builder
+    //     .addCase(login.fulfilled, (state, action) => {
+    //         state.login.isFetching = false;
+    //         state.login.user = action.payload;
+    //         state.login.error = false;
+    //     });
 
-    }
+    // }
 });
 
 export const { setCredentials, setAvatar, logout, register, clearRegister, forgetPassword, clearForgetPassword, setIsFromOTP } = authSlice.actions;
